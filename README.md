@@ -11,10 +11,11 @@
 + Пермяков Дмитрий [tg](https://t.me/mightyk1ngrichard)
 + Гордеева Ульяна [tg](https://t.me/ul_gord)
 ### Стек
++ *Верстка* — SwiftUI + UIKit
++ *Данные* — Firebase (ориентировочно)
 + *Управление проектом* — Jira + Confluence / YouGile, Git
-+ *Разработка* — SwiftUI + Firebase (ориентировочно)
 + *Дизайн* — Figma
-+ *Архитектура* — MVC (от Apple) или MVVM
++ *Архитектура* — MVC/MVVM
 ### Макеты
 [Figma](https://www.figma.com/design/QXNaCVOAKy82lNGqwQr58Q/ngg?node-id=1-319&node-type=frame)
 ### Таск-трекер
