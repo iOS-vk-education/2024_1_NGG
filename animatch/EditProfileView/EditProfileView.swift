@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State var inputName = ""
-    @State var inputSurname = ""
-    @State var inputEmail = ""
+    @State private var inputName = ""
+    @State private var inputSurname = ""
+    @State private var inputEmail = ""
 
     var body: some View {
         VStack {
@@ -91,7 +91,7 @@ private extension EditProfileView {
             Text(Constants.headerTitle)
                 .foregroundStyle(.editProfWhite)
                 .font(Font.custom("Roboto", size: 20))
-                .offset(y:55)
+                .offset(y: 55)
                 .padding(.horizontal, 16)
 
             avatarView

@@ -14,7 +14,6 @@ struct NGGTextField: View {
 
     var body: some View {
         ZStack(alignment: .leading) {
-
             TextField("", text: $text)
                 .padding(.leading, 16)
                 .frame(width: 272, height: 51)
@@ -27,7 +26,8 @@ struct NGGTextField: View {
                     .padding(.horizontal, 16)
                     .foregroundColor(Color.editProfGrayLight)
             }
-        }.padding(.bottom, 30)
+        }
+        .padding(.bottom, 30)
     }
 }
 
