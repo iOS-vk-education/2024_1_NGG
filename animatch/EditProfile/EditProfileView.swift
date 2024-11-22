@@ -20,8 +20,8 @@ struct EditProfileView: View {
                 VStack(spacing: 0) {
                     headerView
                     formsContainer
-                    buttonsContainer
                     Spacer()
+                    buttonsContainer
                 }
             }
         }
@@ -59,7 +59,6 @@ private extension EditProfileView {
             NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $inputSurname)
             NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $inputEmail)
         }
-        .padding(.bottom, 152)
     }
 
     var avatarView: some View {
@@ -118,6 +117,7 @@ private extension EditProfileView {
                     .foregroundColor(.editProfPurple)
             }
         }
+        .padding(.bottom, 100)
     }
 }
 
