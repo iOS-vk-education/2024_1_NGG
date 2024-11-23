@@ -11,21 +11,17 @@ struct SingUpView: View {
     @State private var inputEmail = ""
     @State private var inputPasswordFirst = ""
     @State private var inputPasswordSecond = ""
-
+    
     var body: some View {
-        VStack {
-            ZStack {
-                backgroundLineGradient
-
-                VStack(spacing: 0) {
-                    Logo
-                    formsContainer
-                    buttonsContainer
-                    Spacer()
-                    footer
-                }
-            }
+        VStack(spacing: 0) {
+            Logo
+            formsContainer
+            buttonsContainer
+            Spacer()
+            footer
         }
+        .frame(maxWidth: .infinity)
+        .background(backgroundLineGradient)
         .ignoresSafeArea()
     }
 }

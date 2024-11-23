@@ -12,16 +12,16 @@ struct LogInView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-                    logoView
-                        .padding(.bottom, 66)
-                    formsContainer
-                    buttonsContainer
-                    Spacer()
-                    footerView
-                }
-                .frame(maxWidth: .infinity)
-                .background(backgroundLineGradient)
-                .ignoresSafeArea()
+            logoView
+                .padding(.bottom, 66)
+            formsContainer
+            buttonsContainer
+            Spacer()
+            footerView
+        }
+        .frame(maxWidth: .infinity)
+        .background(backgroundLineGradient)
+        .ignoresSafeArea()
     }
 }
 
