@@ -11,21 +11,17 @@ struct LogInView: View {
     @State private var inputEmail = ""
 
     var body: some View {
-        VStack {
-            ZStack {
-                backgroundLineGradient
-
-                VStack(spacing: 0) {
-                    Logo
+        VStack(spacing: 0) {
+                    logoView
                         .padding(.bottom, 66)
                     formsContainer
                     buttonsContainer
                     Spacer()
-                    footer
+                    footerView
                 }
-            }
-        }
-        .ignoresSafeArea()
+                .frame(maxWidth: .infinity)
+                .background(backgroundLineGradient)
+                .ignoresSafeArea()
     }
 }
 
@@ -57,9 +53,10 @@ private extension LogInView {
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $inputEmail)
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $inputPassword)
         }
+        .padding(.horizontal, 60)
     }
 
-    var Logo: some View {
+    var logoView: some View {
         Image(.logo)
             .resizable()
             .frame(width: 209, height: 69)
@@ -86,7 +83,7 @@ private extension LogInView {
         .padding(.bottom, 100)
     }
     
-    var footer: some View {
+    var footerView: some View {
         VStack{
             Divider()
                 .overlay(.white)
@@ -99,13 +96,12 @@ private extension LogInView {
             
                 Button {
                     print("[DEBUG]: Зарегистрироваться")
-                }label: {
+                } label: {
                     Text(Constants.singupButton)
                         .underline()
                         .foregroundColor(.editProfPurple)
                 }
             }
-            
         }
         .padding(.bottom, 130)
     }
@@ -131,4 +127,3 @@ private extension LogInView {
         static let singupButton = "Зарегистрируйтесь"
     }
 }
-

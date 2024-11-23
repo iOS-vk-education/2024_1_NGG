@@ -58,9 +58,9 @@ private extension SingUpView {
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $inputEmail)
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $inputPasswordFirst)
             NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $inputPasswordSecond)
-            
         }
         .padding(.top, 60)
+        .padding(.horizontal, 60)
     }
 
     var Logo: some View {
@@ -94,13 +94,12 @@ private extension SingUpView {
                 Button {
                     // TODO: IOS-15: Добавить логику обработки нажатий
                     print("[DEBUG]: Вход")
-                }label: {
+                } label: {
                     Text(Constants.singupButton)
                         .underline()
                         .foregroundColor(.editProfPurple)
                 }
             }
-            
         }
         .padding(.bottom, 130)
     }
@@ -126,5 +125,3 @@ private extension SingUpView {
         static let singupButton = "Войдите"
     }
 }
-
-
