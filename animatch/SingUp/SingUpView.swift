@@ -14,11 +14,11 @@ struct SingUpView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Logo
+            logoView
             formsContainer
             buttonsContainer
             Spacer()
-            footer
+            footerView
         }
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
@@ -59,7 +59,7 @@ private extension SingUpView {
         .padding(.horizontal, 60)
     }
 
-    var Logo: some View {
+    var logoView: some View {
         Image(.logo)
             .resizable()
             .frame(width: 209, height: 69)
@@ -76,8 +76,8 @@ private extension SingUpView {
         .padding(.bottom, 80)
     }
     
-    var footer: some View {
-        VStack{
+    var footerView: some View {
+        VStack {
             Divider()
                 .overlay(.white)
                 .frame(width: 320)
