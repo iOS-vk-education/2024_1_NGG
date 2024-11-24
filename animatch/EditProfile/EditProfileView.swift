@@ -59,6 +59,7 @@ private extension EditProfileView {
             NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $inputSurname)
             NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $inputEmail)
         }
+        .padding(.horizontal, 60)
     }
 
     var avatarView: some View {

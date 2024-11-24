@@ -16,7 +16,7 @@ struct NGGTextField: View {
         ZStack(alignment: .leading) {
             TextField("", text: $text)
                 .padding(.leading, 16)
-                .frame(width: 272, height: 51)
+                .frame(height: 51)
                 .foregroundColor(.white)
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
                 .focused($isTyping)
