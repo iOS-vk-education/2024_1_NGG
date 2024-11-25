@@ -69,6 +69,7 @@ private extension LogInView {
                 // TODO: IOS-16: Добавить логику обработки нажатий
                 print("[DEBUG]: Продолжить")
             }
+            .padding(.horizontal, 60)
             .padding(.bottom, 8)
 
             Button {

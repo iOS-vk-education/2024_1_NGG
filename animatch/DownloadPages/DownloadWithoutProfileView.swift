@@ -45,12 +45,14 @@ private extension DownloadWithoutProfileView {
                 // TODO: IOS-20: Добавить логику обработки нажатий
                 print("[DEBUG]: Вход")
             }
+            .padding(.horizontal, 60)
             .padding(.bottom, 25)
             
             NGGButtonLight(Constants.registrationButtonTitle) {
                 // TODO: IOS-20: Добавить логику обработки нажатий
                 print("[DEBUG]: Регистрация")
             }
+            .padding(.horizontal, 60)
         }
         .padding(.bottom, 100)
     }

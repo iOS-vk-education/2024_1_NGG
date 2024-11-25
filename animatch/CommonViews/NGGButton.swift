@@ -29,8 +29,9 @@ struct NGGButton: View {
 private struct PurpleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .frame(maxWidth: .infinity)
             .padding()
-            .frame(width: 272, height: 51)
+            .frame(height: 51)
             .background(Color.editProfPurple)
             .foregroundStyle(Color.editProfWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -43,4 +44,5 @@ private struct PurpleButtonStyle: ButtonStyle {
     NGGButton("Placeholder") {
         print("[DEBUG]: Нажали на кнопку")
     }
+    .padding(.horizontal, 60)
 }

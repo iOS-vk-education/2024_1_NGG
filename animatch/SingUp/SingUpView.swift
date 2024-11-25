@@ -73,6 +73,7 @@ private extension SingUpView {
                 print("[DEBUG]: Продолжить")
             }
         }
+        .padding(.horizontal, 60)
         .padding(.bottom, 80)
     }
     

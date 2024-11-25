@@ -29,8 +29,9 @@ struct NGGButtonLight: View {
 private struct LightPurpleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .frame(maxWidth: .infinity)
             .padding()
-            .frame(width: 272, height: 51)
+            .frame(height: 51)
             .background(Color.downloadLightPurple)
             .foregroundStyle(Color.editProfWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))

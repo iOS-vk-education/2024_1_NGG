@@ -107,6 +107,7 @@ private extension EditProfileView {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Нажали кнопку сохранить и продолжить")
             }
+            .padding(.horizontal, 60)
             .padding(.bottom, 8)
 
             Button {
