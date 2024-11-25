@@ -11,7 +11,7 @@ struct SingUpView: View {
     @State private var inputEmail = ""
     @State private var inputPasswordFirst = ""
     @State private var inputPasswordSecond = ""
-    
+
     var body: some View {
         VStack(spacing: 0) {
             logoView
@@ -73,20 +73,21 @@ private extension SingUpView {
                 print("[DEBUG]: Продолжить")
             }
         }
+        .padding(.horizontal, 60)
         .padding(.bottom, 80)
     }
-    
+
     var footerView: some View {
         VStack {
             Divider()
                 .overlay(.white)
                 .frame(width: 320)
-            
+
             HStack {
                 Text(Constants.haveAccountText)
                     .foregroundStyle(Color.white)
                     .font(Font.custom("Roboto", size: 16))
-            
+
                 Button {
                     // TODO: IOS-15: Добавить логику обработки нажатий
                     print("[DEBUG]: Вход")

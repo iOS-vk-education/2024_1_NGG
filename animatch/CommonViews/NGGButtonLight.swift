@@ -1,13 +1,13 @@
 //
-//  NGGButton.swift
+//  NGGButtonLight.swift
 //  animatch
 //
-//  Created by Ксения Панкратова on 18.11.2024.
+//  Created by Ксения Панкратова on 25.11.2024.
 //
 
 import SwiftUI
 
-struct NGGButton: View {
+struct NGGButtonLight: View {
     private let title: String
     private var action: (() -> Void)?
 
@@ -20,19 +20,19 @@ struct NGGButton: View {
         Button(title) {
             action?()
         }
-        .buttonStyle(PurpleButtonStyle())
+        .buttonStyle(LightPurpleButtonStyle())
     }
 }
 
-// MARK: - PurpleButtonStyle
+// MARK: - LightPurpleButtonStyle
 
-private struct PurpleButtonStyle: ButtonStyle {
+private struct LightPurpleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
             .padding()
             .frame(height: 51)
-            .background(Color.editProfPurple)
+            .background(Color.downloadLightPurple)
             .foregroundStyle(Color.editProfWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
     }
@@ -41,8 +41,7 @@ private struct PurpleButtonStyle: ButtonStyle {
 // MARK: - Preview
 
 #Preview {
-    NGGButton("Placeholder") {
+    NGGButtonLight("Placeholder") {
         print("[DEBUG]: Нажали на кнопку")
     }
-    .padding(.horizontal, 60)
 }

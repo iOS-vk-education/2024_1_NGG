@@ -69,6 +69,7 @@ private extension LogInView {
                 // TODO: IOS-16: Добавить логику обработки нажатий
                 print("[DEBUG]: Продолжить")
             }
+            .padding(.horizontal, 60)
             .padding(.bottom, 8)
 
             Button {
@@ -82,18 +83,18 @@ private extension LogInView {
         }
         .padding(.bottom, 100)
     }
-    
+
     var footerView: some View {
         VStack{
             Divider()
                 .overlay(.white)
                 .frame(width: 320)
-            
+
             HStack(spacing: 0) {
                 Text(Constants.footerText)
                     .foregroundStyle(Color.white)
                     .font(Font.custom("Roboto", size: 16))
-            
+
                 Button {
                     print("[DEBUG]: Зарегистрироваться")
                 } label: {
