@@ -10,12 +10,12 @@ import SwiftUI
 struct NGGButton: View {
     private let title: String
     private var action: (() -> Void)?
-
+    
     init(_ title: String, action: (() -> Void)? = nil) {
         self.title = title
         self.action = action
     }
-
+    
     var body: some View {
         Button(title) {
             action?()

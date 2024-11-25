@@ -14,6 +14,7 @@ struct DownloadWithProfileView: View {
             NGGLogoView()
             userView
             buttonsContainer
+            
         }
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
