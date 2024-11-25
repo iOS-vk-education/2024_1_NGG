@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DownloadWithoutProfileView: View {
-    
+
     var body: some View {
         VStack(spacing: 0) {
             NGGLogoView()
@@ -23,7 +23,7 @@ struct DownloadWithoutProfileView: View {
 // MARK: - UI Subviews
 
 private extension DownloadWithoutProfileView {
-    
+
     var backgroundLineGradient: some View {
         LinearGradient(
             gradient: Gradient(
@@ -37,7 +37,7 @@ private extension DownloadWithoutProfileView {
         )
         .ignoresSafeArea()
     }
-    
+
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.entryButtonTitle) {
@@ -46,7 +46,7 @@ private extension DownloadWithoutProfileView {
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 25)
-            
+
             NGGButtonLight(Constants.registrationButtonTitle) {
                 // TODO: IOS-20: Добавить логику обработки нажатий
                 print("[DEBUG]: Регистрация")
@@ -66,7 +66,7 @@ private extension DownloadWithoutProfileView {
 // MARK: - Constants
 
 private extension DownloadWithoutProfileView {
-    
+
     enum Constants {
         static let entryButtonTitle = "Вход"
         static let registrationButtonTitle = "Регистрация"

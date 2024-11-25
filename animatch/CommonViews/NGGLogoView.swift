@@ -9,18 +9,18 @@ import SwiftUI
 
 struct NGGLogoView: View {
     private let title: String
-    
+
     init(_ title: String = "Find, Watch, Repeat") {
         self.title = title
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             Image(.logo)
                 .resizable()
                 .frame(width: 209, height: 69)
                 .padding(.top, 250)
-            
+
             Text(title)
                 .foregroundColor(.downloadGray.opacity(0.6))
                 .font(Font.custom("Roboto", size: 20))

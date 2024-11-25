@@ -68,7 +68,7 @@ private extension DownloadWithProfileView {
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 15)
-
+            
             Button {
                 // TODO: IOS-20: Добавить логику обработки нажатий
                 print("[DEBUG]: Выход из профиля")
