@@ -17,7 +17,6 @@ struct DownloadWithProfileView: View {
         }
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
-        .ignoresSafeArea()
     }
 }
 
@@ -79,7 +78,7 @@ private extension DownloadWithProfileView {
                     .foregroundColor(.editProfPurple)
             }
         }
-        .padding(.bottom, 150)
+        .padding(.bottom, 211)
     }
 }
 

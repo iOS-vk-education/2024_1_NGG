@@ -17,7 +17,6 @@ struct DownloadWithoutProfileView: View {
         }
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
-        .ignoresSafeArea()
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NGGLogoView: View {
-    let title: String
+    private let title: String
     
     init(title: String = "Find, Watch, Repeat") {
         self.title = title
