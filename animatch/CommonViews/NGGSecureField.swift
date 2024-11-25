@@ -47,7 +47,7 @@ private struct StyledSecureField: View {
     let title: String
     @Binding var text: String
     @FocusState private var isTyping: Bool
-
+    
     var body: some View {
         ZStack(alignment: .leading) {
             SecureField("", text: $text)
@@ -56,7 +56,7 @@ private struct StyledSecureField: View {
                 .foregroundColor(.white)
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
                 .focused($isTyping)
-
+            
             if text.isEmpty {
                 Text(title)
                     .padding(.horizontal, 16)

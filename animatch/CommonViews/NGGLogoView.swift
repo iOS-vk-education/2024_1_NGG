@@ -10,7 +10,7 @@ import SwiftUI
 struct NGGLogoView: View {
     private let title: String
     
-    init(title: String = "Find, Watch, Repeat") {
+    init(_ title: String = "Find, Watch, Repeat") {
         self.title = title
     }
     
@@ -32,5 +32,5 @@ struct NGGLogoView: View {
 // MARK: - Preview
 
 #Preview {
-    NGGLogoView(title: "title")
+    NGGLogoView("title")
 }

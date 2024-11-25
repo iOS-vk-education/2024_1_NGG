@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct DownloadWithProfileView: View {
-    
+
     var body: some View {
         VStack(spacing: 0) {
             NGGLogoView()
             userView
             buttonsContainer
-            
         }
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
@@ -24,7 +23,7 @@ struct DownloadWithProfileView: View {
 // MARK: - UI Subviews
 
 private extension DownloadWithProfileView {
-    
+
     var backgroundLineGradient: some View {
         LinearGradient(
             gradient: Gradient(
@@ -38,7 +37,7 @@ private extension DownloadWithProfileView {
         )
         .ignoresSafeArea()
     }
-    
+
     var userView: some View {
         VStack(spacing: 0) {
             Image(systemName: "person.fill")
@@ -47,12 +46,12 @@ private extension DownloadWithProfileView {
                 .background(Color.gray)
                 .clipShape(Circle())
                 .padding(.bottom, 19)
-            
+
             HStack {
                 Text(Constants.userName)
                     .foregroundColor(.editProfWhite)
                     .font(Font.custom("Roboto", size: 30))
-                
+
                 Text(Constants.userSurname)
                     .foregroundColor(.editProfWhite)
                     .font(Font.custom("Roboto", size: 30))
@@ -60,7 +59,7 @@ private extension DownloadWithProfileView {
         }
         .padding(.bottom, 20)
     }
-    
+
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.entryButtonTitle) {
@@ -69,7 +68,7 @@ private extension DownloadWithProfileView {
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 15)
-            
+
             Button {
                 // TODO: IOS-20: Добавить логику обработки нажатий
                 print("[DEBUG]: Выход из профиля")
@@ -92,7 +91,7 @@ private extension DownloadWithProfileView {
 // MARK: - Constants
 
 private extension DownloadWithProfileView {
-    
+
     enum Constants {
         static let entryButtonTitle = "Продолжить"
         static let userName = "Имя"

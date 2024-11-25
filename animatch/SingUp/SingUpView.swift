@@ -29,7 +29,7 @@ struct SingUpView: View {
 // MARK: - UI Subviews
 
 private extension SingUpView {
-
+    
     var backgroundLineGradient: some View {
         LinearGradient(
             gradient: Gradient(
@@ -43,14 +43,14 @@ private extension SingUpView {
         )
         .ignoresSafeArea()
     }
-
+    
     var formsContainer: some View {
         VStack(spacing: 0) {
             Text(Constants.formsContainerTitle)
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
                 .padding(.bottom, 34)
-
+            
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $inputEmail)
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $inputPasswordFirst)
             NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $inputPasswordSecond)
@@ -58,14 +58,14 @@ private extension SingUpView {
         .padding(.top, 60)
         .padding(.horizontal, 60)
     }
-
+    
     var logoView: some View {
         Image(.logo)
             .resizable()
             .frame(width: 209, height: 69)
             .padding(.top, 150)
     }
-
+    
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.continueButtonTitle) {
@@ -87,7 +87,7 @@ private extension SingUpView {
                 Text(Constants.haveAccountText)
                     .foregroundStyle(Color.white)
                     .font(Font.custom("Roboto", size: 16))
-            
+                
                 Button {
                     // TODO: IOS-15: Добавить логику обработки нажатий
                     print("[DEBUG]: Вход")
@@ -111,7 +111,7 @@ private extension SingUpView {
 // MARK: - Constants
 
 private extension SingUpView {
-
+    
     enum Constants {
         static let formsContainerTitle = "Регистрация"
         static let nameTextFieldPlaceholder = "Введите эл. почту"
