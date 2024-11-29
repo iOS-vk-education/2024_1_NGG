@@ -21,7 +21,7 @@ protocol AnimeListViewModelProtocol: AnyObject {
 final class AnimeListViewModel: AnimeListViewModelProtocol {
     private(set) var stories: [Item]
     private(set) var showLoader: Bool
-    
+
     init(stories: [Item] = [], showLoader: Bool = false) {
         self.stories = stories
         self.showLoader = showLoader

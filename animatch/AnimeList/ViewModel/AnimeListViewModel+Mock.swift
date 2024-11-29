@@ -9,7 +9,7 @@ import Foundation
 
 #if DEBUG
 extension AnimeListViewModel: Mockable {
-
+    
     static var mockData: AnimeListViewModel {
         AnimeListViewModel(
             stories: (0...4).map { updateStoryID(item: .mockData, id: $0) }
@@ -18,7 +18,7 @@ extension AnimeListViewModel: Mockable {
 }
 
 private extension AnimeListViewModel {
-
+    
     static func updateStoryID(item: Item, id: Int) -> Item {
         Item(
             id: id,

@@ -13,13 +13,13 @@ struct OneCardModel {
     let type: String
     let genre: String
     let date: String
-    
+
 }
 
 // MARK: - Mapper
 
 extension OneCardModel {
-    
+
     init(story: Item) {
         id = story.id
         title = story.title
@@ -33,7 +33,7 @@ extension OneCardModel {
 
 #if DEBUG
 extension OneCardModel: Mockable {
-    
+
     static var mockData: OneCardModel {
         OneCardModel(
             id: -1,

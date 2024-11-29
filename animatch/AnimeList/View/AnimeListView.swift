@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AnimeListView: View {
     @State var viewModel = AnimeListViewModel()
-    
+
     var body: some View {
         VStack(spacing: 0) {
             headerView
