@@ -42,6 +42,7 @@ extension AnimeListView {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
         }
+        .padding(.top, 20)
         .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
     }

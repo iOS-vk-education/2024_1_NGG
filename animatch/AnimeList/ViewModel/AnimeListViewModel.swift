@@ -27,5 +27,3 @@ final class AnimeListViewModel: AnimeListViewModelProtocol {
         self.showLoader = showLoader
     }
 }
-
-

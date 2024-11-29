@@ -10,7 +10,7 @@ import SwiftUI
 struct OneCardView: View {
     let story: OneCardModel
     var onCardTapped: (() -> Void)?
-    
+
     var body: some View {
         ZStack {
             Image(.image)
@@ -27,13 +27,13 @@ struct OneCardView: View {
                     )
                 )
                 .cornerRadius(15)
-            
+
             VStack(spacing: 0) {
                 Text(story.title)
                     .font(Font.custom("Roboto", size: 32))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
-                
+
                 HStack {
                     Text(story.genre)
                         .foregroundColor(.white)

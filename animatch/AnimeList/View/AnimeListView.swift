@@ -14,7 +14,6 @@ struct AnimeListView: View {
         VStack(spacing: 0) {
             headerView
             listContainer
-                .padding(.top, 20)
         }
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
