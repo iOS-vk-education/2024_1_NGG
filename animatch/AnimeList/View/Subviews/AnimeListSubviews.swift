@@ -8,13 +8,13 @@
 import SwiftUI
 
 extension AnimeListView {
-    
+
     var headerView: some View {
         ZStack(alignment: .center) {
             Text(Constants.titleMain)
                 .font(Font.custom("Roboto", size: 24))
                 .foregroundColor(Color.white)
-            
+
             HStack {
                 Button {
                     // TODO: IOS-: Добавить логику обработки нажатий
@@ -32,21 +32,25 @@ extension AnimeListView {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 32)
         .padding(.top, 60)
     }
-    
+
     var listContainer: some View {
-        List(viewModel.stories) { story in
-            OneCardView(story: OneCardModel(story: story))
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
+
+        ScrollView{
+            LazyVStack{
+                ForEach(viewModel.stories) { story in OneCardView(story: OneCardModel(story: story))
+                        .padding(.bottom, 15)
+                }
+            }
         }
-        .padding(.top, 20)
+        .padding(.top, 48)
+        .padding(.horizontal, 32)
         .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
     }
-    
+
     var backgroundLineGradient: some View {
         LinearGradient(
             gradient: Gradient(
@@ -73,7 +77,7 @@ extension AnimeListView {
 // MARK: - Constants
 
 private extension AnimeListView {
-    
+
     enum Constants {
         static let titleMain = "Список аниме дня"
     }

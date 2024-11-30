@@ -13,15 +13,7 @@ struct Item: Identifiable {
     let type: String
     let genre: String
     let date: Date
-
 }
-
-//extension Item: Decodable {
-//
-//    enum CodingKeys: String, CodingKey {
-//
-//    }
-//}
 
 // MARK: - Mock Data
 

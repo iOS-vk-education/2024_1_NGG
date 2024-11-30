@@ -13,7 +13,6 @@ struct OneCardModel {
     let type: String
     let genre: String
     let date: String
-
 }
 
 // MARK: - Mapper
