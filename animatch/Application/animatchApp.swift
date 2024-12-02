@@ -11,7 +11,7 @@ import SwiftUI
 struct animatchApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SingUpView()
         }
     }
 }

@@ -11,13 +11,10 @@ struct AnimeListView: View {
     @State var viewModel = AnimeListViewModel()
 
     var body: some View {
-        VStack(spacing: 0) {
-            headerView
-            listContainer
-        }
-        .frame(maxWidth: .infinity)
-        .background(backgroundLineGradient)
-        .ignoresSafeArea()
+        listContainer
+            .frame(maxWidth: .infinity)
+            .background(backgroundLineGradient)
+            .ignoresSafeArea()
     }
 }
 

@@ -37,18 +37,23 @@ extension AnimeListView {
     }
 
     var listContainer: some View {
-
-        ScrollView{
-            LazyVStack{
-                ForEach(viewModel.stories) { story in OneCardView(story: OneCardModel(story: story))
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.stories) { story in
+                    OneCardView(story: OneCardModel(story: story))
                         .padding(.bottom, 15)
+                        .onAppear {
+                            print("[DEBUG]: я тут")
+                        }
                 }
             }
+            .padding(.top, 48)
+            .padding(.horizontal, 32)
         }
-        .padding(.top, 48)
-        .padding(.horizontal, 32)
         .scrollContentBackground(.hidden)
-        .listStyle(PlainListStyle())
+        .safeAreaInset(edge: .top) {
+            headerView
+        }
     }
 
     var backgroundLineGradient: some View {
