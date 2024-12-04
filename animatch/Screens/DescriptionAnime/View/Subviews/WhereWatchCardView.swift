@@ -19,7 +19,7 @@ struct WhereWatchCardView: View {
             }
         }
     }
-
+    
     private func cardView(image: String, title: String) -> some View {
         HStack {
             Image(image)
