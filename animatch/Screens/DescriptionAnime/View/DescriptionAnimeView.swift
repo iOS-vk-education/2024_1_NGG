@@ -19,16 +19,12 @@ struct DescriptionAnimeView: View {
                 whereWatchView
                 similarAnimeListView
                 buttonView
-                Spacer()
             }
             .padding(.horizontal, 34)
             .background(.editProfDarkGrad)
             .frame(maxWidth: .infinity)
             .clipShape(
-                RoundedCornersShape(
-                    corners: [.topLeft, .topRight],
-                    radius: 40
-                )
+                RoundedRectangle(cornerRadius: 40)
             )
             .padding(.top, -45)
         }
