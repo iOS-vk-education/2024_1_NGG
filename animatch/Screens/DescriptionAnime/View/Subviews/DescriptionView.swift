@@ -35,14 +35,11 @@ struct DescriptionView: View {
             Text(story.description)
                 .lineLimit(7)
         }
-//        .font(Font.custom("Roboto", size: 12))
-//        .padding(.top, 32)
-//        .foregroundStyle(.white)
     }
 }
 
+// MARK: - Preview
+
 #Preview {
-    NavigationStack {
         DescriptionView(story: .mockData).body.preferredColorScheme(.dark)
-    }
 }

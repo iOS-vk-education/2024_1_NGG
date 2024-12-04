@@ -10,7 +10,7 @@ import SwiftUI
 struct SimilarAnimeView: View {
     var body: some View {
         HStack {
-            ForEach(1 ... 4, id: \.self){_ in
+            ForEach(1 ... 4, id: \.self) {_ in
                 OneAnimeCard
             }
             .frame(maxWidth: .infinity)
@@ -19,7 +19,7 @@ struct SimilarAnimeView: View {
 }
 
 private extension SimilarAnimeView {
-    
+
     var OneAnimeCard: some View {
         Image(.image)
             .resizable()

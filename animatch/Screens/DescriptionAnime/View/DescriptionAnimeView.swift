@@ -41,8 +41,6 @@ struct DescriptionAnimeView: View {
 
 #Preview{
     NavigationStack{
-                DescriptionAnimeView(viewModel: .mockData)
+        DescriptionAnimeView(viewModel: .mockData)
     }
 }
-
-

@@ -20,7 +20,7 @@ struct ActionListView: View {
                 })
                 Button(action: {
                     choiceMade = "Просмотрено"
-                }, label:{
+                }, label: {
                     Text("Просмотрено")
                 })
             } label: {

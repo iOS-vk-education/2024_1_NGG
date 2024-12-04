@@ -17,6 +17,7 @@ struct WhereWatchCard: View {
                 .resizable()
                 .frame(width: 18, height: 18)
                 .clipShape(Circle())
+
             Text(title)
         }
         .onTapGesture {

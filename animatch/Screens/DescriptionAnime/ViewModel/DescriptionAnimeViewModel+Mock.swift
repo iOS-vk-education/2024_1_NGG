@@ -11,24 +11,7 @@ import Foundation
 extension DescriptionAnimeViewModel: Mockable {
 
     static var mockData: DescriptionAnimeViewModel {
-        DescriptionAnimeViewModel(
-        )
-    }
-}
-
-private extension DescriptionAnimeViewModel {
-
-    static func updateStoryID(item: Module, id: Int) -> Module {
-        Module(
-            id: id,
-            title: item.title,
-            director: item.director,
-            description: item.description,
-            rating: item.rating,
-            year: item.year,
-            genre: item.genre
-
-        )
+        DescriptionAnimeViewModel()
     }
 }
 #endif

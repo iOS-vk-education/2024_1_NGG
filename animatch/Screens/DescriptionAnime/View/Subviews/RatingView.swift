@@ -4,6 +4,7 @@
 //
 //  Created by Ксения Панкратова on 03.12.2024.
 //
+
 import SwiftUI
 
 struct RatingView: View {
@@ -17,6 +18,7 @@ struct RatingView: View {
             Text("(\(rating))")
         }
     }
+    
     private func fillingFor(_ index: Int) -> Bool {
         index <= rating
     }
