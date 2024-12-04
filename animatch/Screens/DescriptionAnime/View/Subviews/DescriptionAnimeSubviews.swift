@@ -21,7 +21,7 @@ extension DescriptionAnimeView {
             Text(Constants.similarAnimeTitle)
                 .font(Font.custom("Roboto", size: 12))
                 .foregroundStyle(.white)
-            SimilarAnimeView()
+            SimilarAnimeView(images: Constants.similarAnimeList)
         }
         .padding(.bottom, 41)
     }
@@ -29,9 +29,10 @@ extension DescriptionAnimeView {
     var whereWatchView: some View {
         HStack {
             Text(Constants.whereWatchTitle)
-            WhereWatchCard(title: "Start",  image: .image)
-            WhereWatchCard(title: "Okko",  image: .image)
-            WhereWatchCard(title: "Viji",  image: .image)
+            WhereWatchCardView(
+                titles: Constants.whereWatchCardTitles,
+                images: Constants.whereWatchCardImages
+            )
         }
         .font(Font.custom("Roboto", size: 12))
         .foregroundStyle(.white)
@@ -65,5 +66,8 @@ private extension DescriptionAnimeView {
         static let trailerButtonTitle = "Трейлер"
         static let whereWatchTitle = "Где посмотреть:"
         static let similarAnimeTitle = "Если вам понравилось это аниме:"
+        static let similarAnimeList = ["totoroSimilar1", "totoroSimilar2", "totoroSimilar3", "totoroSimilar4"]
+        static let whereWatchCardTitles = ["Start","Okko","Viji"]
+        static let whereWatchCardImages = ["start", "Image", "Image"]
     }
 }
