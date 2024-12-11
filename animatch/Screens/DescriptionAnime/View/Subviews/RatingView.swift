@@ -13,13 +13,13 @@ struct RatingView: View {
     var body: some View {
         HStack {
             ForEach(1 ..< 6){index in
-                Star(fill: fillingFor(index))
+                Star(fill: isFilled(index))
             }
             Text("(\(rating))")
         }
     }
-    
-    private func fillingFor(_ index: Int) -> Bool {
+
+    private func isFilled(_ index: Int) -> Bool {
         index <= rating
     }
 }
@@ -39,5 +39,4 @@ struct Star: View {
 
 #Preview {
     RatingView(rating:4)
-        .body.preferredColorScheme(.dark)
 }
