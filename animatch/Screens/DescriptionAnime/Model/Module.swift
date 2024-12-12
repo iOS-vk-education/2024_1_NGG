@@ -29,12 +29,12 @@ extension Module: Mockable {
     static var mockData: Module {
         Module(
             id: -1,
-            title: "Title",
-            director: "description",
-            description: "fantasy",
+            title: "Мой сосед Тоторо",
+            director: "Мой сосед Тоторо",
+            description: "Сестры Сацуки и Мэй переезжают вместе с папой в деревенский дом. Однажды девочки обнаруживают, что по соседству с ними живут лесные духи — хранители леса во главе со своим могущественным и добрым повелителем Тоторо. Постепенно Тоторо становится другом девочек",
             rating: 4,
             year: 1988,
-            genre: "описание",
+            genre: "приключения, фэнтези",
             imagesData: [
                 UIImage.totoro1.pngData(),
                 UIImage.totoro2.pngData(),

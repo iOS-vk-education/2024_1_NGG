@@ -11,7 +11,19 @@ import Foundation
 extension DescriptionAnimeViewModel: Mockable {
 
     static var mockData: DescriptionAnimeViewModel {
-        DescriptionAnimeViewModel(stories: .mockData)
+        DescriptionAnimeViewModel(stories: .mockData,
+                                  views: (1...4).map { updateViewID(view: .mockData, id: String($0)) })
+    }
+}
+
+private extension DescriptionAnimeViewModel {
+    
+    static func updateViewID(view: ViewingPlatformModel, id: String) -> ViewingPlatformModel {
+        ViewingPlatformModel(
+            id: id,
+            title: view.title,
+            imageData: view.imageData
+        )
     }
 }
 #endif

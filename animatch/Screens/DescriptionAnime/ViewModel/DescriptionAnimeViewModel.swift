@@ -13,6 +13,9 @@ import Observation
 protocol DescriptionAnimeViewModelProtocol: AnyObject {
     // Values
     var stories: Module { get }
+    var views: [ViewingPlatformModel] { get }
+    // Configurations
+    func configureAnimeModel() -> DescriptionAnimeModel
 }
 
 // MARK: - DescriptionAnimeViewModel
@@ -20,8 +23,18 @@ protocol DescriptionAnimeViewModelProtocol: AnyObject {
 @Observable
 final class DescriptionAnimeViewModel: DescriptionAnimeViewModelProtocol {
     private(set) var stories: Module
+    private(set) var views: [ViewingPlatformModel]
 
-    init(stories: Module) {
+    init(stories: Module, views: [ViewingPlatformModel]) {
         self.stories = stories
+        self.views = views
+    }
+}
+
+// MARK: - DescriptionAnimeViewModelProtocol
+
+extension DescriptionAnimeViewModel {
+    func configureAnimeModel() -> DescriptionAnimeModel {
+        DescriptionAnimeModel(story: stories)
     }
 }

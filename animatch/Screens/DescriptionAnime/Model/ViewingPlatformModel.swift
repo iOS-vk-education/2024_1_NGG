@@ -24,7 +24,7 @@ extension ViewingPlatformModel: Mockable {
         ViewingPlatformModel(
             id: UUID().uuidString,
             title: "Start",
-            imageData: UIImage(resource: .image).pngData() ?? Data()
+            imageData: UIImage(resource: .start).pngData() ?? Data()
         )
     }
 }

@@ -12,7 +12,7 @@ struct DescriptionAnimeView: View {
 
     var body: some View {
         ScrollView {
-            ImageCarouselView(images: DescriptionAnimeModel.mockData)
+            ImageCarouselView(images: viewModel.configureAnimeModel())
             VStack(alignment: .leading, spacing: 24) {
                 descriptionView
                 CustomActionView()
