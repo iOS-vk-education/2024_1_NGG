@@ -58,7 +58,7 @@ extension DescriptionAnimeModel: Mockable {
                 UIImage.totoro2.pngData(),
                 UIImage.totoro3.pngData()
             ].compactMap { $0 },
-            similarMovies:[
+            similarMovies: [
                 UIImage.totoroSimilar1.pngData(),
                 UIImage.totoroSimilar2.pngData(),
                 UIImage.totoroSimilar3.pngData(),

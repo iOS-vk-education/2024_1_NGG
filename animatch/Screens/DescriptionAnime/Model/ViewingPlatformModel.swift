@@ -16,7 +16,7 @@ struct ViewingPlatformModel: Identifiable {
 // MARK: - Mock Data
 
 #if DEBUG
-import SwiftUI
+import UIKit
 
 extension ViewingPlatformModel: Mockable {
 

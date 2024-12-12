@@ -12,7 +12,7 @@ struct WhereWatchCardView: View {
 
     var body: some View {
         HStack {
-            ForEach(viewingPlatforms) {model in
+            ForEach(viewingPlatforms) { model in
                 viewingCardView(imageData: model.imageData, title: model.title)
                     .frame(maxWidth: .infinity)
             }

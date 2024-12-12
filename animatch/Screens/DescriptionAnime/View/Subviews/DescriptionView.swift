@@ -32,8 +32,8 @@ struct DescriptionView: View {
                     }
                 }
             }
+
             Text(card.description)
-                .lineLimit(7)
         }
     }
 }

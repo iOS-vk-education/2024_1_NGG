@@ -27,27 +27,23 @@ extension DescriptionAnimeView {
     }
 
     var buttonView: some View {
-        ZStack {
-            NGGButton(Constants.trailerButtonTitle) {
-                // TODO: IOS-: Добавить логику обработки нажатий
-                print("[DEBUG]: Трейлер")
-            }
-            .padding(.horizontal, 26)
-            .padding(.bottom, 60)
+        NGGButton(Constants.trailerButtonTitle) {
+            // TODO: IOS-: Добавить логику обработки нажатий
+            print("[DEBUG]: Трейлер")
         }
+        .padding(.horizontal, 26)
+        .padding(.bottom, 60)
     }
 
     var whereWatchCardView: some View {
-        VStack {
-            WhereWatchCardView(viewingPlatforms: viewModel.views)
-        }
+        WhereWatchCardView(viewingPlatforms: viewModel.views)
     }
 }
 
 // MARK: - Preview
 
 #Preview {
-    NavigationStack{
+    NavigationStack {
         DescriptionAnimeView(viewModel: DescriptionAnimeViewModel.mockData)
     }
 }
