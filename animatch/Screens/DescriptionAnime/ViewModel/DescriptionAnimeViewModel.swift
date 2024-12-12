@@ -13,7 +13,6 @@ import Observation
 protocol DescriptionAnimeViewModelProtocol: AnyObject {
     // Values
     var stories: Module { get }
-    var views: ViewingPlatformModel { get }
 }
 
 // MARK: - DescriptionAnimeViewModel
@@ -21,10 +20,8 @@ protocol DescriptionAnimeViewModelProtocol: AnyObject {
 @Observable
 final class DescriptionAnimeViewModel: DescriptionAnimeViewModelProtocol {
     private(set) var stories: Module
-    private(set) var views: ViewingPlatformModel
 
-    init(stories: Module,views: ViewingPlatformModel) {
+    init(stories: Module) {
         self.stories = stories
-        self.views = views
     }
 }
