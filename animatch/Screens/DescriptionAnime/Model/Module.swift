@@ -15,11 +15,15 @@ struct Module: Identifiable {
     let rating: Int
     let year: Int
     let genre: String
+    let imagesData: [Data]
+    let similarMovies: [Data]
 }
 
 // MARK: - Mock Data
 
 #if DEBUG
+import UIKit
+
 extension Module: Mockable {
 
     static var mockData: Module {
@@ -30,7 +34,18 @@ extension Module: Mockable {
             description: "fantasy",
             rating: 4,
             year: 1988,
-            genre: "описание"
+            genre: "описание",
+            imagesData: [
+                UIImage.totoro1.pngData(),
+                UIImage.totoro2.pngData(),
+                UIImage.totoro3.pngData()
+            ].compactMap { $0 },
+            similarMovies: [
+                UIImage.totoroSimilar1.pngData(),
+                UIImage.totoroSimilar2.pngData(),
+                UIImage.totoroSimilar3.pngData(),
+                UIImage.totoroSimilar4.pngData()
+            ].compactMap { $0 }
         )
     }
 }

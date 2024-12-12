@@ -7,32 +7,32 @@
 import SwiftUI
 
 struct DescriptionView: View {
-    let story: DescriptionAnimeModel
+    let card: DescriptionAnimeModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            Text(story.title + "(\(story.year))")
+            Text(card.title + "(\(card.year))")
                 .font(Font.custom("Roboto", size: 24))
 
             HStack {
-                RatingView(rating: story.rating)
+                RatingView(rating: card.rating)
                 Spacer()
 
                 VStack(alignment: .trailing) {
                     HStack {
-                        Text("Жанр:")
+                        Text(Constants.genreTitle)
                             .foregroundStyle(Color.gray)
-                        Text(story.genre)
+                        Text(card.genre)
                     }
 
                     HStack {
-                        Text("Режиссер:")
+                        Text(Constants.directorTitle)
                             .foregroundStyle(Color.gray)
-                        Text(story.director)
+                        Text(card.director)
                     }
                 }
             }
-            Text(story.description)
+            Text(card.description)
                 .lineLimit(7)
         }
     }
@@ -41,5 +41,15 @@ struct DescriptionView: View {
 // MARK: - Preview
 
 #Preview {
-        DescriptionView(story: .mockData).body.preferredColorScheme(.dark)
+    DescriptionView(card: .mockData)
+}
+
+// MARK: - Constants
+
+private extension DescriptionView {
+
+    enum Constants {
+        static let genreTitle = "Жанр:"
+        static let directorTitle = "Режиссер:"
+    }
 }

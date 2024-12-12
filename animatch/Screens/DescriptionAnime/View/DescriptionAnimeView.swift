@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct DescriptionAnimeView: View {
-    @State var viewModel = DescriptionAnimeViewModel()
+    @State var viewModel: DescriptionAnimeViewModelProtocol
 
     var body: some View {
         ScrollView {
-            ImageCarouselView(images: ["totoro1", "totoro2", "totoro3"])
+            ImageCarouselView(images: DescriptionAnimeModel.mockData)
             VStack(alignment: .leading, spacing: 24) {
                 descriptionView
-                ActionListView()
-                whereWatchView
+                CustomActionView()
+//                whereWatchCardView
                 similarAnimeListView
                 buttonView
             }
@@ -35,8 +35,8 @@ struct DescriptionAnimeView: View {
 
 // MARK: - Preview
 
-#Preview{
+#Preview {
     NavigationStack{
-        DescriptionAnimeView(viewModel: .mockData)
+        DescriptionAnimeView(viewModel: DescriptionAnimeViewModel.mockData)
     }
 }

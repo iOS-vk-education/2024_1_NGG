@@ -11,7 +11,7 @@ import Foundation
 extension DescriptionAnimeViewModel: Mockable {
 
     static var mockData: DescriptionAnimeViewModel {
-        DescriptionAnimeViewModel()
+        DescriptionAnimeViewModel(stories: .mockData)
     }
 }
 #endif

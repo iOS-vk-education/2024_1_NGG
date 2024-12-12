@@ -8,37 +8,33 @@
 import SwiftUI
 
 struct SimilarAnimeView: View {
-    let images: [String]
+    let images: DescriptionAnimeModel
 
     var body: some View {
         HStack {
-            ForEach(images, id: \.self) { image in
-                oneAnimeCard(image: image)
-                    .frame(maxWidth: .infinity)
+            ForEach(images.similarMovies, id: \.self) { image in
+                if let uiImage = UIImage(data: image) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .frame(width: 64, height: 90)
+                        .onTapGesture {
+                            // TODO: IOS-: Добавить логику обработки нажатий
+                            print("[DEBUG] Переход на аниме")
+                        }
+                } else {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 30, height: 30)
+                }
             }
+            .frame(maxWidth: .infinity)
         }
-    }
-
-    private func oneAnimeCard(image: String) -> some View {
-        Image(image)
-            .resizable()
-            .frame(width: 64, height: 90)
-            .onTapGesture {
-                // TODO: IOS-: Добавить логику обработки нажатий
-                print("[DEBUG] Переход на аниме: \(image)")
-            }
     }
 }
 
 // MARK: - Preview
 
-#Preview{
-    SimilarAnimeView(
-        images: [
-            "totoroSimilar1",
-            "totoroSimilar2",
-            "totoroSimilar3",
-            "totoroSimilar4"
-        ]
-    )
+#Preview {
+    SimilarAnimeView(images: .mockData)
 }

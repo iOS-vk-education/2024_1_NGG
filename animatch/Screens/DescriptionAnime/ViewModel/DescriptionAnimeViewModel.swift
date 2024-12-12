@@ -12,16 +12,16 @@ import Observation
 
 protocol DescriptionAnimeViewModelProtocol: AnyObject {
     // Values
-    var stories: [Module] { get }
+    var stories: Module { get }
 }
 
 // MARK: - DescriptionAnimeViewModel
 
 @Observable
 final class DescriptionAnimeViewModel: DescriptionAnimeViewModelProtocol {
-    private(set) var stories: [Module]
+    private(set) var stories: Module
 
-    init(stories: [Module] = []) {
+    init(stories: Module) {
         self.stories = stories
     }
 }

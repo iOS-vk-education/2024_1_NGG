@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct ImageCarouselView: View {
-    let images: [String]
+    let images: DescriptionAnimeModel
 
     var body: some View {
         GeometryReader { geometry in
             TabView {
-                ForEach(images, id: \.self) { image in
-                    Image(image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: geometry.size.width, height: 300)
-                        .clipped()
+                ForEach(images.imagesData, id: \.self) { imageData in
+                    if let uiImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: geometry.size.width, height: 300)
+                            .clipped()
+                    } else {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 30, height: 30)
+                    }
                 }
             }
             .tabViewStyle(PageTabViewStyle())
@@ -29,6 +36,6 @@ struct ImageCarouselView: View {
 
 // MARK: - Preview
 
-#Preview{
-    ImageCarouselView(images: ["totoro1", "totoro2", "totoro3"])
+#Preview {
+    ImageCarouselView(images: .mockData)
 }

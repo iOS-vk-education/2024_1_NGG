@@ -10,7 +10,7 @@ import SwiftUI
 extension DescriptionAnimeView {
 
     var descriptionView: some View {
-        DescriptionView(story: DescriptionAnimeModel.mockData)
+        DescriptionView(card: DescriptionAnimeModel.mockData)
             .font(Font.custom("Roboto", size: 12))
             .padding(.top, 32)
             .foregroundStyle(.white)
@@ -21,21 +21,9 @@ extension DescriptionAnimeView {
             Text(Constants.similarAnimeTitle)
                 .font(Font.custom("Roboto", size: 12))
                 .foregroundStyle(.white)
-            SimilarAnimeView(images: Constants.similarAnimeList)
+            SimilarAnimeView(images: DescriptionAnimeModel.mockData)
         }
         .padding(.bottom, 41)
-    }
-
-    var whereWatchView: some View {
-        HStack {
-            Text(Constants.whereWatchTitle)
-            WhereWatchCardView(
-                titles: Constants.whereWatchCardTitles,
-                images: Constants.whereWatchCardImages
-            )
-        }
-        .font(Font.custom("Roboto", size: 12))
-        .foregroundStyle(.white)
     }
 
     var buttonView: some View {
@@ -48,13 +36,19 @@ extension DescriptionAnimeView {
             .padding(.bottom, 60)
         }
     }
+
+//    var whereWatchCardView: some View {
+//        VStack {
+//            WhereWatchCardView(viewingPlatforms: DescriptionAnimeModel.mockData)
+//        }
+//    }
 }
 
 // MARK: - Preview
 
-#Preview{
+#Preview {
     NavigationStack{
-        DescriptionAnimeView(viewModel: .mockData)
+        DescriptionAnimeView(viewModel: DescriptionAnimeViewModel.mockData)
     }
 }
 
