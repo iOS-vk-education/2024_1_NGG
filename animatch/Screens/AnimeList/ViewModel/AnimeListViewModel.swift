@@ -20,10 +20,8 @@ protocol AnimeListViewModelProtocol: AnyObject {
 @Observable
 final class AnimeListViewModel: AnimeListViewModelProtocol {
     private(set) var stories: [Item]
-    private(set) var showLoader: Bool
 
-    init(stories: [Item] = [], showLoader: Bool = false) {
+    init(stories: [Item] = []) {
         self.stories = stories
-        self.showLoader = showLoader
     }
 }
