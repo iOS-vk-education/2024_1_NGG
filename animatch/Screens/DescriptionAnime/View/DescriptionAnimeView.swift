@@ -16,7 +16,7 @@ struct DescriptionAnimeView: View {
             VStack(alignment: .leading, spacing: 24) {
                 descriptionView
                 CustomActionView()
-//                whereWatchCardView
+                whereWatchCardView
                 similarAnimeListView
                 buttonView
             }

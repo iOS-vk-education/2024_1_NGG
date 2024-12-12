@@ -37,11 +37,16 @@ extension DescriptionAnimeView {
         }
     }
 
-//    var whereWatchCardView: some View {
-//        VStack {
-//            WhereWatchCardView(viewingPlatforms: DescriptionAnimeModel.mockData)
-//        }
-//    }
+    var whereWatchCardView: some View {
+        VStack {
+            WhereWatchCardView(
+                viewingPlatforms: [
+                    ViewingPlatformModel.mockData,
+                    ViewingPlatformModel.mockData,
+                    ViewingPlatformModel.mockData]
+            )
+        }
+    }
 }
 
 // MARK: - Preview
