@@ -12,13 +12,16 @@ struct ImageCarouselView: View {
 
     var body: some View {
         GeometryReader { geometry in
+            let minY = geometry.frame(in: .global).minY
+            let iscrolling = minY > 0
+
             TabView {
                 ForEach(images.imagesData, id: \.self) { imageData in
                     if let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: geometry.size.width, height: 300)
+                            .frame(width: geometry.size.width)
                             .clipped()
                     } else {
                         Image(systemName: "photo")
@@ -29,6 +32,8 @@ struct ImageCarouselView: View {
                 }
             }
             .tabViewStyle(PageTabViewStyle())
+            .frame(height: iscrolling ? 300 + minY: 300)
+            .offset(y: iscrolling ? -minY : 0)
         }
         .frame(height: 300)
     }
@@ -37,5 +42,7 @@ struct ImageCarouselView: View {
 // MARK: - Preview
 
 #Preview {
-    ImageCarouselView(images: .mockData)
+    ScrollView{
+        ImageCarouselView(images: .mockData)
+    }
 }
