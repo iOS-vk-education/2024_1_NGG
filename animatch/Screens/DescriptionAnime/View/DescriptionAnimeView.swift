@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct DescriptionAnimeView: View {
-    @State var viewModel: DescriptionAnimeViewModelProtocol
+    @State var viewModel: DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput
+    @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
         ScrollView {
-            ImageCarouselView(images: viewModel.configureAnimeModel())
+            ImageCarouselView(images: viewModel.story)
             VStack(alignment: .leading, spacing: 24) {
                 descriptionView
                 CustomActionView()
@@ -27,9 +28,28 @@ struct DescriptionAnimeView: View {
                 RoundedRectangle(cornerRadius: 40)
             )
             .padding(.top, -45)
+
         }
         .background(Color.editProfDarkGrad)
         .ignoresSafeArea()
+        .onAppear {
+            viewModel.setCoordinator(coordinator)
+        }
+    }
+
+}
+
+// MARK: - Navigation Destination
+
+extension DescriptionAnimeView {
+
+    func openNextScreen(for screen: AnimeListScreens) -> some View {
+        switch screen {
+        case let .storyDetails(story):
+            DescriptionAnimeView(
+                viewModel: viewModel.configureDetailsViewModel(story: story)
+            )
+        }
     }
 }
 
@@ -37,6 +57,8 @@ struct DescriptionAnimeView: View {
 
 #Preview {
     NavigationStack{
-        DescriptionAnimeView(viewModel: DescriptionAnimeViewModel.mockData)
+        DescriptionAnimeView(
+            viewModel: DescriptionAnimeViewModelMock(story: .mockData))
     }
+    .environment(Coordinator())
 }

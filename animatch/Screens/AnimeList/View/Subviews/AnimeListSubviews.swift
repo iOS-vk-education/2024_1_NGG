@@ -16,14 +16,6 @@ extension AnimeListView {
                 .foregroundColor(Color.white)
 
             HStack {
-                Button {
-                    // TODO: IOS-: Добавить логику обработки нажатий
-                    print("[DEBUG]: Назад")
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .font(Font.custom("Roboto", size: 24))
-                        .foregroundColor(Color.white)
-                }
                 Spacer()
                 Image(systemName: "person.fill")
                     .resizable()
@@ -40,11 +32,11 @@ extension AnimeListView {
         ScrollView {
             LazyVStack {
                 ForEach(viewModel.stories) { story in
-                    OneCardView(story: OneCardModel(story: story))
+                    OneCardView(story: story)
                         .padding(.bottom, 15)
-                        .onAppear {
-                            print("[DEBUG]: я тут")
-                        }
+                        .onTapGesture {
+                        viewModel.didTapCell(story: story)
+                    }
                 }
             }
             .padding(.top, 48)
@@ -75,7 +67,7 @@ extension AnimeListView {
 
 #Preview {
     NavigationStack {
-        AnimeListView(viewModel: .mockData)
+        AnimeListView(viewModel: AnimeListViewModelMock(delay:2))
     }
 }
 

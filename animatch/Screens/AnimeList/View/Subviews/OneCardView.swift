@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OneCardView: View {
-    let story: OneCardModel
+    let story: Module
     var onCardTapped: (() -> Void)?
 
     var body: some View {
@@ -16,31 +16,42 @@ struct OneCardView: View {
             backgroundView
             cardInfoView
         }
-        .onTapGesture {
-            // TODO: IOS-: Добавить логику обработки нажатий
-            print("[DEBUG] Переход на выбранную карточку")
-        }
     }
 }
 
 private extension OneCardView {
 
     var backgroundView: some View {
-        Image(.image)
-            .resizable()
-            .scaledToFill()
-            .frame(height: 110)
-            .clipped()
-            .blur(radius: 2)
-            .overlay(
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
-                    startPoint: .bottom,
-                    endPoint: .top
-                )
+        if let uiImage = UIImage(data: story.mainImage) {
+            AnyView(
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 110)
+                    .clipped()
+                    .blur(radius: 2)
+                    .overlay(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
+                            startPoint: .bottom,
+                            endPoint: .top
+                        )
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
             )
-            .clipShape(.rect(cornerRadius: 15))
+        } else {
+            AnyView(
+                Image(systemName: "photo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 110)
+                    .foregroundColor(.gray)
+                    .blur(radius: 2)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+            )
+        }
     }
+
 
     var cardInfoView: some View {
         VStack(spacing: 0) {
@@ -53,9 +64,9 @@ private extension OneCardView {
                 Text(story.genre)
                     .foregroundColor(.white)
                 Spacer()
-                Text(story.type)
+                Text(story.type + ",")
                     .foregroundColor(.white)
-                Text(story.date)
+                Text(String(story.year))
                     .foregroundColor(.white)
             }
             .font(Font.custom("Roboto", size: 14))

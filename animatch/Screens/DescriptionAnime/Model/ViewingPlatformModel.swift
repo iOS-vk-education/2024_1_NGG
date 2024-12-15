@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ViewingPlatformModel: Identifiable {
+struct ViewingPlatformModel: Identifiable, Hashable {
     let id: String
     let title: String
     let imageData: Data
@@ -23,6 +23,14 @@ extension ViewingPlatformModel: Mockable {
     static var mockData: ViewingPlatformModel {
         ViewingPlatformModel(
             id: UUID().uuidString,
+            title: "Start",
+            imageData: UIImage(resource: .start).pngData() ?? Data()
+        )
+    }
+
+    static func generateViewingPlatforms(id: String) -> ViewingPlatformModel {
+        ViewingPlatformModel(
+            id: id,
             title: "Start",
             imageData: UIImage(resource: .start).pngData() ?? Data()
         )

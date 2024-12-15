@@ -34,7 +34,8 @@ struct WhereWatchCardView: View {
             }
 
             Text(title)
-                .foregroundColor(Color.white)
+                .font(Font.custom("Roboto", size: 12))
+                .foregroundStyle(.white)
         }
         .onTapGesture {
             // TODO: IOS-: Добавить логику обработки нажатий

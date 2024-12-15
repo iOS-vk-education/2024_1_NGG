@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct DescriptionView: View {
-    let card: DescriptionAnimeModel
+    let card: Module
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -32,7 +32,6 @@ struct DescriptionView: View {
                     }
                 }
             }
-
             Text(card.description)
         }
     }

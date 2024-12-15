@@ -8,27 +8,22 @@
 import SwiftUI
 
 struct SimilarAnimeView: View {
-    let images: DescriptionAnimeModel
+    let images: Module
 
     var body: some View {
         HStack {
-            ForEach(images.similarMovies, id: \.self) { image in
-                if let uiImage = UIImage(data: image) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .frame(width: 64, height: 90)
-                        .onTapGesture {
-                            // TODO: IOS-: Добавить логику обработки нажатий
-                            print("[DEBUG] Переход на аниме")
-                        }
-                } else {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 30, height: 30)
+            ForEach(images.similarMovies){ movie in
+                if let imageData = movie.imagesData.first, let uiImage = UIImage(data: imageData) {
+                    VStack(alignment: .leading) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 64, height: 90)
+                            .clipped()
+                            .frame(maxWidth: .infinity)
+                    }
                 }
             }
-            .frame(maxWidth: .infinity)
         }
     }
 }

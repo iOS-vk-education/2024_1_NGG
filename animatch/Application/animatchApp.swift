@@ -11,7 +11,7 @@ import SwiftUI
 struct animatchApp: App {
     var body: some Scene {
         WindowGroup {
-            SingUpView()
+            AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
         }
     }
 }

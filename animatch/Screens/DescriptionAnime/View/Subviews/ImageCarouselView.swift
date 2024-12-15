@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ImageCarouselView: View {
-    let images: DescriptionAnimeModel
+    let images: Module
 
     var body: some View {
         GeometryReader { geometry in
@@ -42,7 +42,7 @@ struct ImageCarouselView: View {
 // MARK: - Preview
 
 #Preview {
-    ScrollView{
+    ScrollView {
         ImageCarouselView(images: .mockData)
     }
 }

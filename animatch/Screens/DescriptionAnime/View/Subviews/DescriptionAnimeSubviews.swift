@@ -10,7 +10,7 @@ import SwiftUI
 extension DescriptionAnimeView {
 
     var descriptionView: some View {
-        DescriptionView(card: viewModel.configureAnimeModel())
+        DescriptionView(card: viewModel.story)
             .font(Font.custom("Roboto", size: 12))
             .padding(.top, 32)
             .foregroundStyle(.white)
@@ -18,10 +18,16 @@ extension DescriptionAnimeView {
 
     var similarAnimeListView: some View {
         VStack(alignment: .leading, spacing: 11) {
-            Text(Constants.similarAnimeTitle)
-                .font(Font.custom("Roboto", size: 12))
-                .foregroundStyle(.white)
-            SimilarAnimeView(images: viewModel.configureAnimeModel())
+            if !viewModel.story.similarMovies.isEmpty {
+                Text(Constants.similarAnimeTitle)
+                    .font(Font.custom("Roboto", size: 12))
+                    .foregroundStyle(.white)
+            }
+
+            SimilarAnimeView(images: viewModel.story)
+                .onTapGesture {
+                    viewModel.didTapOpenSimilarStory(movie: viewModel.story)
+                }
         }
         .padding(.bottom, 41)
     }
@@ -36,7 +42,12 @@ extension DescriptionAnimeView {
     }
 
     var whereWatchCardView: some View {
-        WhereWatchCardView(viewingPlatforms: viewModel.views)
+        HStack {
+            Text(Constants.whereWatchTitle)
+                .font(Font.custom("Roboto", size: 12))
+                .foregroundStyle(.white)
+            WhereWatchCardView(viewingPlatforms: viewModel.story.viewingPlatforms)
+        }
     }
 }
 
@@ -44,8 +55,9 @@ extension DescriptionAnimeView {
 
 #Preview {
     NavigationStack {
-        DescriptionAnimeView(viewModel: DescriptionAnimeViewModel.mockData)
+        DescriptionAnimeView(viewModel: DescriptionAnimeViewModelMock(story: .mockData))
     }
+    .environment(Coordinator())
 }
 
 // MARK: - Constants
