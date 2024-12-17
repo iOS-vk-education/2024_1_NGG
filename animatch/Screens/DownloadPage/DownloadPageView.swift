@@ -24,7 +24,7 @@ struct DownloadPageView: View {
                 openNextScreen(for: screen)
             }
         }
-        .accentColor(.white) 
+        .accentColor(.white)
         .environment(coordinator)
         .onAppear {
             viewModel.setCoordinator(coordinator)

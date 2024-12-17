@@ -97,7 +97,7 @@ private extension DownloadWithProfileView {
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 15)
-            
+
             Button {
                 viewModel.didTapContinue(to: .logIn)
             } label: {

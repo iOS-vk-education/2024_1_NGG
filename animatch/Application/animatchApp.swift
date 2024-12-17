@@ -11,8 +11,8 @@ import SwiftUI
 struct animatchApp: App {
     var body: some Scene {
         WindowGroup {
-//            DownloadPageView(viewModel: DownloadPageViewModel())
-            DownloadWithProfileView(viewModel: DownloadWithProfileViewModel())
+            DownloadPageView(viewModel: DownloadPageViewModel())
+//            DownloadWithProfileView(viewModel: DownloadWithProfileViewModel())
         }
     }
 }
