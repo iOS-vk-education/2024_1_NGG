@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct EditProfileView: View {
-//    @State private var inputName = ""
-//    @State private var inputSurname = ""
-//    @State private var inputEmail = ""
     @State var viewModel: EditProfileViewModelLogic
     @Environment(Coordinator.self) private var coordinator
 

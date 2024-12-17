@@ -10,7 +10,6 @@ struct LogInView: View {
     @State var viewModel: LogInViewModelLogic
     @Environment(Coordinator.self) private var coordinator
     @State private var showAlert = false
-//    @State private var errorMessage = ""
 
     var body: some View {
         VStack(spacing: 0) {
