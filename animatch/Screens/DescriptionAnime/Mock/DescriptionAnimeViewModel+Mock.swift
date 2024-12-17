@@ -38,4 +38,3 @@ extension DescriptionAnimeViewModelMock {
 }
 
 #endif
-

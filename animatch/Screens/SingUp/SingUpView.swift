@@ -1,19 +1,19 @@
 //
-//  LogInView.swift
+//  SingUpView.swift
 //  animatch
 //
 //  Created by Ксения Панкратова on 23.11.2024.
+//
 
 import SwiftUI
 
-struct LogInView: View {
-    @State private var inputPassword = ""
-    @State private var inputEmail = ""
+struct SingUpView: View {
+    @State var viewModel: SingUpViewModelLogic
+    @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
         VStack(spacing: 0) {
             logoView
-                .padding(.bottom, 66)
             formsContainer
             buttonsContainer
             Spacer()
@@ -22,12 +22,16 @@ struct LogInView: View {
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.setCoordinator(coordinator)
+        }
     }
 }
 
 // MARK: - UI Subviews
 
-private extension LogInView {
+private extension SingUpView {
 
     var backgroundLineGradient: some View {
         LinearGradient(
@@ -48,11 +52,13 @@ private extension LogInView {
             Text(Constants.formsContainerTitle)
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
-                .padding(.bottom, 53)
+                .padding(.bottom, 34)
 
-            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $inputEmail)
-            NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $inputPassword)
+            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputEmail)
+            NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.inputPasswordFirst)
+            NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $viewModel.inputPasswordSecond)
         }
+        .padding(.top, 60)
         .padding(.horizontal, 60)
     }
 
@@ -60,43 +66,32 @@ private extension LogInView {
         Image(.logo)
             .resizable()
             .frame(width: 209, height: 69)
-            .padding(.top, 140)
+            .padding(.top, 150)
     }
 
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.continueButtonTitle) {
-                // TODO: IOS-16: Добавить логику обработки нажатий
-                print("[DEBUG]: Продолжить")
-            }
-            .padding(.horizontal, 60)
-            .padding(.bottom, 8)
-
-            Button {
-                // TODO: IOS-16: Добавить логику обработки нажатий
-                print("[DEBUG]: Восстановление пароля")
-            } label: {
-                Text(Constants.forgotPasswordButtonTitle)
-                    .underline()
-                    .foregroundColor(.editProfPurple)
+                viewModel.didTapContinue(to: .editProfile)
             }
         }
-        .padding(.bottom, 100)
+        .padding(.horizontal, 60)
+        .padding(.bottom, 80)
     }
 
     var footerView: some View {
-        VStack{
+        VStack {
             Divider()
                 .overlay(.white)
                 .frame(width: 320)
 
-            HStack(spacing: 0) {
-                Text(Constants.footerText)
+            HStack {
+                Text(Constants.haveAccountText)
                     .foregroundStyle(Color.white)
                     .font(Font.custom("Roboto", size: 16))
 
                 Button {
-                    print("[DEBUG]: Зарегистрироваться")
+                    viewModel.didTapContinue(to: .logIn)
                 } label: {
                     Text(Constants.singupButton)
                         .underline()
@@ -111,20 +106,23 @@ private extension LogInView {
 // MARK: - Preview
 
 #Preview {
-    LogInView()
+    NavigationStack{
+        SingUpView(viewModel: SingUpViewModelMock())
+    }
+    .environment(Coordinator())
 }
 
 // MARK: - Constants
 
-private extension LogInView {
+private extension SingUpView {
 
     enum Constants {
-        static let formsContainerTitle = "Вход"
+        static let formsContainerTitle = "Регистрация"
         static let nameTextFieldPlaceholder = "Введите эл. почту"
         static let passwordTextFieldPlaceholder = "Введите пароль"
-        static let forgotPasswordButtonTitle = "Забыли пароль?"
+        static let passwordrepeatTextFieldPlaceholder = "Повторите пароль"
+        static let haveAccountText = "Есть аккаунт?"
         static let continueButtonTitle = "Продолжить"
-        static let footerText = "Нет аккаунта? "
-        static let singupButton = "Зарегистрируйтесь"
+        static let singupButton = "Войдите"
     }
 }

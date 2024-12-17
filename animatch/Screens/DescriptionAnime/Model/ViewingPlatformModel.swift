@@ -16,10 +16,11 @@ struct ViewingPlatformModel: Identifiable, Hashable {
 // MARK: - Mock Data
 
 #if DEBUG
+
 import UIKit
 
 extension ViewingPlatformModel: Mockable {
-
+    
     static var mockData: ViewingPlatformModel {
         ViewingPlatformModel(
             id: UUID().uuidString,
@@ -36,4 +37,5 @@ extension ViewingPlatformModel: Mockable {
         )
     }
 }
+
 #endif

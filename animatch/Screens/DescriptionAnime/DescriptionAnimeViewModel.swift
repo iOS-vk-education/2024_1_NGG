@@ -8,6 +8,4 @@
 import Foundation
 
 @Observable
-final class DescriptionAnimeViewModel {
-    
-}
+final class DescriptionAnimeViewModel { }

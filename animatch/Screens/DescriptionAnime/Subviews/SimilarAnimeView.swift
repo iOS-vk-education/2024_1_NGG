@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SimilarAnimeView: View {
     let images: Module
+    var didTapModule: ((Module) -> Void)?
 
     var body: some View {
         HStack {
@@ -21,6 +22,8 @@ struct SimilarAnimeView: View {
                             .frame(width: 64, height: 90)
                             .clipped()
                             .frame(maxWidth: .infinity)
+                    }.onTapGesture {
+                        didTapModule?(movie)
                     }
                 }
             }

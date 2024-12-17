@@ -9,6 +9,38 @@ import SwiftUI
 
 extension AnimeListView {
 
+    var mainContent: some View {
+        if viewModel.showLoading {
+            AnyView(loadingView)
+        } else {
+            AnyView(listContainer)
+        }
+    }
+
+    var loadingView: some View {
+        ScrollView {
+            VStack(spacing: 15) {
+                ForEach(0...4, id: \.self) { _ in
+                    shimmerinCellView
+                }
+            }
+            .padding(.top, 48)
+            .padding(.horizontal, 32)
+        }
+        .safeAreaInset(edge: .top) {
+            headerView
+        }
+    }
+
+    var shimmerinCellView: some View {
+        VStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.editProfGray)
+                .frame(height: 110)
+//                .padding(.bottom, 15)
+        }
+    }
+
     var headerView: some View {
         ZStack(alignment: .center) {
             Text(Constants.titleMain)
@@ -30,13 +62,12 @@ extension AnimeListView {
 
     var listContainer: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 15) {
                 ForEach(viewModel.stories) { story in
                     OneCardView(story: story)
-                        .padding(.bottom, 15)
                         .onTapGesture {
-                        viewModel.didTapCell(story: story)
-                    }
+                            viewModel.didTapCell(story: story)
+                        }
                 }
             }
             .padding(.top, 48)
@@ -69,6 +100,7 @@ extension AnimeListView {
     NavigationStack {
         AnimeListView(viewModel: AnimeListViewModelMock(delay:2))
     }
+    .environment(Coordinator())
 }
 
 // MARK: - Constants

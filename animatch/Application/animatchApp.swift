@@ -11,7 +11,8 @@ import SwiftUI
 struct animatchApp: App {
     var body: some Scene {
         WindowGroup {
-            AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+            DownloadPageView(viewModel: DownloadPageViewModel())
+//            DownloadWithProfileView(viewModel: DownloadWithProfileViewModel())
         }
     }
 }

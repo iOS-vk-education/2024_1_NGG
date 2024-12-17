@@ -6,6 +6,7 @@
 //
 
 #if DEBUG
+
 import UIKit
 
 extension Module {
@@ -32,8 +33,8 @@ extension Module {
         Module(
             id: number,
             mainImage: UIImage.totoro1.pngData()!,
-            title: "Мой сосед Тоторо",
-            director: "Хаяо Миядзаки",
+            title: "Мой сосед Тоторо #\(number)",
+            director: "Хаяо Миядзаки #\(number)",
             description: "Сестры Сацуки и Мэй переезжают вместе с папой в деревенский дом. Однажды девочки обнаруживают, что по соседству с ними живут лесные духи — хранители леса во главе со своим могущественным и добрым повелителем Тоторо. Постепенно Тоторо становится другом девочек",
             rating: Int.random(in: 1...5),
             type: ["Фильм", "Сериал"].randomElement()!,
@@ -43,10 +44,11 @@ extension Module {
                 UIImage(resource: .totoro1).pngData(),
                 UIImage(resource: .totoro2).pngData(),
                 UIImage(resource: .totoro3).pngData(),
-            ].compactMap { $0 },
+            ].shuffled().compactMap { $0 },
             similarMovies: [],
             viewingPlatforms: (1...3).map { .generateViewingPlatforms(id: String($0)) }
         )
     }
 }
+
 #endif

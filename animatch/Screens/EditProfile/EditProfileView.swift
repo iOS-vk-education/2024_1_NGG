@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State private var inputName = ""
-    @State private var inputSurname = ""
-    @State private var inputEmail = ""
+//    @State private var inputName = ""
+//    @State private var inputSurname = ""
+//    @State private var inputEmail = ""
+    @State var viewModel: EditProfileViewModelLogic
+    @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
         VStack {
@@ -26,6 +28,10 @@ struct EditProfileView: View {
             }
         }
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.setCoordinator(coordinator)
+        }
     }
 }
 
@@ -55,9 +61,9 @@ private extension EditProfileView {
                 .padding(.top, 39)
                 .padding(.bottom, 20)
 
-            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $inputName)
-            NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $inputSurname)
-            NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $inputEmail)
+            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputName)
+            NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $viewModel.inputSurname)
+            NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $viewModel.inputEmail)
         }
         .padding(.horizontal, 60)
     }
@@ -106,6 +112,7 @@ private extension EditProfileView {
             NGGButton(Constants.saveButtonTitle) {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Нажали кнопку сохранить и продолжить")
+                viewModel.didTapContinue(to: .animeList)
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 8)
@@ -113,6 +120,7 @@ private extension EditProfileView {
             Button {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Сделать позже")
+                viewModel.didTapContinue(to: .animeList)
             } label: {
                 Text(Constants.makeLaterButtonTitle)
                     .underline()
@@ -126,7 +134,10 @@ private extension EditProfileView {
 // MARK: - Preview
 
 #Preview {
-    EditProfileView()
+    NavigationView {
+        EditProfileView(viewModel: EditProfileViewModel())
+    }
+    .environment(Coordinator())
 }
 
 // MARK: - Constants

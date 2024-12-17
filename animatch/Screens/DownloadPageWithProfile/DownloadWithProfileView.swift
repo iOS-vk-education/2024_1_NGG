@@ -8,15 +8,35 @@
 import SwiftUI
 
 struct DownloadWithProfileView: View {
+    @State var viewModel: DownloadWithProfileInput
+    @State private var coordinator = Coordinator()
 
     var body: some View {
-        VStack(spacing: 0) {
-            NGGLogoView()
-            userView
-            buttonsContainer
+        NavigationStack(path: $coordinator.navPath) {
+            VStack(spacing: 0) {
+                NGGLogoView()
+                userView
+                buttonsContainer
+            }
+            .frame(maxWidth: .infinity)
+            .background(backgroundLineGradient)
         }
-        .frame(maxWidth: .infinity)
-        .background(backgroundLineGradient)
+        .environment(coordinator)
+        .onAppear {
+            viewModel.setCoordinator(coordinator)
+        }
+    }
+}
+
+// MARK: - Navigation Destination
+
+private extension DownloadWithProfileView {
+
+    func openNextScreen(for screen: AppProfileScreens) -> some View {
+        switch screen {
+        case .animeList:
+            AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+        }
     }
 }
 
@@ -85,7 +105,7 @@ private extension DownloadWithProfileView {
 // MARK: - Preview
 
 #Preview {
-    DownloadWithProfileView()
+    DownloadWithProfileView(viewModel: DownloadWithProfileViewModel())
 }
 
 // MARK: - Constants

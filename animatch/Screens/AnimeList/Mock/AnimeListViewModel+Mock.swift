@@ -51,15 +51,10 @@ extension AnimeListViewModelMock {
         self.coordinator = coordinator
     }
 
-    /// Нажатие на ячейку аниме
-    /// - Parameter story: Информация об нажатом аниме
     func didTapCell(story: Module) {
         coordinator?.addScreen(screen: AnimeListScreens.storyDetails(story))
     }
 
-    /// Конфигурируем View Model для экрана подробной информации
-    /// - Parameter story: Информация по аниме
-    /// - Returns: View Model
     func configureDetailsViewModel(story: Module) -> DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput {
         let viewModel = DescriptionAnimeViewModelMock(story: story)
         return viewModel
@@ -73,8 +68,8 @@ private extension AnimeListViewModelMock {
     enum MockData {
         static let stories = (1...5).map {
             let tempStory = Module.generateStory(number: $0)
-            let similarMovies = ($0...$0 + 5).map { Module.generateStory(number: $0) }
-            
+            let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
+
             return Module(
                 id: tempStory.id,
                 mainImage: tempStory.mainImage,
@@ -86,10 +81,11 @@ private extension AnimeListViewModelMock {
                 year: tempStory.year,
                 genre: tempStory.genre,
                 imagesData: tempStory.imagesData,
-                similarMovies: tempStory.similarMovies,
+                similarMovies: similarMovies,
                 viewingPlatforms: tempStory.viewingPlatforms
             )
         }
     }
 }
+
 #endif

@@ -28,27 +28,11 @@ struct DescriptionAnimeView: View {
                 RoundedRectangle(cornerRadius: 40)
             )
             .padding(.top, -45)
-
         }
         .background(Color.editProfDarkGrad)
         .ignoresSafeArea()
         .onAppear {
             viewModel.setCoordinator(coordinator)
-        }
-    }
-
-}
-
-// MARK: - Navigation Destination
-
-extension DescriptionAnimeView {
-
-    func openNextScreen(for screen: AnimeListScreens) -> some View {
-        switch screen {
-        case let .storyDetails(story):
-            DescriptionAnimeView(
-                viewModel: viewModel.configureDetailsViewModel(story: story)
-            )
         }
     }
 }

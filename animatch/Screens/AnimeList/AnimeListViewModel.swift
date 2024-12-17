@@ -7,6 +7,4 @@
 
 import Foundation
 
-final class AnimeListViewModel {
-    
-}
+final class AnimeListViewModel { }

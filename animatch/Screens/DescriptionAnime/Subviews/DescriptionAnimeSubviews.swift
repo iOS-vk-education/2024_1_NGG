@@ -24,10 +24,10 @@ extension DescriptionAnimeView {
                     .foregroundStyle(.white)
             }
 
-            SimilarAnimeView(images: viewModel.story)
-                .onTapGesture {
-                    viewModel.didTapOpenSimilarStory(movie: viewModel.story)
-                }
+            SimilarAnimeView(images: viewModel.story) { story in
+                viewModel.didTapOpenSimilarStory(movie: story)
+            }
+
         }
         .padding(.bottom, 41)
     }
