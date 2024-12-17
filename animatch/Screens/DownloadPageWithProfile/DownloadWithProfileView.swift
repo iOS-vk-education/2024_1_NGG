@@ -20,7 +20,11 @@ struct DownloadWithProfileView: View {
             }
             .frame(maxWidth: .infinity)
             .background(backgroundLineGradient)
+            .navigationDestination(for: AppScreens.self) { screen in
+                openNextScreen(for: screen)
+            }
         }
+        .accentColor(.white)
         .environment(coordinator)
         .onAppear {
             viewModel.setCoordinator(coordinator)
@@ -32,10 +36,16 @@ struct DownloadWithProfileView: View {
 
 private extension DownloadWithProfileView {
 
-    func openNextScreen(for screen: AppProfileScreens) -> some View {
+    func openNextScreen(for screen: AppScreens) -> some View {
         switch screen {
         case .animeList:
-            AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+            AnyView(AnimeListView(viewModel: AnimeListViewModelMock(delay: 2)))
+        case .logIn:
+            AnyView(LogInView(viewModel: LogInViewModelMock()))
+        case .editProfile:
+            AnyView(EditProfileView(viewModel: EditProfileViewModel()))
+        case .registration:
+            AnyView(SingUpView(viewModel: SingUpViewModelMock()))
         }
     }
 }
@@ -83,15 +93,13 @@ private extension DownloadWithProfileView {
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.entryButtonTitle) {
-                // TODO: IOS-20: Добавить логику обработки нажатий
-                print("[DEBUG]: Вход")
+                viewModel.didTapContinue(to: .animeList)
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 15)
             
             Button {
-                // TODO: IOS-20: Добавить логику обработки нажатий
-                print("[DEBUG]: Выход из профиля")
+                viewModel.didTapContinue(to: .logIn)
             } label: {
                 Text(Constants.exitProfileTitle)
                     .underline()

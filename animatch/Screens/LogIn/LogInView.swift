@@ -10,7 +10,7 @@ struct LogInView: View {
     @State var viewModel: LogInViewModelLogic
     @Environment(Coordinator.self) private var coordinator
     @State private var showAlert = false
-    @State private var errorMessage = ""
+//    @State private var errorMessage = ""
 
     var body: some View {
         VStack(spacing: 0) {
@@ -29,7 +29,7 @@ struct LogInView: View {
             viewModel.setCoordinator(coordinator)
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Ошибка входа"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Ошибка входа"), message: Text(Constants.errorMessage), dismissButton: .default(Text("OK")))
         }
     }
 }
@@ -79,8 +79,8 @@ private extension LogInView {
             NGGButton(Constants.continueButtonTitle) {
                 if viewModel.validateData() {
                     viewModel.didTapContinue(to: .animeList)
-                } else {
-                    errorMessage = "Неверный email или пароль. Пожалуйста, попробуйте снова."
+                }
+                else {
                     showAlert = true
                 }
             }
@@ -144,5 +144,6 @@ private extension LogInView {
         static let continueButtonTitle = "Продолжить"
         static let footerText = "Нет аккаунта? "
         static let singupButton = "Зарегистрируйтесь"
+        static let errorMessage = "Неверный email или пароль. Пожалуйста, попробуйте снова."
     }
 }

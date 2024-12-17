@@ -13,6 +13,7 @@ protocol LogInViewModelLogic: LogInViewModelInput {
     var users: [UserModel] { get }
 
     func validateData() -> Bool
+
 }
 
 protocol LogInViewModelInput {
