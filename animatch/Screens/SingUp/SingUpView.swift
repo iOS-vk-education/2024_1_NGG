@@ -108,7 +108,7 @@ private extension SingUpView {
     NavigationStack{
         SingUpView(viewModel: SingUpViewModelMock())
     }
-    .environment(Coordinator())
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants

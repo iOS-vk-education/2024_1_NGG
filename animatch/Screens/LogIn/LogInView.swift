@@ -127,7 +127,7 @@ private extension LogInView {
     NavigationStack{
         LogInView(viewModel: LogInViewModelMock())
     }
-    .environment(Coordinator())
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants

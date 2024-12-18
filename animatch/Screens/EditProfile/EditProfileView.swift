@@ -133,7 +133,7 @@ private extension EditProfileView {
     NavigationView {
         EditProfileView(viewModel: EditProfileViewModel())
     }
-    .environment(Coordinator())
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants
