@@ -8,15 +8,18 @@
 import Foundation
 
 final class DownloadPageViewModel: DownloadPageInput {
-
     @ObservationIgnored
-    private var coordinator: Coordinator?
+    private var startScreenViewModel: StartScreenViewModel?
 
-    func setCoordinator(_ coordinator: Coordinator) {
-        self.coordinator = coordinator
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
     }
 
-    func didTapContinue(to screen: AppScreens) {
-        coordinator?.addScreen(screen: screen)
+    func didTapLogIn() {
+        startScreenViewModel?.updateScreen(newScreenState: .signIn)
+    }
+
+    func didTapRegister() {
+        startScreenViewModel?.updateScreen(newScreenState: .signUp)
     }
 }

@@ -9,21 +9,24 @@ import SwiftUI
 
 struct AnimeListView: View {
     @State var viewModel: AnimeListDisplayLogic & AnimeListViewModelOutput
-    @Environment(Coordinator.self) private var coordinator
+    @State private var coordinator = Coordinator()
 
     var body: some View {
-        mainContent
-            .frame(maxWidth: .infinity)
-            .background(backgroundLineGradient)
-            .ignoresSafeArea()
-            .navigationDestination(for: AnimeListScreens.self) { screen in
-                openNextScreen(for: screen)
-            }
-            .navigationBarBackButtonHidden()
-            .onAppear {
-                viewModel.setCoordinator(coordinator)
-                viewModel.onAppear()
-            }
+        NavigationStack(path: $coordinator.navPath) {
+            mainContent
+                .frame(maxWidth: .infinity)
+                .background(backgroundLineGradient)
+                .ignoresSafeArea()
+                .navigationDestination(for: AnimeListScreens.self) { screen in
+                    openNextScreen(for: screen)
+                        .environment(coordinator)
+                }
+        }
+        .accentColor(.white)
+        .onAppear {
+            viewModel.setCoordinator(coordinator)
+            viewModel.onAppear()
+        }
     }
 }
 

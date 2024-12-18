@@ -11,12 +11,13 @@ protocol LogInViewModelLogic: LogInViewModelInput {
     var email: String { get set }
     var password: String { get set }
     var users: [UserModel] { get }
-
+    
     func validateData() -> Bool
-
+    
 }
 
 protocol LogInViewModelInput {
-    func setCoordinator(_ coordinator: Coordinator)
-    func didTapContinue(to screen: AppScreens)
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+    func didTapContinue()
+    func didTapOpenRegistrationScreen()
 }

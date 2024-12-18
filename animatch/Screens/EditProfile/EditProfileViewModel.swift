@@ -8,18 +8,26 @@
 import Foundation
 
 final class EditProfileViewModel: EditProfileViewModelLogic & EditProfileViewModelInput {
-    @Published var inputName = ""
-    @Published var inputSurname = ""
-    @Published var inputEmail = ""
+    var inputName = ""
+    var inputSurname = ""
+    var inputEmail = ""
     
     @ObservationIgnored
-    private var coordinator: Coordinator?
+    private var startScreenViewModel: StartScreenViewModel?
+}
 
-    func setCoordinator(_ coordinator: Coordinator) {
-        self.coordinator = coordinator
+// MARK: - EditProfileViewModelInput
+
+extension EditProfileViewModel {
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
     }
-
-    func didTapContinue(to screen: AppScreens) {
-        coordinator?.addScreen(screen: screen)
+    
+    func didTapSaveButton() {
+        startScreenViewModel?.updateScreen(newScreenState: .animeList)
+    }
+    
+    func didTapDoLaterButton() {
+        startScreenViewModel?.updateScreen(newScreenState: .animeList)
     }
 }

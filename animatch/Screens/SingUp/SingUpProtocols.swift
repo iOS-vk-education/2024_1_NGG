@@ -11,11 +11,12 @@ protocol SingUpViewModelLogic: SingUpViewModelInput {
     var inputEmail: String { get set }
     var inputPasswordFirst: String { get set }
     var inputPasswordSecond: String { get set }
-
+    
     var users: [UserModel] { get }
 }
 
 protocol SingUpViewModelInput {
-    func setCoordinator(_ coordinator: Coordinator)
-    func didTapContinue(to screen: AppScreens)
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+    func didTapContinue()
+    func didTapOpenSignInScreen()
 }

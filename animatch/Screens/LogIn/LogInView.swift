@@ -8,8 +8,8 @@ import SwiftUI
 
 struct LogInView: View {
     @State var viewModel: LogInViewModelLogic
-    @Environment(Coordinator.self) private var coordinator
     @State private var showAlert = false
+    @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -23,9 +23,8 @@ struct LogInView: View {
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
         .ignoresSafeArea()
-        .navigationBarBackButtonHidden()
         .onAppear {
-            viewModel.setCoordinator(coordinator)
+            viewModel.setStartScreenViewModel(startScreenViewModel)
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Ошибка входа"), message: Text(Constants.errorMessage), dismissButton: .default(Text("OK")))
@@ -77,7 +76,7 @@ private extension LogInView {
 
             NGGButton(Constants.continueButtonTitle) {
                 if viewModel.validateData() {
-                    viewModel.didTapContinue(to: .animeList)
+                    viewModel.didTapContinue()
                 }
                 else {
                     showAlert = true
@@ -110,7 +109,7 @@ private extension LogInView {
                     .font(Font.custom("Roboto", size: 16))
 
                 Button {
-                    viewModel.didTapContinue(to: .registration)
+                    viewModel.didTapOpenRegistrationScreen()
                 } label: {
                     Text(Constants.singupButton)
                         .underline()
@@ -128,7 +127,7 @@ private extension LogInView {
     NavigationStack{
         LogInView(viewModel: LogInViewModelMock())
     }
-    .environment(Coordinator())
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants

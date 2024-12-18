@@ -9,43 +9,19 @@ import SwiftUI
 
 struct DownloadPageView: View {
     @State var viewModel: DownloadPageInput
-    @State private var coordinator = Coordinator()
+    @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        NavigationStack(path: $coordinator.navPath) {
-            VStack(spacing: 0) {
-                NGGLogoView()
-                buttonsContainer
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-            .background(backgroundLineGradient)
-            .navigationDestination(for: AppScreens.self) { screen in
-                openNextScreen(for: screen)
-            }
+        VStack(spacing: 0) {
+            NGGLogoView()
+            buttonsContainer
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
+        .background(backgroundLineGradient)
         .accentColor(.white)
-        .environment(coordinator)
         .onAppear {
-            viewModel.setCoordinator(coordinator)
-        }
-    }
-}
-
-// MARK: - Navigation Destination
-
-private extension DownloadPageView {
-
-    func openNextScreen(for screen: AppScreens) -> some View {
-        switch screen {
-        case .logIn:
-            AnyView(LogInView(viewModel: LogInViewModelMock()))
-        case .registration:
-            AnyView(SingUpView(viewModel: SingUpViewModelMock()))
-        case .animeList:
-            AnyView(AnimeListView(viewModel: AnimeListViewModelMock(delay: 2)))
-        case .editProfile:
-            AnyView(EditProfileView(viewModel: EditProfileViewModel()))
+            viewModel.setStartScreenViewModel(startScreenViewModel)
         }
     }
 }
@@ -71,13 +47,13 @@ private extension DownloadPageView {
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.entryButtonTitle) {
-                viewModel.didTapContinue(to: .logIn)
+                viewModel.didTapLogIn()
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 25)
 
             NGGButtonLight(Constants.registrationButtonTitle) {
-                viewModel.didTapContinue(to: .registration)
+                viewModel.didTapRegister()
             }
             .padding(.horizontal, 60)
         }
@@ -89,6 +65,7 @@ private extension DownloadPageView {
 
 #Preview {
     DownloadPageView(viewModel: DownloadPageViewModel())
+        .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants

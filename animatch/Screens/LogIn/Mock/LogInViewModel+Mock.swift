@@ -6,32 +6,41 @@
 //
 
 #if DEBUG
+
 import UIKit
 import Foundation
 
 final class LogInViewModelMock: LogInViewModelLogic {
-
-    @Published var email: String = ""
-    @Published var password: String = ""
+    var email: String = ""
+    var password: String = ""
+    
     private(set) var users: [UserModel]
-
+    
+    @ObservationIgnored
+    private var startScreenViewModel: StartScreenViewModel?
+    
     init(users: [UserModel] = MockData.defaultUsers) {
         self.users = users
     }
+}
 
-    @ObservationIgnored
-    private var coordinator: Coordinator?
+// MARK: - LogInViewModelInput
 
-    func setCoordinator(_ coordinator: Coordinator) {
-        self.coordinator = coordinator
+extension LogInViewModelMock {
+    func didTapContinue() {
+        startScreenViewModel?.updateScreen(newScreenState: .animeList)
     }
-
-    func didTapContinue(to screen: AppScreens) {
-        coordinator?.addScreen(screen: screen)
+    
+    func didTapOpenRegistrationScreen() {
+        startScreenViewModel?.updateScreen(newScreenState: .signUp)
     }
-
+    
     func validateData() -> Bool {
         users.contains { $0.email == email && $0.password == password }
+    }
+    
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
     }
 }
 
@@ -46,4 +55,5 @@ private extension LogInViewModelMock {
         ]
     }
 }
+
 #endif

@@ -10,10 +10,12 @@ import SwiftUI
 extension AnimeListView {
 
     var mainContent: some View {
-        if viewModel.showLoading {
-            AnyView(loadingView)
-        } else {
-            AnyView(listContainer)
+        Group {
+            if viewModel.showLoading {
+                loadingView
+            } else {
+                listContainer
+            }
         }
     }
 
@@ -37,7 +39,6 @@ extension AnimeListView {
             RoundedRectangle(cornerRadius: 10)
                 .fill(.editProfGray)
                 .frame(height: 110)
-//                .padding(.bottom, 15)
         }
     }
 

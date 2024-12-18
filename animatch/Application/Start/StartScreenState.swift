@@ -1,5 +1,5 @@
 //
-//  SingUpScreens.swift
+//  StartScreenState.swift
 //  animatch
 //
 //  Created by Ксения Панкратова on 17.12.2024.
@@ -7,7 +7,10 @@
 
 import Foundation
 
-enum SingUpScreens: Hashable {
-    case logIn
+enum StartScreenState {
+    case initial
+    case signIn
+    case signUp
+    case animeList
     case editProfile
 }

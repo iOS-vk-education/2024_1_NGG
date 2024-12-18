@@ -6,28 +6,33 @@
 //
 
 #if DEBUG
+
 import Foundation
 
 final class SingUpViewModelMock: SingUpViewModelLogic {
-    @Published var inputEmail = ""
-    @Published var inputPasswordFirst = ""
-    @Published var inputPasswordSecond = ""
-
+    var inputEmail = ""
+    var inputPasswordFirst = ""
+    var inputPasswordSecond = ""
+    
     private(set) var users: [UserModel]
-
+    
+    @ObservationIgnored
+    private var startScreenViewModel: StartScreenViewModel?
+    
     init(users: [UserModel] = MockData.defaultUsers) {
         self.users = users
     }
-
-    func didTapContinue(to screen: AppScreens) {
-        coordinator?.addScreen(screen: screen)
+    
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
     }
-
-    @ObservationIgnored
-    private var coordinator: Coordinator?
-
-    func setCoordinator(_ coordinator: Coordinator) {
-        self.coordinator = coordinator
+    
+    func didTapContinue() {
+        startScreenViewModel?.updateScreen(newScreenState: .editProfile)
+    }
+    
+    func didTapOpenSignInScreen() {
+        startScreenViewModel?.updateScreen(newScreenState: .signIn)
     }
 }
 

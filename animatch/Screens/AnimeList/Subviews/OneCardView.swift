@@ -22,8 +22,8 @@ struct OneCardView: View {
 private extension OneCardView {
 
     var backgroundView: some View {
-        if let uiImage = UIImage(data: story.mainImage) {
-            AnyView(
+        Group {
+            if let uiImage = UIImage(data: story.mainImage) {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
@@ -38,9 +38,7 @@ private extension OneCardView {
                         )
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-            )
-        } else {
-            AnyView(
+            } else {
                 Image(systemName: "photo")
                     .resizable()
                     .scaledToFit()
@@ -48,10 +46,9 @@ private extension OneCardView {
                     .foregroundColor(.gray)
                     .blur(radius: 2)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-            )
+            }
         }
     }
-
 
     var cardInfoView: some View {
         VStack(spacing: 0) {
