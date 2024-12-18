@@ -7,4 +7,4 @@
 
 import Foundation
 
-final class SingUpViewModel { }
+final class SingUpViewModel {}

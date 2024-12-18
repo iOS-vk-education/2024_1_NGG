@@ -16,7 +16,7 @@ final class DownloadWithProfileViewModel: DownloadWithProfileInput {
         self.coordinator = coordinator
     }
 
-    func didTapContinue(to screen: AppScreens) {
-        coordinator?.addScreen(screen: screen)
-    }
+//    func didTapContinue(to screen: AppScreens) {
+//        coordinator?.addScreen(screen: screen)
+//    }
 }

@@ -9,46 +9,41 @@ import SwiftUI
 
 struct DownloadWithProfileView: View {
     @State var viewModel: DownloadWithProfileInput
-    @State private var coordinator = Coordinator()
+//    @State private var coordinator = Coordinator()
 
     var body: some View {
-        NavigationStack(path: $coordinator.navPath) {
-            VStack(spacing: 0) {
-                NGGLogoView()
-                userView
-                buttonsContainer
-            }
-            .frame(maxWidth: .infinity)
-            .background(backgroundLineGradient)
-            .navigationDestination(for: AppScreens.self) { screen in
-                openNextScreen(for: screen)
-            }
+        VStack(spacing: 0) {
+            NGGLogoView()
+            userView
+            buttonsContainer
         }
+        .frame(maxWidth: .infinity)
+        .background(backgroundLineGradient)
         .accentColor(.white)
-        .environment(coordinator)
+//        .environment(coordinator)
         .onAppear {
-            viewModel.setCoordinator(coordinator)
+//            viewModel.setCoordinator(coordinator)
         }
     }
 }
 
 // MARK: - Navigation Destination
 
-private extension DownloadWithProfileView {
-
-    func openNextScreen(for screen: AppScreens) -> some View {
-        switch screen {
-        case .animeList:
-            AnyView(AnimeListView(viewModel: AnimeListViewModelMock(delay: 2)))
-        case .logIn:
-            AnyView(LogInView(viewModel: LogInViewModelMock()))
-        case .editProfile:
-            AnyView(EditProfileView(viewModel: EditProfileViewModel()))
-        case .registration:
-            AnyView(SingUpView(viewModel: SingUpViewModelMock()))
-        }
-    }
-}
+//private extension DownloadWithProfileView {
+//
+//    func openNextScreen(for screen: AppScreens) -> some View {
+//        switch screen {
+//        case .animeList:
+//            AnyView(AnimeListView(viewModel: AnimeListViewModelMock(delay: 2)))
+//        case .logIn:
+//            AnyView(LogInView(viewModel: LogInViewModelMock()))
+//        case .editProfile:
+//            AnyView(EditProfileView(viewModel: EditProfileViewModel()))
+//        case .registration:
+//            AnyView(SingUpView(viewModel: SingUpViewModelMock()))
+//        }
+//    }
+//}
 
 // MARK: - UI Subviews
 
@@ -93,13 +88,13 @@ private extension DownloadWithProfileView {
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.entryButtonTitle) {
-                viewModel.didTapContinue(to: .animeList)
+//                viewModel.didTapContinue(to: .animeList)
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 15)
 
             Button {
-                viewModel.didTapContinue(to: .logIn)
+//                viewModel.didTapContinue(to: .logIn)
             } label: {
                 Text(Constants.exitProfileTitle)
                     .underline()

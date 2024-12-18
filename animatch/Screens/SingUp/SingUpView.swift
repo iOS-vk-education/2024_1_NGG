@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SingUpView: View {
     @State var viewModel: SingUpViewModelLogic
-    @Environment(Coordinator.self) private var coordinator
+    @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -22,9 +22,8 @@ struct SingUpView: View {
         .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
         .ignoresSafeArea()
-        .navigationBarBackButtonHidden()
         .onAppear {
-            viewModel.setCoordinator(coordinator)
+            viewModel.setStartScreenViewModel(startScreenViewModel)
         }
     }
 }
@@ -72,7 +71,7 @@ private extension SingUpView {
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.continueButtonTitle) {
-                viewModel.didTapContinue(to: .editProfile)
+                viewModel.didTapContinue()
             }
         }
         .padding(.horizontal, 60)
@@ -91,7 +90,7 @@ private extension SingUpView {
                     .font(Font.custom("Roboto", size: 16))
 
                 Button {
-                    viewModel.didTapContinue(to: .logIn)
+                    viewModel.didTapOpenSignInScreen()
                 } label: {
                     Text(Constants.singupButton)
                         .underline()

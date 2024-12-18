@@ -16,6 +16,7 @@ protocol SingUpViewModelLogic: SingUpViewModelInput {
 }
 
 protocol SingUpViewModelInput {
-    func setCoordinator(_ coordinator: Coordinator)
-    func didTapContinue(to screen: AppScreens)
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+    func didTapContinue()
+    func didTapOpenSignInScreen()
 }

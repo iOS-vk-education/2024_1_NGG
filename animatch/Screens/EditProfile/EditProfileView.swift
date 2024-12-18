@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditProfileView: View {
     @State var viewModel: EditProfileViewModelLogic
-    @Environment(Coordinator.self) private var coordinator
+    @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
         VStack {
@@ -25,9 +25,8 @@ struct EditProfileView: View {
             }
         }
         .ignoresSafeArea()
-        .navigationBarBackButtonHidden()
         .onAppear {
-            viewModel.setCoordinator(coordinator)
+            viewModel.setStartScreenViewModel(startScreenViewModel)
         }
     }
 }
@@ -109,7 +108,7 @@ private extension EditProfileView {
             NGGButton(Constants.saveButtonTitle) {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Нажали кнопку сохранить и продолжить")
-                viewModel.didTapContinue(to: .animeList)
+                viewModel.didTapSaveButton()
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 8)
@@ -117,7 +116,7 @@ private extension EditProfileView {
             Button {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Сделать позже")
-                viewModel.didTapContinue(to: .animeList)
+                viewModel.didTapDoLaterButton()
             } label: {
                 Text(Constants.makeLaterButtonTitle)
                     .underline()

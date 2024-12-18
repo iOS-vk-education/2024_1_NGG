@@ -9,5 +9,5 @@ import Foundation
 
 protocol DownloadWithProfileInput {
     func setCoordinator(_ coordinator: Coordinator)
-    func didTapContinue(to screen: AppScreens)
+//    func didTapContinue(to screen: AppScreens)
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 protocol DownloadPageInput {
-    func setCoordinator(_ coordinator: Coordinator)
-    func didTapContinue(to screen: AppScreens)
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+    func didTapLogIn()
+    func didTapRegister()
 }
