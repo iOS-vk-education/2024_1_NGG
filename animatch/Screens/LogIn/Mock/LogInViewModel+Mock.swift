@@ -28,7 +28,7 @@ final class LogInViewModelMock: LogInViewModelLogic {
 
 extension LogInViewModelMock {
     func didTapContinue() {
-        startScreenViewModel?.updateScreen(newScreenState: .editProfile)
+        startScreenViewModel?.updateScreen(newScreenState: .animeList)
     }
 
     func didTapOpenRegistrationScreen() {
