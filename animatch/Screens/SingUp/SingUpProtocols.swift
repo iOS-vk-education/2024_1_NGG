@@ -11,8 +11,6 @@ protocol SingUpViewModelLogic: SingUpViewModelInput {
     var inputEmail: String { get set }
     var inputPasswordFirst: String { get set }
     var inputPasswordSecond: String { get set }
-    
-    var users: [UserModel] { get }
 }
 
 protocol SingUpViewModelInput {

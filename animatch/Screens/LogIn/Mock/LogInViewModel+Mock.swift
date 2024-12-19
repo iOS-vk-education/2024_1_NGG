@@ -10,15 +10,17 @@
 import UIKit
 import Foundation
 
+@Observable
 final class LogInViewModelMock: LogInViewModelLogic {
     var email: String = ""
     var password: String = ""
-    
+    var showAlert: Bool = false
+
     private(set) var users: [UserModel]
-    
+
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
-    
+
     init(users: [UserModel] = MockData.defaultUsers) {
         self.users = users
     }
@@ -30,15 +32,20 @@ extension LogInViewModelMock {
     func didTapContinue() {
         startScreenViewModel?.updateScreen(newScreenState: .animeList)
     }
-    
+
     func didTapOpenRegistrationScreen() {
         startScreenViewModel?.updateScreen(newScreenState: .signUp)
     }
-    
-    func validateData() -> Bool {
-        users.contains { $0.email == email && $0.password == password }
+
+    func validateData(){
+        if users.contains(where: { $0.email == email && $0.password == password }) {
+            showAlert = false
+            didTapContinue()
+        } else {
+            showAlert = true
+        }
     }
-    
+
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
         self.startScreenViewModel = startScreenViewModel
     }

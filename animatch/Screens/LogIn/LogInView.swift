@@ -8,7 +8,6 @@ import SwiftUI
 
 struct LogInView: View {
     @State var viewModel: LogInViewModelLogic
-    @State private var showAlert = false
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
@@ -26,9 +25,10 @@ struct LogInView: View {
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
         }
-        .alert(isPresented: $showAlert) {
+        .alert(isPresented: $viewModel.showAlert) {
             Alert(title: Text("Ошибка входа"), message: Text(Constants.errorMessage), dismissButton: .default(Text("OK")))
         }
+
     }
 }
 
@@ -75,12 +75,7 @@ private extension LogInView {
         VStack(spacing: 0) {
 
             NGGButton(Constants.continueButtonTitle) {
-                if viewModel.validateData() {
-                    viewModel.didTapContinue()
-                }
-                else {
-                    showAlert = true
-                }
+                viewModel.validateData()
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 8)

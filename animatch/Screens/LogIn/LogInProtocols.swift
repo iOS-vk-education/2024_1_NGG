@@ -10,10 +10,10 @@ import Foundation
 protocol LogInViewModelLogic: LogInViewModelInput {
     var email: String { get set }
     var password: String { get set }
+    var showAlert: Bool { get set }
     var users: [UserModel] { get }
-    
-    func validateData() -> Bool
-    
+
+    func validateData()
 }
 
 protocol LogInViewModelInput {
