@@ -20,33 +20,31 @@ struct OneCardView: View {
 }
 
 private extension OneCardView {
-
+    @ViewBuilder
     var backgroundView: some View {
-        Group {
-            if let uiImage = UIImage(data: story.mainImage) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 110)
-                    .clipped()
-                    .blur(radius: 2)
-                    .overlay(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
-                            startPoint: .bottom,
-                            endPoint: .top
-                        )
+        if let uiImage = UIImage(data: story.mainImage) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFill()
+                .frame(height: 110)
+                .clipped()
+                .blur(radius: 2)
+                .overlay(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.black.opacity(0.7), Color.clear]),
+                        startPoint: .bottom,
+                        endPoint: .top
                     )
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-            } else {
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 110)
-                    .foregroundColor(.gray)
-                    .blur(radius: 2)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-            }
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+        } else {
+            Image(systemName: "photo")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 110)
+                .foregroundColor(.gray)
+                .blur(radius: 2)
+                .clipShape(RoundedRectangle(cornerRadius: 15))
         }
     }
 

@@ -8,14 +8,12 @@
 import SwiftUI
 
 extension AnimeListView {
-
+    @ViewBuilder
     var mainContent: some View {
-        Group {
-            if viewModel.showLoading {
-                loadingView
-            } else {
-                listContainer
-            }
+        if viewModel.showLoading {
+            loadingView
+        } else {
+            listContainer
         }
     }
 

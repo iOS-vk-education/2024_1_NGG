@@ -10,12 +10,12 @@ import SwiftUI
 struct EditProfileView: View {
     @State var viewModel: EditProfileViewModelLogic
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
-    
+
     var body: some View {
         VStack {
             ZStack {
                 backgroundLineGradient
-                
+
                 VStack(spacing: 0) {
                     headerView
                     formsContainer
@@ -34,7 +34,7 @@ struct EditProfileView: View {
 // MARK: - UI Subviews
 
 private extension EditProfileView {
-    
+
     var backgroundLineGradient: some View {
         LinearGradient(
             gradient: Gradient(
@@ -48,7 +48,7 @@ private extension EditProfileView {
         )
         .ignoresSafeArea()
     }
-    
+
     var formsContainer: some View {
         VStack(spacing: 0) {
             Text(Constants.formsContainerTitle)
@@ -56,14 +56,14 @@ private extension EditProfileView {
                 .font(Font.custom("Roboto", size: 20))
                 .padding(.top, 39)
                 .padding(.bottom, 20)
-            
+
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputName)
             NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $viewModel.inputSurname)
             NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $viewModel.inputEmail)
         }
         .padding(.horizontal, 60)
     }
-    
+
     var avatarView: some View {
         RoundedRectangle(cornerRadius: 30)
             .fill(Color.editProfGray)
@@ -80,7 +80,7 @@ private extension EditProfileView {
                 }
             }
     }
-    
+
     var headerView: some View {
         ZStack(alignment: .top) {
             UnevenRoundedRectangle(
@@ -91,18 +91,18 @@ private extension EditProfileView {
             )
             .fill(Color.editProfPurple)
             .frame(height: 166)
-            
+
             Text(Constants.headerTitle)
                 .foregroundStyle(.editProfWhite)
                 .font(Font.custom("Roboto", size: 20))
                 .offset(y: 55)
                 .padding(.horizontal, 16)
-            
+
             avatarView
                 .padding(.top, 107)
         }
     }
-    
+
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.saveButtonTitle) {
@@ -112,7 +112,7 @@ private extension EditProfileView {
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 8)
-            
+
             Button {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Сделать позже")
@@ -139,7 +139,7 @@ private extension EditProfileView {
 // MARK: - Constants
 
 private extension EditProfileView {
-    
+
     enum Constants {
         static let headerTitle = "Профиль"
         static let formsContainerTitle = "Добавьте имя и фамилию"

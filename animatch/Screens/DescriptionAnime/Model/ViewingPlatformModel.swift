@@ -20,7 +20,7 @@ struct ViewingPlatformModel: Identifiable, Hashable {
 import UIKit
 
 extension ViewingPlatformModel: Mockable {
-    
+
     static var mockData: ViewingPlatformModel {
         ViewingPlatformModel(
             id: UUID().uuidString,

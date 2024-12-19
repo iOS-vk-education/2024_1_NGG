@@ -9,6 +9,7 @@
 
 import Foundation
 
+@Observable
 final class SingUpViewModelMock: SingUpViewModelLogic {
     var inputEmail = ""
     var inputPasswordFirst = ""
