@@ -21,7 +21,7 @@ struct NGGTextField: View {
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
                 .focused($isTyping)
 
-            if text.isEmpty {
+            if text.isEmpty && !isTyping {
                 Text(title)
                     .padding(.horizontal, 16)
                     .foregroundColor(Color.editProfGrayLight)
