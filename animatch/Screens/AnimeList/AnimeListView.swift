@@ -10,6 +10,7 @@ import SwiftUI
 struct AnimeListView: View {
     @State var viewModel: AnimeListDisplayLogic & AnimeListViewModelOutput
     @State private var coordinator = Coordinator()
+    @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
@@ -25,6 +26,7 @@ struct AnimeListView: View {
         .accentColor(.white)
         .onAppear {
             viewModel.setCoordinator(coordinator)
+            viewModel.setStartScreenViewModel(startScreenViewModel)
             viewModel.onAppear()
         }
     }

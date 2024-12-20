@@ -48,11 +48,19 @@ extension AnimeListView {
 
             HStack {
                 Spacer()
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .background(Color.gray)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                VStack {
+                    Image(systemName: "person.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .background(Color.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    Button {
+                        viewModel.logOut()
+                    } label: {
+                        Text(Constants.logout)
+                            .font(Font.custom("Roboto", size: 14))
+                    }
+                }
             }
         }
         .padding(.horizontal, 32)
@@ -108,5 +116,6 @@ private extension AnimeListView {
 
     enum Constants {
         static let titleMain = "Список аниме дня"
+        static let logout = "Выйти"
     }
 }

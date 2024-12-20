@@ -16,6 +16,8 @@ protocol AnimeListViewModelInput {
     func setCoordinator(_ coordinator: Coordinator)
     func onAppear()
     func didTapCell(story: Module)
+    func logOut()
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
 }
 
 protocol AnimeListViewModelOutput {

@@ -20,6 +20,8 @@ final class AnimeListViewModelMock: AnimeListDisplayLogic & AnimeListViewModelOu
 
     @ObservationIgnored
     private var coordinator: Coordinator?
+    @ObservationIgnored
+    private var startScreenViewModel: StartScreenViewModel?
 
     init(
         delay: TimeInterval = 0,
@@ -47,12 +49,21 @@ extension AnimeListViewModelMock {
         }
     }
 
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
+    }
+
     func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
     }
 
     func didTapCell(story: Module) {
         coordinator?.addScreen(screen: AnimeListScreens.storyDetails(story))
+    }
+
+    func logOut() {
+        UserDefaults.standard.set(false, forKey: "isLogin")
+        startScreenViewModel?.updateScreen(newScreenState: .initial)
     }
 
     func configureDetailsViewModel(story: Module) -> DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput {

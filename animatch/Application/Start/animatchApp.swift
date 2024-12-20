@@ -13,8 +13,13 @@ struct animatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            startScreen
-                .environment(viewModel)
+            if viewModel.isLogin {
+                AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+                    .environment(viewModel)
+            } else {
+                startScreen
+                    .environment(viewModel)
+            }
         }
     }
 }

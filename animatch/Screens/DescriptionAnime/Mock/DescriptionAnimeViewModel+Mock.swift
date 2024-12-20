@@ -16,6 +16,9 @@ final class DescriptionAnimeViewModelMock: DescriptionAnimeDisplayLogic & Descri
     @ObservationIgnored
     private var coordinator: Coordinator?
 
+    @ObservationIgnored
+    private var startScreenViewModel: StartScreenViewModel?
+
     init(story: Module) {
         self.story = story
     }
@@ -34,6 +37,10 @@ extension DescriptionAnimeViewModelMock {
     func configureDetailsViewModel(story: Module) -> any DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput {
         let viewModel = DescriptionAnimeViewModelMock(story: story)
         return viewModel
+    }
+
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
     }
 }
 

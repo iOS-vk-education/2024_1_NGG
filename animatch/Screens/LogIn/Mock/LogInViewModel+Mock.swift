@@ -16,14 +16,8 @@ final class LogInViewModelMock: LogInViewModelLogic {
     var password: String = ""
     var showAlert: Bool = false
 
-    private(set) var users: [UserModel]
-
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
-
-    init(users: [UserModel] = MockData.defaultUsers) {
-        self.users = users
-    }
 }
 
 // MARK: - LogInViewModelInput
@@ -38,8 +32,10 @@ extension LogInViewModelMock {
     }
 
     func validateData(){
-        if users.contains(where: { $0.email == email && $0.password == password }) {
+        if Constants.defaultUsers.contains(where: { $0.email == email && $0.password == password }) {
             showAlert = false
+            UserDefaults.standard.set(true, forKey: "isLogin")
+            startScreenViewModel?.goToLogIn()
             didTapContinue()
         } else {
             showAlert = true
@@ -54,7 +50,7 @@ extension LogInViewModelMock {
 // MARK: - Mock Data -
 
 private extension LogInViewModelMock {
-    enum MockData {
+    enum Constants {
         static let defaultUsers: [UserModel] = [
             UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345"),
             UserModel(id: 2, name: "Name2", surname: "Surname", email: "2@example.com", password: "qwerty"),
