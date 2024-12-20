@@ -10,7 +10,7 @@ import SwiftUI
 struct SingUpView: View {
     @State var viewModel: SingUpViewModelLogic
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
-    
+
     var body: some View {
         VStack(spacing: 0) {
             logoView
@@ -31,7 +31,7 @@ struct SingUpView: View {
 // MARK: - UI Subviews
 
 private extension SingUpView {
-    
+
     var backgroundLineGradient: some View {
         LinearGradient(
             gradient: Gradient(
@@ -45,14 +45,14 @@ private extension SingUpView {
         )
         .ignoresSafeArea()
     }
-    
+
     var formsContainer: some View {
         VStack(spacing: 0) {
             Text(Constants.formsContainerTitle)
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
                 .padding(.bottom, 34)
-            
+
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputEmail)
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.inputPasswordFirst)
             NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $viewModel.inputPasswordSecond)
@@ -60,14 +60,14 @@ private extension SingUpView {
         .padding(.top, 60)
         .padding(.horizontal, 60)
     }
-    
+
     var logoView: some View {
         Image(.logo)
             .resizable()
             .frame(width: 209, height: 69)
             .padding(.top, 150)
     }
-    
+
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.continueButtonTitle) {
@@ -77,18 +77,18 @@ private extension SingUpView {
         .padding(.horizontal, 60)
         .padding(.bottom, 80)
     }
-    
+
     var footerView: some View {
         VStack {
             Divider()
                 .overlay(.white)
                 .frame(width: 320)
-            
+
             HStack {
                 Text(Constants.haveAccountText)
                     .foregroundStyle(Color.white)
                     .font(Font.custom("Roboto", size: 16))
-                
+
                 Button {
                     viewModel.didTapOpenSignInScreen()
                 } label: {
@@ -114,7 +114,7 @@ private extension SingUpView {
 // MARK: - Constants
 
 private extension SingUpView {
-    
+
     enum Constants {
         static let formsContainerTitle = "Регистрация"
         static let nameTextFieldPlaceholder = "Введите эл. почту"
