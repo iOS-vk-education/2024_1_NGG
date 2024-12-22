@@ -115,7 +115,7 @@ private extension ChoiceDirectorsView {
 private extension ChoiceDirectorsView {
 
     enum Constants {
-        static let headerTitle = "Выберите жанры аниме"
+        static let headerTitle = "Выберите режиссеров"
         static let buttonTitle = "Продолжить"
     }
 }
