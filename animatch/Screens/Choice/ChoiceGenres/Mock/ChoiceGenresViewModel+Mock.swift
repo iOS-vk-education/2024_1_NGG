@@ -20,7 +20,11 @@ final class ChoiceGenresViewModelMock: ChoiceGenresViewModelLogic {
             Genre(name: $0, isSelected: false)
         }
     }
+}
 
+// MARK: - ChoiceDirectorsViewModelInput
+
+extension ChoiceGenresViewModelMock {
     func toggleGenreSelection(genre: Genre) {
         if let index = genres.firstIndex(where: { $0.name == genre.name }) {
             genres[index].isSelected.toggle()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StartScreenState {
+enum StartScreenState: String {
     case initial
     case signIn
     case signUp
@@ -15,4 +15,5 @@ enum StartScreenState {
     case editProfile
     case choiceGenres
     case choiceDirectors
+    case singUpButExit
 }

@@ -62,8 +62,8 @@ extension AnimeListViewModelMock {
     }
 
     func logOut() {
-        UserDefaults.standard.set(false, forKey: "isLogin")
-        startScreenViewModel?.updateScreen(newScreenState: .initial)
+        startScreenViewModel?.updateScreen(newScreenState: .singUpButExit)
+        UserDefaults.standard.set(StartScreenState.singUpButExit.rawValue, forKey: "State")
     }
 
     func configureDetailsViewModel(story: Module) -> DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput {

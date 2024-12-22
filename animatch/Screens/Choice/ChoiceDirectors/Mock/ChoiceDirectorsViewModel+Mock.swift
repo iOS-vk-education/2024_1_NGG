@@ -22,7 +22,11 @@ final class ChoiceDirectorsViewModelMock: ChoiceDirectorsViewModelLogic {
             Directors(name: $0, isSelected: false)
         }
     }
+}
 
+// MARK: - ChoiceDirectorsViewModelInput
+
+extension ChoiceDirectorsViewModelMock {
     func toggleDirectorSelection(director: Directors) {
         if let index = directors.firstIndex(where: { $0.name == director.name }) {
             directors[index].isSelected.toggle()
@@ -31,6 +35,9 @@ final class ChoiceDirectorsViewModelMock: ChoiceDirectorsViewModelLogic {
 
     func didTapContinue() {
         startScreenViewModel?.updateScreen(newScreenState: .animeList)
+        if let state = startScreenViewModel?.currentScreenState {
+            UserDefaults.standard.set(state.rawValue, forKey: "State")
+        }
     }
 
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {

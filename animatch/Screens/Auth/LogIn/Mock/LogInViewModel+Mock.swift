@@ -32,11 +32,9 @@ extension LogInViewModelMock {
     }
 
     func validateData(){
-        if Constants.defaultUsers.contains(where: { $0.email == email && $0.password == password }) {
-            showAlert = false
-            UserDefaults.standard.set(true, forKey: "isLogin")
-            startScreenViewModel?.goToLogIn()
+        if UserDefaults.standard.string(forKey: "State") == "singUpButExit" {
             didTapContinue()
+            UserDefaults.standard.set(startScreenViewModel?.currentScreenState.rawValue, forKey: "State")
         } else {
             showAlert = true
         }
@@ -44,18 +42,6 @@ extension LogInViewModelMock {
 
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
         self.startScreenViewModel = startScreenViewModel
-    }
-}
-
-// MARK: - Mock Data -
-
-private extension LogInViewModelMock {
-    enum Constants {
-        static let defaultUsers: [UserModel] = [
-            UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345"),
-            UserModel(id: 2, name: "Name2", surname: "Surname", email: "2@example.com", password: "qwerty"),
-            UserModel(id: 3, name: "Name3", surname: "Surname", email: "3", password: "3"),
-        ]
     }
 }
 
