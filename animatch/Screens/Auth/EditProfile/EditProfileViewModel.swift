@@ -11,7 +11,7 @@ final class EditProfileViewModel: EditProfileViewModelLogic & EditProfileViewMod
     var inputName = ""
     var inputSurname = ""
     var inputEmail = ""
-    
+
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
 }
@@ -22,12 +22,12 @@ extension EditProfileViewModel {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
         self.startScreenViewModel = startScreenViewModel
     }
-    
+
     func didTapSaveButton() {
-        startScreenViewModel?.updateScreen(newScreenState: .animeList)
+        startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
     }
-    
+
     func didTapDoLaterButton() {
-        startScreenViewModel?.updateScreen(newScreenState: .animeList)
+        startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
     }
 }

@@ -13,4 +13,6 @@ enum StartScreenState {
     case signUp
     case animeList
     case editProfile
+    case choiceGenres
+    case choiceDirectors
 }
