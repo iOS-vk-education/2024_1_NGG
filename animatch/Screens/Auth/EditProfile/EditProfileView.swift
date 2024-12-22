@@ -95,7 +95,7 @@ private extension EditProfileView {
             Text(Constants.headerTitle)
                 .foregroundStyle(.editProfWhite)
                 .font(Font.custom("Roboto", size: 20))
-                .offset(y: 55)
+                .padding(.top, 65)
                 .padding(.horizontal, 16)
 
             avatarView

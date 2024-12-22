@@ -15,5 +15,4 @@ enum StartScreenState: String {
     case editProfile
     case choiceGenres
     case choiceDirectors
-    case singUpButExit
 }

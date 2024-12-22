@@ -107,7 +107,10 @@ private extension ChoiceDirectorsView {
 // MARK: - Preview
 
 #Preview {
-    ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
+    NavigationStack{
+        ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
+    }
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants

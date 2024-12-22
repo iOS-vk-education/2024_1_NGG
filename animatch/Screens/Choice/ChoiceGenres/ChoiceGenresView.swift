@@ -108,7 +108,10 @@ private extension ChoiceGenresView {
 // MARK: - Preview
 
 #Preview {
+    NavigationStack {
         ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
+    }
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants

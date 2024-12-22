@@ -23,7 +23,7 @@ private extension animatchApp {
     @ViewBuilder
     var startScreen: some View {
         switch viewModel.currentScreenState {
-        case .initial, .singUpButExit:
+        case .initial:
             DownloadPageView(viewModel: DownloadPageViewModel())
         case .signIn:
             LogInView(viewModel: LogInViewModelMock())
