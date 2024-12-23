@@ -84,7 +84,7 @@ extension MainProfileViewModelMock {
 private extension MainProfileViewModelMock {
 
     enum MockData {
-        static let stories = (1...4).map {
+        static let stories = (1...5).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 
