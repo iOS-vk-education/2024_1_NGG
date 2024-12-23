@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ChoiceDirectorsViewModelLogic:  ChoiceDirectorsViewModelInput {
+protocol ChoiceDirectorsViewModelLogic: ChoiceDirectorsViewModelInput {
     var directors: [Directors] { get }
 
     func toggleDirectorSelection(director: Directors)

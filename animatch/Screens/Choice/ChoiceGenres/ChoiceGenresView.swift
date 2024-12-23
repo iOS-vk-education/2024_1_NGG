@@ -14,13 +14,12 @@ struct ChoiceGenresView: View {
     var body: some View {
         VStack(spacing: 0) {
             headerView
-            Spacer()
             preferenceList
-            Spacer()
+        }
+        .background(backgroundLineGradient)
+        .overlay(alignment: .bottom) {
             buttonContainer
         }
-        .frame(maxWidth: .infinity)
-        .background(backgroundLineGradient)
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
         }
@@ -90,18 +89,16 @@ private extension ChoiceGenresView {
                     }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding([.horizontal, .top], 16)
         }
     }
 
     var buttonContainer: some View {
-        VStack(spacing: 0) {
-            NGGButton(Constants.buttonTitle) {
-                viewModel.didTapContinue()
-            }
-            .padding(.horizontal, 60)
-            .padding(.bottom, 15)
+        NGGButton(Constants.buttonTitle) {
+            viewModel.didTapContinue()
         }
+        .padding(.horizontal)
+        .padding(.bottom, 15)
     }
 }
 
