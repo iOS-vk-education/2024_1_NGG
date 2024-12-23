@@ -13,13 +13,8 @@ struct animatchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if viewModel.isLogin {
-                AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
-                    .environment(viewModel)
-            } else {
-                startScreen
-                    .environment(viewModel)
-            }
+            startScreen
+                .environment(viewModel)
         }
     }
 }
@@ -38,6 +33,10 @@ private extension animatchApp {
             EditProfileView(viewModel: EditProfileViewModel())
         case .animeList:
             AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+        case .choiceGenres:
+            ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
+        case .choiceDirectors:
+            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
         }
     }
 }

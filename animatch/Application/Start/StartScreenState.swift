@@ -7,10 +7,12 @@
 
 import Foundation
 
-enum StartScreenState {
+enum StartScreenState: String, Hashable {
     case initial
     case signIn
     case signUp
     case animeList
     case editProfile
+    case choiceGenres
+    case choiceDirectors
 }

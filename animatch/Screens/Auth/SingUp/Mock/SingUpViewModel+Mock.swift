@@ -17,6 +17,11 @@ final class SingUpViewModelMock: SingUpViewModelLogic {
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
+}
+
+// MARK: - SingUpViewModelInput
+
+extension SingUpViewModelMock {
 
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
         self.startScreenViewModel = startScreenViewModel

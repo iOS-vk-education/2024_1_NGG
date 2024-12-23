@@ -62,7 +62,7 @@ extension AnimeListViewModelMock {
     }
 
     func logOut() {
-        UserDefaults.standard.set(false, forKey: "isLogin")
+        UserDefaults.standard.set(StartScreenState.initial.rawValue, forKey: "State")
         startScreenViewModel?.updateScreen(newScreenState: .initial)
     }
 

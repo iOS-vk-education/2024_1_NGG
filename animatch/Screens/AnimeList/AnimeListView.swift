@@ -52,5 +52,5 @@ private extension AnimeListView {
     NavigationStack {
         AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
     }
-    .environment(Coordinator())
+    .environment(StartScreenViewModel())
 }

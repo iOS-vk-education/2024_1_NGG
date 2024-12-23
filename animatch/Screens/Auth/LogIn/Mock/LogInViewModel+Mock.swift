@@ -34,8 +34,7 @@ extension LogInViewModelMock {
     func validateData(){
         if Constants.defaultUsers.contains(where: { $0.email == email && $0.password == password }) {
             showAlert = false
-            UserDefaults.standard.set(true, forKey: "isLogin")
-            startScreenViewModel?.goToLogIn()
+            UserDefaults.standard.set(StartScreenState.animeList.rawValue, forKey: "State")
             didTapContinue()
         } else {
             showAlert = true
@@ -58,5 +57,6 @@ private extension LogInViewModelMock {
         ]
     }
 }
+
 
 #endif
