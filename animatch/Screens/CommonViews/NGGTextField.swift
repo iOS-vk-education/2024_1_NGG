@@ -13,20 +13,15 @@ struct NGGTextField: View {
     @FocusState private var isTyping: Bool
 
     var body: some View {
-        ZStack(alignment: .leading) {
-            TextField("", text: $text)
-                .padding(.leading, 16)
-                .frame(height: 51)
-                .foregroundColor(.white)
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
-                .focused($isTyping)
-
-            if text.isEmpty && !isTyping {
-                Text(title)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(Color.editProfGrayLight)
-            }
+        TextField(text: $text) {
+            Text(title)
+                .foregroundColor(Color.editProfGrayLight)
         }
+        .padding(.leading, 16)
+        .frame(height: 51)
+        .foregroundColor(.white)
+        .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
+        .focused($isTyping)
         .padding(.bottom, 30)
     }
 }

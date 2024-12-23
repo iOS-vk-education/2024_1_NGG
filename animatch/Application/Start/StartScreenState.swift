@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StartScreenState: String {
+enum StartScreenState: String, Hashable {
     case initial
     case signIn
     case signUp

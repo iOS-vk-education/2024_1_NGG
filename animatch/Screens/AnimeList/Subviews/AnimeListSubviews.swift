@@ -34,9 +34,9 @@ extension AnimeListView {
 
     var shimmerinCellView: some View {
         VStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.editProfGray)
+            NGGShimmeringView()
                 .frame(height: 110)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 
@@ -107,7 +107,7 @@ extension AnimeListView {
     NavigationStack {
         AnimeListView(viewModel: AnimeListViewModelMock(delay:2))
     }
-    .environment(Coordinator())
+    .environment(StartScreenViewModel())
 }
 
 // MARK: - Constants
