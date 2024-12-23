@@ -138,7 +138,7 @@ private extension MainProfileView {
 
             Button {
                 // TODO: Добавить логику обработки нажатий
-                print("[DEBUG]: Сделать позже")
+                print("[DEBUG]: редактирование предпочтений")
             } label: {
                 Text(Constants.preferences)
                     .foregroundStyle(Color.editProfPurple)
@@ -147,13 +147,18 @@ private extension MainProfileView {
             Divider()
                 .overlay(.white)
             HStack {
-                Text(Constants.addedAnime)
+                Button {
+                    print("[DEBUG]: избранное")
+                } label: {
+                    Text(Constants.addedAnime)
+                }
                 Spacer()
-                Text(Constants.viewedAnime)
+                Button {
+                    print("[DEBUG]: избранное")
+                } label: {
+                    Text(Constants.viewedAnime)
+                }
             }
-//            Divider()
-//                .overlay(.white)
-//                .frame()
         }
         .foregroundColor(.white)
         .padding(.horizontal, 36)
@@ -174,7 +179,6 @@ private extension MainProfileView {
         }
         .scrollContentBackground(.hidden)
     }
-
 }
 
 // MARK: - Preview
