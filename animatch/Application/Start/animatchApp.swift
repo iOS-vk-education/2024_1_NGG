@@ -35,8 +35,8 @@ private extension animatchApp {
             AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
         case .choiceGenres:
             ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
-        case .choiceDirectors:
-            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
+//        case .choiceDirectors:
+//            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
         }
     }
 }

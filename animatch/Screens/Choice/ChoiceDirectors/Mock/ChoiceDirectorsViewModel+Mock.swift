@@ -16,6 +16,8 @@ final class ChoiceDirectorsViewModelMock: ChoiceDirectorsViewModelLogic {
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
+    @ObservationIgnored
+    private var coordinator: Coordinator?
 
     init() {
         directors = MockData.defaultDirectors.map {
@@ -38,6 +40,10 @@ extension ChoiceDirectorsViewModelMock {
         if let state = startScreenViewModel?.currentScreenState {
             UserDefaults.standard.set(state.rawValue, forKey: "State")
         }
+    }
+
+    func setCoordinator(_ coordinator: Coordinator) {
+        self.coordinator = coordinator
     }
 
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {

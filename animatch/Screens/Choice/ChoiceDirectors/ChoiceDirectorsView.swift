@@ -10,18 +10,21 @@ import SwiftUI
 struct ChoiceDirectorsView: View {
     @State var viewModel: ChoiceDirectorsViewModelLogic
     @Environment(StartScreenViewModel.self) var startScreenViewModel
+    @Environment(Coordinator.self) var coordinator
 
     var body: some View {
         VStack(spacing: 0) {
             headerView
             preferenceList
         }
+        .ignoresSafeArea()
         .background(backgroundLineGradient)
         .overlay(alignment: .bottom) {
             buttonContainer
         }
-        .onAppear() {
+        .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
+            viewModel.setCoordinator(coordinator)
         }
     }
 }
@@ -45,13 +48,22 @@ private extension ChoiceDirectorsView {
     }
 
     var headerView: some View {
-        Text(Constants.headerTitle)
-            .foregroundColor(.white)
-            .font(Font.custom("Roboto", size: 24))
-            .padding(.top, 16)
-            .padding(.bottom, 24)
-            .frame(maxWidth: .infinity)
-            .background(Color.editProfPurple)
+        ZStack(alignment: .top) {
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    bottomLeading: 24,
+                    bottomTrailing: 24
+                )
+            )
+            .fill(Color.editProfPurple)
+            .frame(height: 130)
+
+            Text(Constants.headerTitle)
+                .foregroundStyle(.editProfWhite)
+                .font(Font.custom("Roboto", size: 24))
+                .padding(.top, 65)
+                .padding(.horizontal, 16)
+        }
     }
 
     var preferenceList: some View {

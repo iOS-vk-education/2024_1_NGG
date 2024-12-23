@@ -123,6 +123,10 @@ private extension MainProfileView {
 
                 HStack {
                     Spacer()
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .onTapGesture {
+                            viewModel.logout()
+                        }
                     Image(systemName: "square.and.pencil")
                         .onTapGesture {
                             viewModel.didTapEdit()
