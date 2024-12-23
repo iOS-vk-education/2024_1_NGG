@@ -42,7 +42,7 @@ private extension NGGShimmeringView {
     enum Constants {
         static let colors = [
             Color(uiColor: UIColor(red: 36/255, green: 36/255, blue: 41/255, alpha: 1)),
-            Color(uiColor: UIColor.systemGray3),
+            Color(uiColor: UIColor.darkGray),
             Color(uiColor: UIColor(red: 36/255, green: 36/255, blue: 41/255, alpha: 1)),
         ]
     }
