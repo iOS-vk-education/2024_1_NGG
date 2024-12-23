@@ -1,8 +1,8 @@
 //
-//  AnimeListViewModel+Mock.swift
+//  MainProfileViewModel+Mock.swift
 //  animatch
 //
-//  Created by Ксения Панкратова on 27.11.2024.
+//  Created by Ксения Панкратова on 23.12.2024.
 //
 
 #if DEBUG
@@ -11,13 +11,13 @@ import UIKit
 import Foundation
 
 @Observable
-final class AnimeListViewModelMock: AnimeListDisplayLogic & AnimeListViewModelOutput {
-    
+final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewModelOutput {
     @ObservationIgnored
     var delay: TimeInterval
 
     private(set) var stories: [Module]
     private(set) var showLoading: Bool
+    private(set) var user: UserModel
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -26,17 +26,19 @@ final class AnimeListViewModelMock: AnimeListDisplayLogic & AnimeListViewModelOu
 
     init(
         delay: TimeInterval = 0,
-        stories: [Module] = [],
-        showLoading: Bool = false
+        stories: [Module] = MockData.stories,
+        showLoading: Bool = false,
+        user: UserModel = MockData.user
 
     ) {
         self.delay = delay
         self.stories = stories
         self.showLoading = showLoading
+        self.user = user
     }
 }
 
-extension AnimeListViewModelMock {
+extension MainProfileViewModelMock {
 
     func onAppear() {
         showLoading = true
@@ -50,20 +52,25 @@ extension AnimeListViewModelMock {
         }
     }
 
-    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
-        self.startScreenViewModel = startScreenViewModel
-    }
-
     func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
+    }
+
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
     }
 
     func didTapCell(story: Module) {
         coordinator?.addScreen(screen: AnimeListScreens.storyDetails(story))
     }
 
-    func didTapProfile() {
-        coordinator?.addScreen(screen: AnimeListScreens.profile)
+    func didTapEdit() {
+        coordinator?.addScreen(screen: AnimeListScreens.edit)
+    }
+
+    func logout() {
+        startScreenViewModel?.updateScreen(newScreenState: .initial)
+        UserDefaults.standard.set(StartScreenState.initial.rawValue, forKey: "State")
     }
 
     func configureDetailsViewModel(story: Module) -> DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput {
@@ -74,10 +81,10 @@ extension AnimeListViewModelMock {
 
 // MARK: - Mock Data -
 
-private extension AnimeListViewModelMock {
+private extension MainProfileViewModelMock {
 
     enum MockData {
-        static let stories = (1...5).map {
+        static let stories = (1...4).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 
@@ -96,6 +103,8 @@ private extension AnimeListViewModelMock {
                 viewingPlatforms: tempStory.viewingPlatforms
             )
         }
+
+        static let user = UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345")
     }
 }
 

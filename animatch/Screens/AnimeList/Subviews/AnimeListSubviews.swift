@@ -48,19 +48,14 @@ extension AnimeListView {
 
             HStack {
                 Spacer()
-                VStack {
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .background(Color.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    Button {
-                        viewModel.logOut()
-                    } label: {
-                        Text(Constants.logout)
-                            .font(Font.custom("Roboto", size: 14))
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .background(Color.gray)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .onTapGesture {
+                        viewModel.didTapProfile()
                     }
-                }
             }
         }
         .padding(.horizontal, 32)

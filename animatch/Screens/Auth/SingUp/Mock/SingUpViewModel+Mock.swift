@@ -29,6 +29,7 @@ extension SingUpViewModelMock {
 
     func didTapContinue() {
         startScreenViewModel?.updateScreen(newScreenState: .editProfile)
+        UserDefaults.standard.set(StartScreenState.editProfile.rawValue, forKey: "State")
     }
 
     func didTapOpenSignInScreen() {

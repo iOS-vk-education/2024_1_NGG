@@ -35,13 +35,17 @@ struct AnimeListView: View {
 // MARK: - Navigation Destination
 
 private extension AnimeListView {
-
+    @ViewBuilder
     func openNextScreen(for screen: AnimeListScreens) -> some View {
         switch screen {
         case let .storyDetails(story):
             DescriptionAnimeView(
                 viewModel: viewModel.configureDetailsViewModel(story: story)
             )
+        case .profile:
+            MainProfileView(viewModel: MainProfileViewModelMock(delay: 2))
+        case .edit:
+            MainEditProfileView(viewModel: MainEditProfileViewModelMock())
         }
     }
 }

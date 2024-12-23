@@ -32,6 +32,7 @@ extension Module {
     static func generateStory(number: Int) -> Module {
         Module(
             id: number,
+//            mainImage: UIImage.totoro1.pngData()!,
             mainImage: UIImage.totoro1.pngData()!,
             title: "Мой сосед Тоторо #\(number)",
             director: "Хаяо Миядзаки #\(number)",
