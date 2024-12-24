@@ -102,7 +102,7 @@ extension MainProfileViewModelMock {
 private extension MainProfileViewModelMock {
 
     enum MockData {
-        static let wantToWatchStories = (1...5).map {
+        static let wantToWatchStories = (1...8).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 
@@ -122,7 +122,7 @@ private extension MainProfileViewModelMock {
             )
         }
 
-        static let viewedStories = (6...8).map {
+        static let viewedStories = (8...15).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 

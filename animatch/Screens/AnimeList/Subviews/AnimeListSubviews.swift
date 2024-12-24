@@ -20,7 +20,7 @@ extension AnimeListView {
     var loadingView: some View {
         ScrollView {
             VStack(spacing: 15) {
-                ForEach(0...4, id: \.self) { _ in
+                ForEach(1...7, id: \.self) { _ in
                     shimmerinCellView
                 }
             }

@@ -77,7 +77,7 @@ extension AnimeListViewModelMock {
 private extension AnimeListViewModelMock {
 
     enum MockData {
-        static let stories = (1...5).map {
+        static let stories = (1...10).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 
