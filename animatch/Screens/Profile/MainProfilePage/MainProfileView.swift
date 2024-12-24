@@ -50,11 +50,6 @@ struct MainProfileView: View {
         }
         .ignoresSafeArea()
         .onAppear {
-            let coloredAppearance = UINavigationBarAppearance()
-            coloredAppearance.configureWithOpaqueBackground()
-            coloredAppearance.backgroundColor = .editProfPurple
-            UINavigationBar.appearance().standardAppearance = coloredAppearance
-
             UISegmentedControl.appearance().setTitleTextAttributes(
                 [.foregroundColor: UIColor.white],
                 for: .normal
