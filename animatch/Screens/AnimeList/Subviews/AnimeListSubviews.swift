@@ -24,11 +24,8 @@ extension AnimeListView {
                     shimmerinCellView
                 }
             }
-            .padding(.top, 48)
+            .padding(.top, 140)
             .padding(.horizontal, 32)
-        }
-        .safeAreaInset(edge: .top) {
-            headerView
         }
     }
 
@@ -38,16 +35,6 @@ extension AnimeListView {
                 .frame(height: 110)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
         }
-    }
-
-    var headerView: some View {
-        ZStack(alignment: .center) {
-            Text(Constants.titleMain)
-                .font(Font.custom("Roboto", size: 24))
-                .foregroundColor(Color.white)
-        }
-        .padding(.horizontal, 32)
-        .padding(.top, 60)
     }
 
     var listContainer: some View {
@@ -60,13 +47,10 @@ extension AnimeListView {
                         }
                 }
             }
-            .padding(.top, 48)
+            .padding(.top, 140)
             .padding(.horizontal, 32)
         }
         .scrollContentBackground(.hidden)
-        .safeAreaInset(edge: .top) {
-            headerView
-        }
     }
 
     var backgroundLineGradient: some View {

@@ -31,6 +31,12 @@ struct AnimeListView: View {
                                 viewModel.didTapProfile()
                             }
                     }
+
+                    ToolbarItem(placement: .principal) {
+                        Text(Constants.titleMain)
+                                .font(Font.custom("Roboto", size: 22))
+                                .foregroundColor(.white)
+                        }
                 }
         }
         .accentColor(.white)
