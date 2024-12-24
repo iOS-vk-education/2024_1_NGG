@@ -105,23 +105,21 @@ extension MainProfileView {
             .padding(.bottom, 10)
             Divider()
                 .overlay(.white)
-            HStack {
-                Button {
-                    print("[DEBUG]: избранное")
-                } label: {
-                    Text(Constants.addedAnime)
-                }
-                Spacer()
-                Button {
-                    print("[DEBUG]: просмотренное")
-                } label: {
-                    Text(Constants.viewedAnime)
-                }
-            }
+            pickerView
         }
         .foregroundColor(.white)
         .padding(.horizontal, 36)
         .padding(.top, 20)
+    }
+
+    var pickerView: some View {
+        Picker("", selection: $viewModel.selectedTab) {
+            ForEach(0..<viewModel.tabs.count, id: \.self) { tab in
+                Text(viewModel.tabs[tab].title)
+            }
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal, 16)
     }
 
     var listContainer: some View {
@@ -138,6 +136,7 @@ extension MainProfileView {
             .padding(.horizontal, 36)
         }
         .scrollContentBackground(.hidden)
+//        .animation(.easeInOut, value: viewModel.stories)
     }
 }
 

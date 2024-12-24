@@ -15,7 +15,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
     @ObservationIgnored
     var delay: TimeInterval
 
-    private(set) var stories: [Module]
+    private(set) var stories: [Module] = []
     private(set) var showLoading: Bool
     private(set) var user: UserModel
 
@@ -26,15 +26,33 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
 
     init(
         delay: TimeInterval = 0,
-        stories: [Module] = MockData.stories,
         showLoading: Bool = false,
         user: UserModel = MockData.user
 
     ) {
         self.delay = delay
-        self.stories = stories
         self.showLoading = showLoading
         self.user = user
+    }
+
+    var tabs: [Tab] = Constants.titles
+
+    var selectedTab: Int = 0 {
+        didSet {
+            onAppear()
+            updateStoriesForSelectedTab()
+        }
+    }
+
+    private func updateStoriesForSelectedTab() {
+        switch selectedTab {
+        case 0: 
+            stories = MockData.wantToWatchStories
+        case 1:
+            stories = MockData.viewedStories
+        default:
+            stories = []
+        }
     }
 }
 
@@ -46,7 +64,7 @@ extension MainProfileViewModelMock {
         Task {
             try? await Task.sleep(for: .seconds(delay))
             await MainActor.run {
-                stories = MockData.stories
+                updateStoriesForSelectedTab()
                 showLoading = false
             }
         }
@@ -84,7 +102,27 @@ extension MainProfileViewModelMock {
 private extension MainProfileViewModelMock {
 
     enum MockData {
-        static let stories = (1...5).map {
+        static let wantToWatchStories = (1...5).map {
+            let tempStory = Module.generateStory(number: $0)
+            let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
+
+            return Module(
+                id: tempStory.id,
+                mainImage: tempStory.mainImage,
+                title: tempStory.title,
+                director: tempStory.director,
+                description: tempStory.description,
+                rating: tempStory.rating,
+                type: tempStory.type,
+                year: tempStory.year,
+                genre: tempStory.genre,
+                imagesData: tempStory.imagesData,
+                similarMovies: similarMovies,
+                viewingPlatforms: tempStory.viewingPlatforms
+            )
+        }
+
+        static let viewedStories = (6...8).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 
@@ -105,6 +143,14 @@ private extension MainProfileViewModelMock {
         }
 
         static let user = UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345")
+    }
+}
+
+// MARK: - Constants
+
+private extension MainProfileViewModelMock {
+    enum Constants {
+        static let titles = [Tab(title: "хочу посмотреть"), Tab(title: "просмотренные")]
     }
 }
 
