@@ -65,7 +65,6 @@ private extension ChoiceDirectorsView {
     }
 
     var headerView: some View {
-//        ZStack(alignment: .top) {
             UnevenRoundedRectangle(
                 cornerRadii: .init(
                     bottomLeading: 24,
@@ -74,7 +73,6 @@ private extension ChoiceDirectorsView {
             )
             .fill(Color.editProfPurple)
             .frame(height: 130)
-//        }
     }
 
     var preferenceList: some View {
