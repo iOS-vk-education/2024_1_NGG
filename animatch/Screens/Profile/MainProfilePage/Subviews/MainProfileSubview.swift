@@ -57,18 +57,25 @@ extension MainProfileView {
     }
 
     var headerView: some View {
-        ZStack(alignment: .top) {
-            UnevenRoundedRectangle(
-                cornerRadii: .init(
-                    bottomLeading: 24,
-                    bottomTrailing: 24
+        GeometryReader { geometry in
+            let minY = geometry.frame(in: .global).minY
+            let iscrolling = minY > 0
+
+            ZStack(alignment: .top) {
+                UnevenRoundedRectangle(
+                    cornerRadii: .init(
+                        bottomLeading: 24,
+                        bottomTrailing: 24
+                    )
                 )
-            )
-            .fill(Color.editProfPurple)
-            .frame(height: 166)
-            avatarView
-                .padding(.top, 107)
+                .fill(Color.editProfPurple)
+                .frame(height: iscrolling ? 166 + minY: 166)
+                .offset(y: iscrolling ? -minY : 0)
+                avatarView
+                    .padding(.top, 107)
+            }
         }
+        .frame(height: 280)
     }
 
     var textContainer: some View {
