@@ -49,12 +49,12 @@ private extension OneCardView {
     }
 
     var cardInfoView: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(story.title)
                 .font(Font.custom("Roboto", size: 28))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-
+            
             HStack {
                 Text(story.genre)
                     .foregroundColor(.white)

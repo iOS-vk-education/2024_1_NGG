@@ -8,6 +8,22 @@
 import SwiftUI
 
 extension MainProfileView {
+
+    var mainContainer: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                headerView
+                textContainer
+                buttonContainer
+                listLoadingContent
+            }
+            .padding(.bottom)
+        }
+        .scrollContentBackground(.hidden)
+        .ignoresSafeArea()
+        .background(backgroundLineGradient)
+    }
+
     @ViewBuilder
     var listLoadingContent: some View {
         if viewModel.showLoading {
@@ -18,21 +34,19 @@ extension MainProfileView {
     }
 
     var loadingView: some View {
-            VStack(spacing: 15) {
-                ForEach(0...3, id: \.self) { _ in
-                    shimmerinCellView
-                }
+        VStack(spacing: 15) {
+            ForEach(0...3, id: \.self) { _ in
+                shimmerinCellView
             }
-            .padding(.top, 48)
-            .padding(.horizontal, 36)
+        }
+        .padding(.top, 28)
+        .padding(.horizontal)
     }
 
     var shimmerinCellView: some View {
-        VStack {
-            NGGShimmeringView()
-                .frame(height: 110)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
+        NGGShimmeringView()
+            .frame(height: 110)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
     var backgroundLineGradient: some View {
@@ -48,7 +62,6 @@ extension MainProfileView {
         )
         .ignoresSafeArea()
     }
-
 
     var avatarView: some View {
         RoundedRectangle(cornerRadius: 30)
@@ -91,7 +104,6 @@ extension MainProfileView {
                             viewModel.didTapEdit()
                         }
                 }
-
             }
             .padding(.top, 10)
         }
@@ -130,20 +142,16 @@ extension MainProfileView {
     }
 
     var listContainer: some View {
-        ScrollView {
-            LazyVStack(spacing: 15) {
-                ForEach(viewModel.stories) { story in
-                    OneCardView(story: story)
-                        .onTapGesture {
-                            viewModel.didTapCell(story: story)
-                        }
-                }
+        LazyVStack(spacing: 15) {
+            ForEach(viewModel.stories) { story in
+                OneCardView(story: story)
+                    .onTapGesture {
+                        viewModel.didTapCell(story: story)
+                    }
             }
-            .padding(.top, 48)
-            .padding(.horizontal, 36)
         }
-        .scrollContentBackground(.hidden)
-//        .animation(.easeInOut, value: viewModel.stories)
+        .padding(.top, 28)
+        .padding(.horizontal)
     }
 }
 

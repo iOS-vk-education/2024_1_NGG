@@ -17,7 +17,7 @@ struct AnimeListView: View {
             mainContent
                 .frame(maxWidth: .infinity)
                 .background(backgroundLineGradient)
-                .ignoresSafeArea()
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: AnimeListScreens.self) { screen in
                     openNextScreen(for: screen)
                         .environment(coordinator)
@@ -34,9 +34,9 @@ struct AnimeListView: View {
 
                     ToolbarItem(placement: .principal) {
                         Text(Constants.titleMain)
-                                .font(Font.custom("Roboto", size: 22))
-                                .foregroundColor(.white)
-                        }
+                            .font(Font.custom("Roboto", size: 22))
+                            .foregroundColor(.white)
+                    }
                 }
         }
         .accentColor(.white)
@@ -69,8 +69,6 @@ private extension AnimeListView {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
-        AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
-    }
-    .environment(StartScreenViewModel())
+    AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+        .environment(StartScreenViewModel())
 }
