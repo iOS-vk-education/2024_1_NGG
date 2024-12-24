@@ -1,25 +1,29 @@
 //
-//  AnimeListProtocols.swift
+//  MainProfileProtocols.swift
 //  animatch
 //
-//  Created by Ксения Панкратова on 14.12.2024.
+//  Created by Ксения Панкратова on 23.12.2024.
 //
 
 import Foundation
 
-protocol AnimeListDisplayLogic: AnimeListViewModelInput {
+protocol MainProfileDisplayLogic: MainProfileViewModelInput {
+    var user: UserModel { get }
     var stories: [Module] { get }
     var showLoading: Bool { get }
+    var selectedTab: Int { get set }
+    var tabs: [Tab] { get }
 }
 
-protocol AnimeListViewModelInput {
+protocol MainProfileViewModelInput {
     func setCoordinator(_ coordinator: Coordinator)
     func onAppear()
     func didTapCell(story: Module)
-    func didTapProfile()
+    func didTapEdit()
+    func logout()
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
 }
 
-protocol AnimeListViewModelOutput {
+protocol MainProfileViewModelOutput {
     func configureDetailsViewModel(story: Module) -> DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput
 }

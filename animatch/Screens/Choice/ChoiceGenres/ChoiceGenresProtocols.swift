@@ -14,6 +14,7 @@ protocol ChoiceGenresViewModelLogic: ChoiceGenresViewModelInput {
 }
 
 protocol ChoiceGenresViewModelInput {
+    func setCoordinator(_ coordinator: Coordinator)
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
     func didTapContinue()
 }

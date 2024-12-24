@@ -10,17 +10,27 @@ import SwiftUI
 struct ChoiceGenresView: View {
     @State var viewModel: ChoiceGenresViewModelLogic
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
+    @State private var coordinator = Coordinator()
 
     var body: some View {
-        VStack(spacing: 0) {
-            headerView
-            preferenceList
+        NavigationStack(path: $coordinator.navPath) {
+            VStack(spacing: 0) {
+                headerView
+                preferenceList
+            }
+            .navigationDestination(for: PreferenceScreens.self) { screen in
+                openNextScreen(for: screen)
+                    .environment(coordinator)
+            }
+            .ignoresSafeArea()
+            .background(backgroundLineGradient)
+            .overlay(alignment: .bottom) {
+                buttonContainer
+            }
         }
-        .background(backgroundLineGradient)
-        .overlay(alignment: .bottom) {
-            buttonContainer
-        }
+        .accentColor(.white)
         .onAppear {
+            viewModel.setCoordinator(coordinator)
             viewModel.setStartScreenViewModel(startScreenViewModel)
         }
     }
@@ -45,13 +55,22 @@ private extension ChoiceGenresView {
     }
 
     var headerView: some View {
-        Text(Constants.headerTitle)
-            .foregroundColor(.white)
-            .font(Font.custom("Roboto", size: 24))
-            .padding(.top, 16)
-            .padding(.bottom, 24)
-            .frame(maxWidth: .infinity)
-            .background(Color.editProfPurple)
+        ZStack(alignment: .top) {
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    bottomLeading: 24,
+                    bottomTrailing: 24
+                )
+            )
+            .fill(Color.editProfPurple)
+            .frame(height: 130)
+
+            Text(Constants.headerTitle)
+                .foregroundStyle(.editProfWhite)
+                .font(Font.custom("Roboto", size: 22))
+                .padding(.top, 65)
+                .padding(.horizontal, 16)
+        }
     }
 
     var preferenceList: some View {
@@ -101,6 +120,19 @@ private extension ChoiceGenresView {
         .padding(.bottom, 15)
     }
 }
+
+// MARK: - Navigation Destination
+
+private extension ChoiceGenresView {
+    @ViewBuilder
+    func openNextScreen(for screen: PreferenceScreens) -> some View {
+        switch screen {
+        case .directors:
+            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
+        }
+    }
+}
+
 
 // MARK: - Preview
 

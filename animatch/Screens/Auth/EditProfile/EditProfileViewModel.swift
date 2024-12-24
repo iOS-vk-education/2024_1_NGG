@@ -25,9 +25,11 @@ extension EditProfileViewModel {
 
     func didTapSaveButton() {
         startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
+        UserDefaults.standard.set(StartScreenState.choiceGenres.rawValue, forKey: "State")
     }
 
     func didTapDoLaterButton() {
         startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
+        UserDefaults.standard.set(StartScreenState.choiceGenres.rawValue, forKey: "State")
     }
 }

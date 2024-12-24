@@ -12,6 +12,7 @@ import Foundation
 
 @Observable
 final class AnimeListViewModelMock: AnimeListDisplayLogic & AnimeListViewModelOutput {
+    
     @ObservationIgnored
     var delay: TimeInterval
 
@@ -61,9 +62,8 @@ extension AnimeListViewModelMock {
         coordinator?.addScreen(screen: AnimeListScreens.storyDetails(story))
     }
 
-    func logOut() {
-        UserDefaults.standard.set(StartScreenState.initial.rawValue, forKey: "State")
-        startScreenViewModel?.updateScreen(newScreenState: .initial)
+    func didTapProfile() {
+        coordinator?.addScreen(screen: AnimeListScreens.profile)
     }
 
     func configureDetailsViewModel(story: Module) -> DescriptionAnimeDisplayLogic & DescriptionAnimeViewModelOutput {
@@ -77,7 +77,7 @@ extension AnimeListViewModelMock {
 private extension AnimeListViewModelMock {
 
     enum MockData {
-        static let stories = (1...5).map {
+        static let stories = (1...10).map {
             let tempStory = Module.generateStory(number: $0)
             let similarMovies = ($0...$0 + 3).map { Module.generateStory(number: $0) }
 

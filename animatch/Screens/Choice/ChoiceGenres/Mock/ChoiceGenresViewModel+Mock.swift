@@ -13,6 +13,8 @@ final class ChoiceGenresViewModelMock: ChoiceGenresViewModelLogic {
     var genres: [Genre] = []
 
     @ObservationIgnored
+    private var coordinator: Coordinator?
+    @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
 
     init() {
@@ -35,8 +37,12 @@ extension ChoiceGenresViewModelMock {
         self.startScreenViewModel = startScreenViewModel
     }
 
+    func setCoordinator(_ coordinator: Coordinator) {
+        self.coordinator = coordinator
+    }
+
     func didTapContinue() {
-        startScreenViewModel?.updateScreen(newScreenState: .choiceDirectors)
+        coordinator?.addScreen(screen: PreferenceScreens.directors)
     }
 }
 

@@ -14,5 +14,4 @@ enum StartScreenState: String, Hashable {
     case animeList
     case editProfile
     case choiceGenres
-    case choiceDirectors
 }

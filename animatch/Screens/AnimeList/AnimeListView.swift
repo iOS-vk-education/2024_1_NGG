@@ -17,10 +17,26 @@ struct AnimeListView: View {
             mainContent
                 .frame(maxWidth: .infinity)
                 .background(backgroundLineGradient)
-                .ignoresSafeArea()
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: AnimeListScreens.self) { screen in
                     openNextScreen(for: screen)
                         .environment(coordinator)
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Image(systemName: "person.fill")
+                            .padding(.trailing, 22)
+                            .foregroundStyle(Color.white)
+                            .onTapGesture {
+                                viewModel.didTapProfile()
+                            }
+                    }
+
+                    ToolbarItem(placement: .principal) {
+                        Text(Constants.titleMain)
+                            .font(Font.custom("Roboto", size: 22))
+                            .foregroundColor(.white)
+                    }
                 }
         }
         .accentColor(.white)
@@ -35,13 +51,17 @@ struct AnimeListView: View {
 // MARK: - Navigation Destination
 
 private extension AnimeListView {
-
+    @ViewBuilder
     func openNextScreen(for screen: AnimeListScreens) -> some View {
         switch screen {
         case let .storyDetails(story):
             DescriptionAnimeView(
                 viewModel: viewModel.configureDetailsViewModel(story: story)
             )
+        case .profile:
+            MainProfileView(viewModel: MainProfileViewModelMock(delay: 2))
+        case .edit:
+            MainEditProfileView(viewModel: MainEditProfileViewModelMock())
         }
     }
 }
@@ -49,8 +69,6 @@ private extension AnimeListView {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
-        AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
-    }
-    .environment(StartScreenViewModel())
+    AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+        .environment(StartScreenViewModel())
 }

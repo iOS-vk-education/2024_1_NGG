@@ -8,82 +8,45 @@
 import SwiftUI
 
 extension AnimeListView {
-    @ViewBuilder
+
     var mainContent: some View {
-        if viewModel.showLoading {
-            loadingView
-        } else {
-            listContainer
+        ScrollView {
+            if viewModel.showLoading {
+                loadingView
+            } else {
+                listContainer
+            }
         }
+        .scrollContentBackground(.hidden)
     }
 
     var loadingView: some View {
-        ScrollView {
-            VStack(spacing: 15) {
-                ForEach(0...4, id: \.self) { _ in
-                    shimmerinCellView
-                }
+        VStack(spacing: 15) {
+            ForEach(1...5, id: \.self) { _ in
+                shimmerinCellView
             }
-            .padding(.top, 48)
-            .padding(.horizontal, 32)
         }
-        .safeAreaInset(edge: .top) {
-            headerView
-        }
+        .padding(.horizontal)
+        .padding(.top)
     }
 
     var shimmerinCellView: some View {
-        VStack {
-            NGGShimmeringView()
-                .frame(height: 110)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-        }
-    }
-
-    var headerView: some View {
-        ZStack(alignment: .center) {
-            Text(Constants.titleMain)
-                .font(Font.custom("Roboto", size: 24))
-                .foregroundColor(Color.white)
-
-            HStack {
-                Spacer()
-                VStack {
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .background(Color.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                    Button {
-                        viewModel.logOut()
-                    } label: {
-                        Text(Constants.logout)
-                            .font(Font.custom("Roboto", size: 14))
-                    }
-                }
-            }
-        }
-        .padding(.horizontal, 32)
-        .padding(.top, 60)
+        NGGShimmeringView()
+            .frame(height: 110)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
     var listContainer: some View {
-        ScrollView {
-            LazyVStack(spacing: 15) {
-                ForEach(viewModel.stories) { story in
-                    OneCardView(story: story)
-                        .onTapGesture {
-                            viewModel.didTapCell(story: story)
-                        }
-                }
+        LazyVStack(spacing: 15) {
+            ForEach(viewModel.stories) { story in
+                OneCardView(story: story)
+                    .onTapGesture {
+                        viewModel.didTapCell(story: story)
+                    }
             }
-            .padding(.top, 48)
-            .padding(.horizontal, 32)
         }
-        .scrollContentBackground(.hidden)
-        .safeAreaInset(edge: .top) {
-            headerView
-        }
+        .padding(.horizontal, 30)
+        .padding(.top)
     }
 
     var backgroundLineGradient: some View {
@@ -112,7 +75,7 @@ extension AnimeListView {
 
 // MARK: - Constants
 
-private extension AnimeListView {
+extension AnimeListView {
 
     enum Constants {
         static let titleMain = "Список аниме дня"

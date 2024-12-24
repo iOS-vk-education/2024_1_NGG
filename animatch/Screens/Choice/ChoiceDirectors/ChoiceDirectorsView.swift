@@ -10,18 +10,38 @@ import SwiftUI
 struct ChoiceDirectorsView: View {
     @State var viewModel: ChoiceDirectorsViewModelLogic
     @Environment(StartScreenViewModel.self) var startScreenViewModel
+    @Environment(Coordinator.self) var coordinator
 
     var body: some View {
         VStack(spacing: 0) {
             headerView
             preferenceList
         }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(Constants.headerTitle)
+                    .font(Font.custom("Roboto", size: 22))
+                    .foregroundColor(.white)
+            }
+
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .padding(.leading, 10)
+                    .foregroundStyle(Color.white)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
+            }
+        }
+        .ignoresSafeArea()
         .background(backgroundLineGradient)
         .overlay(alignment: .bottom) {
             buttonContainer
         }
-        .onAppear() {
+        .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
+            viewModel.setCoordinator(coordinator)
         }
     }
 }
@@ -45,13 +65,14 @@ private extension ChoiceDirectorsView {
     }
 
     var headerView: some View {
-        Text(Constants.headerTitle)
-            .foregroundColor(.white)
-            .font(Font.custom("Roboto", size: 24))
-            .padding(.top, 16)
-            .padding(.bottom, 24)
-            .frame(maxWidth: .infinity)
-            .background(Color.editProfPurple)
+            UnevenRoundedRectangle(
+                cornerRadii: .init(
+                    bottomLeading: 24,
+                    bottomTrailing: 24
+                )
+            )
+            .fill(Color.editProfPurple)
+            .frame(height: 130)
     }
 
     var preferenceList: some View {
@@ -108,6 +129,7 @@ private extension ChoiceDirectorsView {
         ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
     }
     .environment(StartScreenViewModel())
+    .environment(Coordinator())
 }
 
 // MARK: - Constants
