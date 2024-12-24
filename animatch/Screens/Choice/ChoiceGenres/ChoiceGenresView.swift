@@ -22,7 +22,6 @@ struct ChoiceGenresView: View {
                 openNextScreen(for: screen)
                     .environment(coordinator)
             }
-            .navigationTitle("")
             .ignoresSafeArea()
             .background(backgroundLineGradient)
             .overlay(alignment: .bottom) {
@@ -68,7 +67,7 @@ private extension ChoiceGenresView {
 
             Text(Constants.headerTitle)
                 .foregroundStyle(.editProfWhite)
-                .font(Font.custom("Roboto", size: 24))
+                .font(Font.custom("Roboto", size: 22))
                 .padding(.top, 65)
                 .padding(.horizontal, 16)
         }

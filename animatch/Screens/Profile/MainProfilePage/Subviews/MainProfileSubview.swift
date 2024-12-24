@@ -18,7 +18,6 @@ extension MainProfileView {
     }
 
     var loadingView: some View {
-        ScrollView {
             VStack(spacing: 15) {
                 ForEach(0...3, id: \.self) { _ in
                     shimmerinCellView
@@ -26,7 +25,6 @@ extension MainProfileView {
             }
             .padding(.top, 48)
             .padding(.horizontal, 36)
-        }
     }
 
     var shimmerinCellView: some View {
@@ -68,20 +66,6 @@ extension MainProfileView {
             )
             .fill(Color.editProfPurple)
             .frame(height: 166)
-            ZStack {
-                Text(Constants.headerTitle)
-                    .font(Font.custom("Roboto", size: 20))
-                HStack {
-                    Spacer()
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .onTapGesture {
-                            viewModel.logout()
-                        }
-                }
-            }
-            .foregroundStyle(.editProfWhite)
-            .padding(.top, 65)
-            .padding(.horizontal, 36)
             avatarView
                 .padding(.top, 107)
         }
@@ -95,10 +79,6 @@ extension MainProfileView {
 
                 HStack {
                     Spacer()
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .onTapGesture {
-                            viewModel.logout()
-                        }
                     Image(systemName: "square.and.pencil")
                         .onTapGesture {
                             viewModel.didTapEdit()
@@ -122,6 +102,7 @@ extension MainProfileView {
                     .foregroundStyle(Color.editProfPurple)
                     .font(Font.custom("Roboto", size: 18))
             }
+            .padding(.bottom, 10)
             Divider()
                 .overlay(.white)
             HStack {

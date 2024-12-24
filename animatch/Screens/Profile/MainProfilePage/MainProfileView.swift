@@ -14,15 +14,42 @@ struct MainProfileView: View {
 
     var body: some View {
         VStack {
-            ZStack {
-                backgroundLineGradient
-
-                VStack(spacing: 0) {
-                    headerView
-                    textContainer
-                    buttonContainer
-                    listLoadingContent
+            ScrollView{
+                ZStack {
+                    VStack(spacing: 0) {
+                        headerView
+                        textContainer
+                        buttonContainer
+                        listLoadingContent
+                    }
                 }
+            }
+            .background(backgroundLineGradient)
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .padding(.leading, 22)
+                    .foregroundStyle(Color.white)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
+            }
+
+            ToolbarItem(placement: .principal) {
+                    Text("Профиль")
+                        .font(Font.custom("Roboto", size: 20))
+                        .foregroundColor(.white)
+                }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Image(systemName: "rectangle.portrait.and.arrow.right")
+                    .padding(.trailing, 22)
+                    .foregroundStyle(Color.white)
+                    .onTapGesture {
+                        viewModel.logout()
+                    }
             }
         }
         .ignoresSafeArea()

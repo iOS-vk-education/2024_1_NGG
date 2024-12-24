@@ -22,6 +22,16 @@ struct AnimeListView: View {
                     openNextScreen(for: screen)
                         .environment(coordinator)
                 }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Image(systemName: "person.fill")
+                            .padding(.trailing, 22)
+                            .foregroundStyle(Color.white)
+                            .onTapGesture {
+                                viewModel.didTapProfile()
+                            }
+                    }
+                }
         }
         .accentColor(.white)
         .onAppear {

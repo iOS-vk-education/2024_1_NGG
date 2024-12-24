@@ -17,6 +17,23 @@ struct ChoiceDirectorsView: View {
             headerView
             preferenceList
         }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(Constants.headerTitle)
+                    .font(Font.custom("Roboto", size: 22))
+                    .foregroundColor(.white)
+            }
+
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .padding(.leading, 10)
+                    .foregroundStyle(Color.white)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
+            }
+        }
         .ignoresSafeArea()
         .background(backgroundLineGradient)
         .overlay(alignment: .bottom) {
@@ -48,7 +65,7 @@ private extension ChoiceDirectorsView {
     }
 
     var headerView: some View {
-        ZStack(alignment: .top) {
+//        ZStack(alignment: .top) {
             UnevenRoundedRectangle(
                 cornerRadii: .init(
                     bottomLeading: 24,
@@ -57,13 +74,7 @@ private extension ChoiceDirectorsView {
             )
             .fill(Color.editProfPurple)
             .frame(height: 130)
-
-            Text(Constants.headerTitle)
-                .foregroundStyle(.editProfWhite)
-                .font(Font.custom("Roboto", size: 24))
-                .padding(.top, 65)
-                .padding(.horizontal, 16)
-        }
+//        }
     }
 
     var preferenceList: some View {
@@ -120,6 +131,7 @@ private extension ChoiceDirectorsView {
         ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
     }
     .environment(StartScreenViewModel())
+    .environment(Coordinator())
 }
 
 // MARK: - Constants

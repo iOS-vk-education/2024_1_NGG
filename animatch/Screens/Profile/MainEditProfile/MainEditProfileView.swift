@@ -12,16 +12,29 @@ struct MainEditProfileView: View {
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
-        VStack {
-            ZStack {
-                backgroundLineGradient
-
-                VStack(spacing: 0) {
-                    headerView
-                    formsContainer
-                    Spacer()
-                    buttonsContainer
-                }
+        ScrollView {
+            VStack(spacing: 0) {
+                headerView
+                formsContainer
+                Spacer()
+                buttonsContainer
+            }
+        }
+        .background(backgroundLineGradient)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Профиль")
+                    .font(Font.custom("Roboto", size: 22))
+                    .foregroundColor(.white)
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .padding(.leading, 22)
+                    .foregroundStyle(Color.white)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
             }
         }
         .ignoresSafeArea()
@@ -91,12 +104,6 @@ private extension MainEditProfileView {
             )
             .fill(Color.editProfPurple)
             .frame(height: 166)
-
-            Text(Constants.headerTitle)
-                .foregroundStyle(.editProfWhite)
-                .font(Font.custom("Roboto", size: 20))
-                .padding(.top, 65)
-                .padding(.horizontal, 16)
 
             avatarView
                 .padding(.top, 107)

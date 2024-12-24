@@ -45,18 +45,6 @@ extension AnimeListView {
             Text(Constants.titleMain)
                 .font(Font.custom("Roboto", size: 24))
                 .foregroundColor(Color.white)
-
-            HStack {
-                Spacer()
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                    .background(Color.gray)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .onTapGesture {
-                        viewModel.didTapProfile()
-                    }
-            }
         }
         .padding(.horizontal, 32)
         .padding(.top, 60)
@@ -107,7 +95,7 @@ extension AnimeListView {
 
 // MARK: - Constants
 
-private extension AnimeListView {
+extension AnimeListView {
 
     enum Constants {
         static let titleMain = "Список аниме дня"
