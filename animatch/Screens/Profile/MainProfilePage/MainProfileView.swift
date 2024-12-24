@@ -13,19 +13,15 @@ struct MainProfileView: View {
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        VStack {
-            ScrollView{
-                ZStack {
-                    VStack(spacing: 0) {
-                        headerView
-                        textContainer
-                        buttonContainer
-                        listLoadingContent
-                    }
-                }
+        ScrollView{
+            VStack(spacing: 0) {
+                headerView
+                textContainer
+                buttonContainer
+                listLoadingContent
             }
-            .background(backgroundLineGradient)
         }
+        .background(backgroundLineGradient)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -39,10 +35,10 @@ struct MainProfileView: View {
 
             ToolbarItem(placement: .principal) {
                 Text(Constants.headerTitle)
-                        .font(Font.custom("Roboto", size: 22))
-                        .foregroundColor(.white)
-                }
-            
+                    .font(Font.custom("Roboto", size: 22))
+                    .foregroundColor(.white)
+            }
+
             ToolbarItem(placement: .navigationBarTrailing) {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
                     .padding(.trailing, 24)
