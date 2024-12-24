@@ -13,53 +13,44 @@ struct MainProfileView: View {
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        ScrollView{
-            VStack(spacing: 0) {
-                headerView
-                textContainer
-                buttonContainer
-                listLoadingContent
-            }
-        }
-        .background(backgroundLineGradient)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Image(systemName: "arrow.left")
-                    .padding(.leading, 22)
-                    .foregroundStyle(Color.white)
-                    .onTapGesture {
-                        coordinator.openPreviousScreen()
-                    }
-            }
+        mainContainer
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Image(systemName: "arrow.left")
+                        .padding(.leading, 22)
+                        .foregroundStyle(Color.white)
+                        .onTapGesture {
+                            coordinator.openPreviousScreen()
+                        }
+                }
 
-            ToolbarItem(placement: .principal) {
-                Text(Constants.headerTitle)
-                    .font(Font.custom("Roboto", size: 22))
-                    .foregroundColor(.white)
-            }
+                ToolbarItem(placement: .principal) {
+                    Text(Constants.headerTitle)
+                        .font(Font.custom("Roboto", size: 22))
+                        .foregroundColor(.white)
+                }
 
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Image(systemName: "rectangle.portrait.and.arrow.right")
-                    .padding(.trailing, 24)
-                    .foregroundStyle(Color.white)
-                    .onTapGesture {
-                        viewModel.logout()
-                    }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .padding(.trailing, 24)
+                        .foregroundStyle(Color.white)
+                        .onTapGesture {
+                            viewModel.logout()
+                        }
+                }
             }
-        }
-        .ignoresSafeArea()
-        .onAppear {
-            UISegmentedControl.appearance().setTitleTextAttributes(
-                [.foregroundColor: UIColor.white],
-                for: .normal
-            )
-            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.editProfPurple
+            .onAppear {
+                UISegmentedControl.appearance().setTitleTextAttributes(
+                    [.foregroundColor: UIColor.white],
+                    for: .normal
+                )
+                UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.editProfPurple
 
-            viewModel.setStartScreenViewModel(startScreenViewModel)
-            viewModel.setCoordinator(coordinator)
-            viewModel.onAppear()
-        }
+                viewModel.setStartScreenViewModel(startScreenViewModel)
+                viewModel.setCoordinator(coordinator)
+                viewModel.onAppear()
+            }
     }
 }
 

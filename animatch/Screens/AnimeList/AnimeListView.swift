@@ -15,9 +15,8 @@ struct AnimeListView: View {
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
             mainContent
-                .frame(maxWidth: .infinity)
                 .background(backgroundLineGradient)
-                .ignoresSafeArea()
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: AnimeListScreens.self) { screen in
                     openNextScreen(for: screen)
                         .environment(coordinator)
@@ -69,8 +68,6 @@ private extension AnimeListView {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
-        AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
-    }
-    .environment(StartScreenViewModel())
+    AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
+        .environment(StartScreenViewModel())
 }

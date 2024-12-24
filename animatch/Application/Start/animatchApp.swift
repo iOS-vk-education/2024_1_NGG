@@ -11,7 +11,7 @@ import SwiftUI
 struct animatchApp: App {
     @State private var viewModel = StartScreenViewModel()
 
-    init(){
+    init() {
         let coloredAppearance = UINavigationBarAppearance()
         coloredAppearance.configureWithOpaqueBackground()
         coloredAppearance.backgroundColor = .editProfPurple

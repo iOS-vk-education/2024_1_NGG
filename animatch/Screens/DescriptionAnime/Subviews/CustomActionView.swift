@@ -28,7 +28,6 @@ struct CustomActionView: View {
     }
 }
 
-
 // MARK: - ActionListView
 
 struct ActionListView<T: Hashable & RawRepresentable>: View where T.RawValue == String {
