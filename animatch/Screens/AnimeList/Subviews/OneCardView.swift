@@ -51,7 +51,7 @@ private extension OneCardView {
     var cardInfoView: some View {
         VStack(spacing: 0) {
             Text(story.title)
-                .font(Font.custom("Roboto", size: 32))
+                .font(Font.custom("Roboto", size: 28))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
 

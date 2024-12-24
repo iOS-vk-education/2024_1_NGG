@@ -38,14 +38,14 @@ struct MainProfileView: View {
             }
 
             ToolbarItem(placement: .principal) {
-                    Text("Профиль")
-                        .font(Font.custom("Roboto", size: 20))
+                Text(Constants.headerTitle)
+                        .font(Font.custom("Roboto", size: 22))
                         .foregroundColor(.white)
                 }
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
-                    .padding(.trailing, 22)
+                    .padding(.trailing, 24)
                     .foregroundStyle(Color.white)
                     .onTapGesture {
                         viewModel.logout()

@@ -159,7 +159,7 @@ extension MainProfileView {
 
 // MARK: - Constants
 
-private extension MainProfileView {
+extension MainProfileView {
 
     enum Constants {
         static let headerTitle = "Профиль"
