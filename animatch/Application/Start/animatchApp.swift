@@ -11,6 +11,13 @@ import SwiftUI
 struct animatchApp: App {
     @State private var viewModel = StartScreenViewModel()
 
+    init(){
+        let coloredAppearance = UINavigationBarAppearance()
+        coloredAppearance.configureWithOpaqueBackground()
+        coloredAppearance.backgroundColor = .editProfPurple
+        UINavigationBar.appearance().standardAppearance = coloredAppearance
+    }
+
     var body: some Scene {
         WindowGroup {
             startScreen
@@ -35,8 +42,6 @@ private extension animatchApp {
             AnimeListView(viewModel: AnimeListViewModelMock(delay: 2))
         case .choiceGenres:
             ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
-//        case .choiceDirectors:
-//            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
         }
     }
 }
