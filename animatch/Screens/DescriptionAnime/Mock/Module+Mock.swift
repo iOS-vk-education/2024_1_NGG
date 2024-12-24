@@ -15,7 +15,12 @@ extension Module {
         let tempStory = Module.generateStory(number: -1)
         return Module(
             id: tempStory.id,
-            mainImage: tempStory.mainImage,
+            mainImage: [
+                UIImage.totoro1.pngData(),
+                UIImage.totoro2.pngData(),
+                UIImage.totoro3.pngData(),
+                UIImage.totoroSimilar1.pngData()
+            ].compactMap { $0 }.randomElement() ?? Data(),
             title: tempStory.title,
             director: tempStory.director,
             description: tempStory.description,
@@ -32,8 +37,12 @@ extension Module {
     static func generateStory(number: Int) -> Module {
         Module(
             id: number,
-//            mainImage: UIImage.totoro1.pngData()!,
-            mainImage: UIImage.totoro1.pngData()!,
+            mainImage: [
+                UIImage.totoro1.pngData(),
+                UIImage.totoro2.pngData(),
+                UIImage.totoro3.pngData(),
+                UIImage.totoroSimilar1.pngData()
+            ].compactMap { $0 }.randomElement() ?? Data(),
             title: "Мой сосед Тоторо #\(number)",
             director: "Хаяо Миядзаки #\(number)",
             description: "Сестры Сацуки и Мэй переезжают вместе с папой в деревенский дом. Однажды девочки обнаруживают, что по соседству с ними живут лесные духи — хранители леса во главе со своим могущественным и добрым повелителем Тоторо. Постепенно Тоторо становится другом девочек",
