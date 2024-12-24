@@ -9,37 +9,42 @@ import Foundation
 
 struct OneCardModel {
     let id: Int
+    let mainImage: Data
     let title: String
     let type: String
     let genre: String
-    let date: String
+    let year: Int
 }
 
 // MARK: - Mapper
 
 extension OneCardModel {
 
-    init(story: Item) {
+    init(story: Module) {
         id = story.id
+        mainImage = story.mainImage
         title = story.title
         type = story.type
         genre = story.genre
-        date = story.date.formatted(.dateTime.year())
+        year = story.year
     }
 }
 
 // MARK: - Mock Data
 
 #if DEBUG
+import UIKit
+
 extension OneCardModel: Mockable {
 
     static var mockData: OneCardModel {
         OneCardModel(
             id: -1,
+            mainImage: UIImage.totoro1.pngData()!,
             title: "Тоторо",
             type: "Фильм",
             genre: "Приключения",
-            date: "1988"
+            year: 1988
         )
     }
 }

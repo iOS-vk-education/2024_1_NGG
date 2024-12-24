@@ -49,20 +49,15 @@ private struct StyledSecureField: View {
     @FocusState private var isTyping: Bool
 
     var body: some View {
-        ZStack(alignment: .leading) {
-            SecureField("", text: $text)
-                .padding(.leading, 16)
-                .frame(height: 51)
-                .foregroundColor(.white)
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
-                .focused($isTyping)
-
-            if text.isEmpty {
-                Text(title)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(Color.editProfGrayLight)
-            }
+        SecureField(text: $text) {
+            Text(title)
+                .foregroundColor(Color.editProfGrayLight)
         }
+        .padding(.leading, 16)
+        .frame(height: 51)
+        .foregroundColor(.white)
+        .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
+        .focused($isTyping)
         .padding(.bottom, 30)
     }
 }
