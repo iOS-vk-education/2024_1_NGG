@@ -25,11 +25,21 @@ struct PreferencesView: View {
             viewModel.reloadData()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(Constants.title)
                     .font(Font.custom("Roboto", size: 22))
                     .foregroundColor(.white)
+            }
+
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .padding(.leading, 22)
+                    .foregroundStyle(Color.white)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
             }
         }
         .background(backgroundLineGradient)
