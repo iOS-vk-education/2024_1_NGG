@@ -25,7 +25,13 @@ struct PreferencesView: View {
             viewModel.reloadData()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(Constants.title)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(Constants.title)
+                    .font(Font.custom("Roboto", size: 22))
+                    .foregroundColor(.white)
+            }
+        }
         .background(backgroundLineGradient)
     }
 }
@@ -53,6 +59,7 @@ private extension PreferencesView {
         ) {
             ForEach(viewModel.genres, id: \.self) { name in
                 Text(name)
+                    .font(Font.custom("Roboto", size: 20))
                     .listRowBackground(Color.clear)
             }
         }
@@ -66,6 +73,7 @@ private extension PreferencesView {
         ) {
             ForEach(viewModel.directors, id: \.self) { name in
                 Text(name)
+                    .font(Font.custom("Roboto", size: 20))
                     .listRowBackground(Color.clear)
             }
         }
