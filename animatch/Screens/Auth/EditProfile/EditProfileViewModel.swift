@@ -32,4 +32,8 @@ extension EditProfileViewModel {
         startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
         UserDefaults.standard.set(StartScreenState.choiceGenres.rawValue, forKey: "State")
     }
+
+    func clearArrayGenres() {
+        UserDefaults.standard.removeObject(forKey: "selectedGenres")
+    }
 }

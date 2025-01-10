@@ -115,6 +115,7 @@ private extension ChoiceGenresView {
     var buttonContainer: some View {
         NGGButton(Constants.buttonTitle) {
             viewModel.didTapContinue()
+            viewModel.clearArrayDirectors()
         }
         .padding(.horizontal)
         .padding(.bottom, 15)

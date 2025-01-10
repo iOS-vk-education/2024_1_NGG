@@ -17,4 +17,5 @@ protocol EditProfileViewModelInput {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
     func didTapSaveButton()
     func didTapDoLaterButton()
+    func clearArrayGenres()
 }

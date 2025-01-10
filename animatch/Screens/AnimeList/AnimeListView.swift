@@ -55,13 +55,15 @@ private extension AnimeListView {
     func openNextScreen(for screen: AnimeListScreens) -> some View {
         switch screen {
         case let .storyDetails(story):
-            DescriptionAnimeView(
-                viewModel: viewModel.configureDetailsViewModel(story: story)
-            )
+            DescriptionAnimeView(viewModel: viewModel.configureDetailsViewModel(story: story))
         case .profile:
             MainProfileView(viewModel: MainProfileViewModelMock(delay: 2))
         case .edit:
             MainEditProfileView(viewModel: MainEditProfileViewModelMock())
+        case .preferences:
+            PreferencesView(viewModel: PreferencesViewModelMock())
+        case .editPreferences:
+            EditPreferencesView(viewModel: EditPreferencesViewModelMock())
         }
     }
 }

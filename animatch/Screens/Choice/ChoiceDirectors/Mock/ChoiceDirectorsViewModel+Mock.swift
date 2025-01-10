@@ -13,6 +13,7 @@ import SwiftUI
 @Observable
 final class ChoiceDirectorsViewModelMock: ChoiceDirectorsViewModelLogic {
     var directors: [Directors] = []
+//    var selectedDirectors = []
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
@@ -29,9 +30,19 @@ final class ChoiceDirectorsViewModelMock: ChoiceDirectorsViewModelLogic {
 // MARK: - ChoiceDirectorsViewModelInput
 
 extension ChoiceDirectorsViewModelMock {
+
     func toggleDirectorSelection(director: Directors) {
         if let index = directors.firstIndex(where: { $0.name == director.name }) {
             directors[index].isSelected.toggle()
+
+            var savedDirectors = UserDefaults.standard.stringArray(forKey: "selectedDirectors") ?? []
+
+            if directors[index].isSelected {
+                savedDirectors.append(directors[index].name)
+            } else {
+                savedDirectors.removeAll { $0 == directors[index].name }
+            }
+            UserDefaults.standard.set(savedDirectors, forKey: "selectedDirectors")
         }
     }
 

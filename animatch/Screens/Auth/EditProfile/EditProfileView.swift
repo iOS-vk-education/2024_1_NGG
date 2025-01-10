@@ -109,6 +109,7 @@ private extension EditProfileView {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Нажали кнопку сохранить и продолжить")
                 viewModel.didTapSaveButton()
+                viewModel.clearArrayGenres()
             }
             .padding(.horizontal, 60)
             .padding(.bottom, 8)
@@ -117,6 +118,7 @@ private extension EditProfileView {
                 // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Сделать позже")
                 viewModel.didTapDoLaterButton()
+                viewModel.clearArrayGenres()
             } label: {
                 Text(Constants.makeLaterButtonTitle)
                     .underline()

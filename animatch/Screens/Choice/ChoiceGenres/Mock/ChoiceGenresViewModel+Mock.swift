@@ -27,9 +27,19 @@ final class ChoiceGenresViewModelMock: ChoiceGenresViewModelLogic {
 // MARK: - ChoiceDirectorsViewModelInput
 
 extension ChoiceGenresViewModelMock {
+
     func toggleGenreSelection(genre: Genre) {
         if let index = genres.firstIndex(where: { $0.name == genre.name }) {
             genres[index].isSelected.toggle()
+
+            var savedGenres = UserDefaults.standard.stringArray(forKey: "selectedGenres") ?? []
+
+            if genres[index].isSelected {
+                savedGenres.append(genres[index].name)
+            } else {
+                savedGenres.removeAll { $0 == genres[index].name }
+            }
+            UserDefaults.standard.set(savedGenres, forKey: "selectedGenres")
         }
     }
 
@@ -43,6 +53,10 @@ extension ChoiceGenresViewModelMock {
 
     func didTapContinue() {
         coordinator?.addScreen(screen: PreferenceScreens.directors)
+    }
+    func clearData() {
+        UserDefaults.standard.removeObject(forKey: "selectedDirectors")
+//        UserDefaults.standard.removeObject(forKey: "selectedGenres")
     }
 }
 

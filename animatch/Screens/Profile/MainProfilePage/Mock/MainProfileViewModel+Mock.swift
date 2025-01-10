@@ -86,6 +86,10 @@ extension MainProfileViewModelMock {
         coordinator?.addScreen(screen: AnimeListScreens.edit)
     }
 
+    func didTapPreferences() {
+        coordinator?.addScreen(screen: AnimeListScreens.preferences)
+    }
+
     func logout() {
         startScreenViewModel?.updateScreen(newScreenState: .initial)
         UserDefaults.standard.set(StartScreenState.initial.rawValue, forKey: "State")
