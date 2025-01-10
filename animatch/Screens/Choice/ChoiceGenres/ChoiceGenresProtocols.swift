@@ -18,4 +18,5 @@ protocol ChoiceGenresViewModelInput {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
     func didTapContinue()
     func clearArrayDirectors()
+    var anyGenreSelected: Bool { get }
 }

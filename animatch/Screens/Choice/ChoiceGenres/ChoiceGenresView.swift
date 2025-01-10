@@ -117,6 +117,8 @@ private extension ChoiceGenresView {
             viewModel.didTapContinue()
             viewModel.clearArrayDirectors()
         }
+        .disabled(!viewModel.anyGenreSelected)
+        .opacity(viewModel.anyGenreSelected ? 1.0 : 0.5)
         .padding(.horizontal)
         .padding(.bottom, 15)
     }

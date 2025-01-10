@@ -133,6 +133,8 @@ private extension EditPreferencesView {
         NGGButton(Constants.buttonTitle) {
             viewModel.didTapContinue()
         }
+        .disabled(!viewModel.anySelectionMade)
+        .opacity(viewModel.anySelectionMade ? 1.0 : 0.5)
         .padding(.horizontal)
         .padding(.bottom, 15)
     }

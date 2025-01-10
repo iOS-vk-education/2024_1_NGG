@@ -60,6 +60,10 @@ extension ChoiceDirectorsViewModelMock {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
         self.startScreenViewModel = startScreenViewModel
     }
+
+    var anyDirectorSelected: Bool {
+        directors.contains { $0.isSelected }
+    }
 }
 
 // MARK: - Constants

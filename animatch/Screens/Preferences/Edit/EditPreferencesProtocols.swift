@@ -17,4 +17,5 @@ protocol EditPreferencesViewModelInput {
     func toggleDirectorSelection(director: Directors)
     func toggleGenreSelection(genre: Genre)
     func didTapContinue()
+    var anySelectionMade: Bool { get }
 }

@@ -63,6 +63,10 @@ extension EditPreferencesViewModelMock {
 
         coordinator?.openPreviousScreen()
     }
+
+    var anySelectionMade: Bool {
+        allGenres.contains { $0.isSelected } && allDirectors.contains { $0.isSelected }
+    }
 }
 
 private extension EditPreferencesViewModelMock {
