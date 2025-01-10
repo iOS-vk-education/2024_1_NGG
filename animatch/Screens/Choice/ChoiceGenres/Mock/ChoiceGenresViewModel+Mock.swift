@@ -54,9 +54,12 @@ extension ChoiceGenresViewModelMock {
     func didTapContinue() {
         coordinator?.addScreen(screen: PreferenceScreens.directors)
     }
-    func clearData() {
+    func clearArrayDirectors() {
         UserDefaults.standard.removeObject(forKey: "selectedDirectors")
-//        UserDefaults.standard.removeObject(forKey: "selectedGenres")
+    }
+
+    var anyGenreSelected: Bool {
+        genres.contains { $0.isSelected }
     }
 }
 
