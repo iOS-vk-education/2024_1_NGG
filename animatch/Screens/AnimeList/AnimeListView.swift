@@ -25,7 +25,6 @@ struct AnimeListView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Image(systemName: "person.fill")
-                            .padding(.trailing, 22)
                             .foregroundStyle(Color.white)
                             .onTapGesture {
                                 viewModel.didTapProfile()
