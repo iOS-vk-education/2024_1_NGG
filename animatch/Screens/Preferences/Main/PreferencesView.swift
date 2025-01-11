@@ -12,11 +12,10 @@ struct PreferencesView: View {
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
-            List {
-                genresSection
-                directorsSection
-            }
-            buttonContainer
+        List {
+            genresSection
+            directorsSection
+        }
         .scrollContentBackground(.hidden)
         .onAppear {
             viewModel.setCoordinator(coordinator)
@@ -24,6 +23,9 @@ struct PreferencesView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+        .overlay(alignment: .bottom) {
+            buttonContainer
+        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(Constants.title)
