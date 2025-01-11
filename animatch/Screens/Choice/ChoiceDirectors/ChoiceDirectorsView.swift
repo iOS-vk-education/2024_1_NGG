@@ -13,9 +13,10 @@ struct ChoiceDirectorsView: View {
     @Environment(Coordinator.self) var coordinator
 
     var body: some View {
-        VStack(spacing: 0) {
-            headerView
+        ZStack(alignment: .top) {
             preferenceList
+                .padding(.top, 130)
+            headerView
         }
         .navigationBarBackButtonHidden()
         .toolbar {

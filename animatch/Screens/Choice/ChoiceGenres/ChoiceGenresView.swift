@@ -22,6 +22,13 @@ struct ChoiceGenresView: View {
                 openNextScreen(for: screen)
                     .environment(coordinator)
             }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(Constants.headerTitle)
+                        .font(Font.custom("Roboto", size: 22))
+                        .foregroundColor(.white)
+                }
+            }
             .ignoresSafeArea()
             .background(backgroundLineGradient)
             .overlay(alignment: .bottom) {
@@ -64,12 +71,6 @@ private extension ChoiceGenresView {
             )
             .fill(Color.editProfPurple)
             .frame(height: 130)
-
-            Text(Constants.headerTitle)
-                .foregroundStyle(.editProfWhite)
-                .font(Font.custom("Roboto", size: 22))
-                .padding(.top, 65)
-                .padding(.horizontal, 16)
         }
     }
 
