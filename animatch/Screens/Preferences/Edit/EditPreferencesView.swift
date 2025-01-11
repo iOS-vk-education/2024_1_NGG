@@ -153,6 +153,7 @@ private extension EditPreferencesView {
 
 #Preview {
     EditPreferencesView(viewModel: EditPreferencesViewModelMock())
+        .environment(Coordinator())
 }
 
 // MARK: - Constants

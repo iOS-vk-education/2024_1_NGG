@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @Observable
-final class ChoiceGenresViewModelMock: ChoiceGenresViewModelLogic {
+final class ChoiceGenresViewModelMock: ChoiceGenresDisplayLogic {
     var genres: [Genre] = []
 
     @ObservationIgnored
@@ -53,11 +53,9 @@ extension ChoiceGenresViewModelMock {
 
     func didTapContinue() {
         coordinator?.addScreen(screen: PreferenceScreens.directors)
-    }
-    func clearArrayDirectors() {
         UserDefaults.standard.removeObject(forKey: "selectedDirectors")
     }
-
+    
     var anyGenreSelected: Bool {
         genres.contains { $0.isSelected }
     }

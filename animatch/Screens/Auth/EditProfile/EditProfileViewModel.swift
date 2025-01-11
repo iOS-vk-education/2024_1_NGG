@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EditProfileViewModel: EditProfileViewModelLogic & EditProfileViewModelInput {
+final class EditProfileViewModel: EditProfileDisplayLogic & EditProfileViewModelInput {
     var inputName = ""
     var inputSurname = ""
     var inputEmail = ""
@@ -26,14 +26,12 @@ extension EditProfileViewModel {
     func didTapSaveButton() {
         startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
         UserDefaults.standard.set(StartScreenState.choiceGenres.rawValue, forKey: "State")
+        UserDefaults.standard.removeObject(forKey: "selectedGenres")
     }
 
     func didTapDoLaterButton() {
         startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
         UserDefaults.standard.set(StartScreenState.choiceGenres.rawValue, forKey: "State")
-    }
-
-    func clearArrayGenres() {
         UserDefaults.standard.removeObject(forKey: "selectedGenres")
     }
 }

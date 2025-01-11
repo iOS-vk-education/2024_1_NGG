@@ -12,13 +12,11 @@ struct PreferencesView: View {
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
-        VStack {
             List {
                 genresSection
                 directorsSection
             }
             buttonContainer
-        }
         .scrollContentBackground(.hidden)
         .onAppear {
             viewModel.setCoordinator(coordinator)

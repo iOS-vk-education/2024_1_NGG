@@ -7,16 +7,15 @@
 
 import Foundation
 
-protocol ChoiceGenresViewModelLogic: ChoiceGenresViewModelInput {
+protocol ChoiceGenresDisplayLogic: ChoiceGenresViewModelInput {
     var genres: [Genre] { get }
 
     func toggleGenreSelection(genre: Genre)
+    var anyGenreSelected: Bool { get }
 }
 
 protocol ChoiceGenresViewModelInput {
     func setCoordinator(_ coordinator: Coordinator)
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
     func didTapContinue()
-    func clearArrayDirectors()
-    var anyGenreSelected: Bool { get }
 }

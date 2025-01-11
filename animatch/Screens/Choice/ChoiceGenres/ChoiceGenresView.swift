@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChoiceGenresView: View {
-    @State var viewModel: ChoiceGenresViewModelLogic
+    @State var viewModel: ChoiceGenresDisplayLogic
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
     @State private var coordinator = Coordinator()
 
@@ -115,7 +115,6 @@ private extension ChoiceGenresView {
     var buttonContainer: some View {
         NGGButton(Constants.buttonTitle) {
             viewModel.didTapContinue()
-            viewModel.clearArrayDirectors()
         }
         .disabled(!viewModel.anyGenreSelected)
         .opacity(viewModel.anyGenreSelected ? 1.0 : 0.5)

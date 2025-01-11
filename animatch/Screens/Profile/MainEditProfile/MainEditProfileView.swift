@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainEditProfileView: View {
-    @State var viewModel: MainEditProfileViewModelLogic
+    @State var viewModel: MainEditProfileDisplayLogic
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
