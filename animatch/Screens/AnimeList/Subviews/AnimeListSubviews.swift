@@ -31,21 +31,20 @@ extension AnimeListView {
     }
 
     var shimmerinCellView: some View {
-        NGGShimmeringView()
-            .frame(height: 110)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+        NGGShimmeringCardView()
     }
 
     var listContainer: some View {
         LazyVStack(spacing: 15) {
             ForEach(viewModel.stories) { story in
                 OneCardView(story: story)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         viewModel.didTapCell(story: story)
                     }
             }
         }
-        .padding(.horizontal, 30)
+        .padding(.horizontal, 15)
         .padding(.top)
     }
 

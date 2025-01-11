@@ -18,6 +18,7 @@ struct NGGShimmeringView: View {
             startPoint: startPoint,
             endPoint: endPoint
         )
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .onAppear {
             withAnimation(
                 .easeInOut(duration: 2)
@@ -41,9 +42,9 @@ struct NGGShimmeringView: View {
 private extension NGGShimmeringView {
     enum Constants {
         static let colors = [
-            Color(uiColor: UIColor(red: 36/255, green: 36/255, blue: 41/255, alpha: 1)),
-            Color(uiColor: UIColor.darkGray),
-            Color(uiColor: UIColor(red: 36/255, green: 36/255, blue: 41/255, alpha: 1)),
+            Color(uiColor: UIColor.cardGrey),
+            Color(uiColor: UIColor.editProfLightGrad),
+            Color(uiColor: UIColor.cardGrey),
         ]
     }
 }
