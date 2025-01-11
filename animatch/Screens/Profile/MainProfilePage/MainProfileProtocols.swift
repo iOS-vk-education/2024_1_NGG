@@ -20,6 +20,7 @@ protocol MainProfileViewModelInput {
     func onAppear()
     func didTapCell(story: Module)
     func didTapEdit()
+    func didTapPreferences()
     func logout()
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
 }

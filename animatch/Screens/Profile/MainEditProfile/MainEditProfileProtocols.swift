@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MainEditProfileViewModelLogic: MainEditProfileViewModelInput {
+protocol MainEditProfileDisplayLogic: MainEditProfileViewModelInput {
     var inputName: String { get set }
     var inputSurname: String { get set }
     var inputEmail: String { get set }

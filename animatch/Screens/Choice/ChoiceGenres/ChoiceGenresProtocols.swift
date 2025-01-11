@@ -7,10 +7,11 @@
 
 import Foundation
 
-protocol ChoiceGenresViewModelLogic: ChoiceGenresViewModelInput {
+protocol ChoiceGenresDisplayLogic: ChoiceGenresViewModelInput {
     var genres: [Genre] { get }
 
     func toggleGenreSelection(genre: Genre)
+    var anyGenreSelected: Bool { get }
 }
 
 protocol ChoiceGenresViewModelInput {

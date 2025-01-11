@@ -9,7 +9,7 @@
 
 import Foundation
 
-final class MainEditProfileViewModelMock: MainEditProfileViewModelLogic {
+final class MainEditProfileViewModelMock: MainEditProfileDisplayLogic {
     var inputName = ""
     var inputSurname = ""
     var inputEmail = ""

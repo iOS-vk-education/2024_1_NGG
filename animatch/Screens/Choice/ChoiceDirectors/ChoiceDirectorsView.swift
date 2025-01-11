@@ -117,6 +117,8 @@ private extension ChoiceDirectorsView {
         NGGButton(Constants.buttonTitle) {
             viewModel.didTapContinue()
         }
+        .disabled(!viewModel.anyDirectorSelected)
+        .opacity(viewModel.anyDirectorSelected ? 1.0 : 0.5)
         .padding(.horizontal)
         .padding(.bottom, 15)
     }

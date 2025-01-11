@@ -11,4 +11,6 @@ enum AnimeListScreens: Hashable {
     case storyDetails(Module)
     case profile
     case edit
+    case preferences
+    case editPreferences
 }

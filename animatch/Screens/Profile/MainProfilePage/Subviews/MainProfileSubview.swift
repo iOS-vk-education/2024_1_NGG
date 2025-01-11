@@ -39,7 +39,7 @@ extension MainProfileView {
                 shimmerinCellView
             }
         }
-        .padding(.top, 28)
+        .padding(.top, 58)
         .padding(.horizontal)
     }
 
@@ -114,8 +114,7 @@ extension MainProfileView {
     var buttonContainer: some View {
         VStack {
             Button {
-                // TODO: Добавить логику обработки нажатий
-                print("[DEBUG]: редактирование предпочтений")
+                viewModel.didTapPreferences()
             } label: {
                 Text(Constants.preferences)
                     .foregroundStyle(Color.editProfPurple)
@@ -142,7 +141,7 @@ extension MainProfileView {
     }
 
     var listContainer: some View {
-        LazyVStack(spacing: 15) {
+        LazyVStack(spacing: 20) {
             ForEach(viewModel.stories) { story in
                 OneCardView(story: story)
                     .onTapGesture {
@@ -150,7 +149,7 @@ extension MainProfileView {
                     }
             }
         }
-        .padding(.top, 28)
+        .padding(.top, 58)
         .padding(.horizontal)
     }
 }

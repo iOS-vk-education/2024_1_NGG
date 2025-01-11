@@ -46,7 +46,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
 
     private func updateStoriesForSelectedTab() {
         switch selectedTab {
-        case 0: 
+        case 0:
             stories = MockData.wantToWatchStories
         case 1:
             stories = MockData.viewedStories
@@ -84,6 +84,10 @@ extension MainProfileViewModelMock {
 
     func didTapEdit() {
         coordinator?.addScreen(screen: AnimeListScreens.edit)
+    }
+
+    func didTapPreferences() {
+        coordinator?.addScreen(screen: AnimeListScreens.preferences)
     }
 
     func logout() {

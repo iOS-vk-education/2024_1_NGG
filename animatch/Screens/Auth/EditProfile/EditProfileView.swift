@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    @State var viewModel: EditProfileViewModelLogic
+    @State var viewModel: EditProfileDisplayLogic
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {

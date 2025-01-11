@@ -22,7 +22,7 @@ extension AnimeListView {
 
     var loadingView: some View {
         VStack(spacing: 15) {
-            ForEach(1...5, id: \.self) { _ in
+            ForEach(1...7, id: \.self) { _ in
                 shimmerinCellView
             }
         }
