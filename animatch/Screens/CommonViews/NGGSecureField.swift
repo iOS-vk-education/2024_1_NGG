@@ -56,7 +56,7 @@ private struct StyledSecureField: View {
         .padding(.leading, 16)
         .frame(height: 51)
         .foregroundColor(.white)
-        .background(RoundedRectangle(cornerRadius: 8).fill(Color.editProfGray))
+        .background(RoundedRectangle(cornerRadius: 8).fill(Color.textFieldGray))
         .focused($isTyping)
         .padding(.bottom, 30)
     }
