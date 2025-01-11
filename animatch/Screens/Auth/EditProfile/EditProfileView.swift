@@ -13,12 +13,12 @@ struct EditProfileView: View {
 
     var body: some View {
         AdaptiveScrollView {
-                VStack(spacing: 0) {
-                    headerView
-                    formsContainer
-                    Spacer()
-                    buttonsContainer
-                }
+            VStack(spacing: 0) {
+                headerView
+                formsContainer
+                Spacer()
+                buttonsContainer
+            }
         }
         .ignoresSafeArea()
         .background(backgroundLineGradient)

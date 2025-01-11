@@ -13,16 +13,16 @@ struct SingUpView: View {
 
     var body: some View {
         AdaptiveScrollView {
-                    VStack(spacing: 0) {
-                        VStack {
-                            formsContainer
-                            buttonsContainer
-                        }
-                        Spacer()
-                        footerView
-                    }
-                    .frame(maxWidth: .infinity)
+            VStack(spacing: 0) {
+                VStack {
+                    formsContainer
+                    buttonsContainer
                 }
+                Spacer()
+                footerView
+            }
+            .frame(maxWidth: .infinity)
+        }
         .background(backgroundLineGradient)
         .ignoresSafeArea()
         .onAppear {

@@ -54,7 +54,7 @@ private extension OneCardView {
                 .font(Font.custom("Roboto", size: 28))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-            
+
             HStack {
                 Text(story.genre)
                     .foregroundColor(.white)
