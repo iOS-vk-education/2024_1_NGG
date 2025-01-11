@@ -12,7 +12,7 @@ struct MainEditProfileView: View {
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
-        ScrollView {
+        AdaptiveScrollView {
             VStack(spacing: 0) {
                 headerView
                 formsContainer
@@ -24,13 +24,12 @@ struct MainEditProfileView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Профиль")
+                Text(Constants.headerTitle)
                     .font(Font.custom("Roboto", size: 22))
                     .foregroundColor(.white)
             }
             ToolbarItem(placement: .navigationBarLeading) {
                 Image(systemName: "arrow.left")
-                    .padding(.leading, 22)
                     .foregroundStyle(Color.white)
                     .onTapGesture {
                         coordinator.openPreviousScreen()
@@ -64,22 +63,17 @@ private extension MainEditProfileView {
 
     var formsContainer: some View {
         VStack(spacing: 0) {
-            Text(Constants.formsContainerTitle)
-                .foregroundStyle(Color.editProfWhite)
-                .font(Font.custom("Roboto", size: 20))
-                .padding(.top, 39)
-                .padding(.bottom, 20)
-
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputName)
             NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $viewModel.inputSurname)
             NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $viewModel.inputEmail)
         }
         .padding(.horizontal, 60)
+        .padding(.top, 80)
     }
 
     var avatarView: some View {
         RoundedRectangle(cornerRadius: 30)
-            .fill(Color.editProfGray)
+            .fill(Color.textFieldGray)
             .frame(width: 150, height: 150)
             .overlay(alignment: .bottomTrailing) {
                 Button {
@@ -136,8 +130,7 @@ private extension MainEditProfileView {
 private extension MainEditProfileView {
 
     enum Constants {
-        static let headerTitle = "Профиль"
-        static let formsContainerTitle = "Добавьте имя и фамилию"
+        static let headerTitle = "Редактирование"
         static let nameTextFieldPlaceholder = "Имя"
         static let surnameTextFieldPlaceholder = "Фамилия"
         static let emailTextFieldPlaceholder = "pochta@pochta.com"

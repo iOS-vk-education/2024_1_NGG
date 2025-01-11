@@ -12,14 +12,17 @@ struct SingUpView: View {
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        VStack(spacing: 0) {
-            logoView
-            formsContainer
-            buttonsContainer
-            Spacer()
-            footerView
-        }
-        .frame(maxWidth: .infinity)
+        AdaptiveScrollView {
+                    VStack(spacing: 0) {
+                        VStack {
+                            formsContainer
+                            buttonsContainer
+                        }
+                        Spacer()
+                        footerView
+                    }
+                    .frame(maxWidth: .infinity)
+                }
         .background(backgroundLineGradient)
         .ignoresSafeArea()
         .onAppear {
@@ -52,20 +55,13 @@ private extension SingUpView {
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
                 .padding(.bottom, 34)
+                .padding(.top, 250)
 
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputEmail)
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.inputPasswordFirst)
             NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $viewModel.inputPasswordSecond)
         }
-        .padding(.top, 60)
         .padding(.horizontal, 60)
-    }
-
-    var logoView: some View {
-        Image(.logo)
-            .resizable()
-            .frame(width: 209, height: 69)
-            .padding(.top, 150)
     }
 
     var buttonsContainer: some View {

@@ -12,9 +12,12 @@ struct PreferencesView: View {
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
-        List {
-            genresSection
-            directorsSection
+        VStack {
+            List {
+                genresSection
+                directorsSection
+            }
+            buttonContainer
         }
         .scrollContentBackground(.hidden)
         .onAppear {
@@ -23,9 +26,6 @@ struct PreferencesView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
-        .overlay(alignment: .bottom) {
-            buttonContainer
-        }
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(Constants.title)
@@ -35,7 +35,6 @@ struct PreferencesView: View {
 
             ToolbarItem(placement: .navigationBarLeading) {
                 Image(systemName: "arrow.left")
-                    .padding(.leading, 22)
                     .foregroundStyle(Color.white)
                     .onTapGesture {
                         coordinator.openPreviousScreen()
