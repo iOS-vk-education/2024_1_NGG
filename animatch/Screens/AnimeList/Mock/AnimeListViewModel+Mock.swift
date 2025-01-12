@@ -12,7 +12,7 @@ import Foundation
 
 @Observable
 final class AnimeListViewModelMock: AnimeListDisplayLogic & AnimeListViewModelOutput {
-    
+
     @ObservationIgnored
     var delay: TimeInterval
 

@@ -13,9 +13,10 @@ struct ChoiceDirectorsView: View {
     @Environment(Coordinator.self) var coordinator
 
     var body: some View {
-        VStack(spacing: 0) {
-            headerView
+        ZStack(alignment: .top) {
             preferenceList
+                .padding(.top, 130)
+            headerView
         }
         .navigationBarBackButtonHidden()
         .toolbar {
@@ -65,14 +66,14 @@ private extension ChoiceDirectorsView {
     }
 
     var headerView: some View {
-            UnevenRoundedRectangle(
-                cornerRadii: .init(
-                    bottomLeading: 24,
-                    bottomTrailing: 24
-                )
+        UnevenRoundedRectangle(
+            cornerRadii: .init(
+                bottomLeading: 24,
+                bottomTrailing: 24
             )
-            .fill(Color.editProfPurple)
-            .frame(height: 130)
+        )
+        .fill(Color.editProfPurple)
+        .frame(height: 130)
     }
 
     var preferenceList: some View {

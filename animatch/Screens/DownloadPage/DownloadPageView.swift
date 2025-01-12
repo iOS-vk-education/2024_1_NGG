@@ -12,17 +12,19 @@ struct DownloadPageView: View {
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        VStack(spacing: 0) {
-            NGGLogoView()
-            buttonsContainer
-            Spacer()
+        AdaptiveScrollView {
+            VStack(spacing: 0) {
+                NGGLogoView()
+                buttonsContainer
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .accentColor(.white)
+            .onAppear {
+                viewModel.setStartScreenViewModel(startScreenViewModel)
+            }
         }
-        .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
-        .accentColor(.white)
-        .onAppear {
-            viewModel.setStartScreenViewModel(startScreenViewModel)
-        }
     }
 }
 

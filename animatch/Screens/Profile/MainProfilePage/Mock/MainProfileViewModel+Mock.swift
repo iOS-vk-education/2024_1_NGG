@@ -39,7 +39,6 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
 
     var selectedTab: Int = 0 {
         didSet {
-            onAppear()
             updateStoriesForSelectedTab()
         }
     }

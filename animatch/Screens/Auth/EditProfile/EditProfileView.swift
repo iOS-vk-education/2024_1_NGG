@@ -12,19 +12,23 @@ struct EditProfileView: View {
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        VStack {
-            ZStack {
-                backgroundLineGradient
-
-                VStack(spacing: 0) {
-                    headerView
-                    formsContainer
-                    Spacer()
-                    buttonsContainer
-                }
+        AdaptiveScrollView {
+            VStack(spacing: 0) {
+                headerView
+                formsContainer
+                Spacer()
+                buttonsContainer
             }
         }
         .ignoresSafeArea()
+        .background(backgroundLineGradient)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(Constants.headerTitle)
+                    .font(Font.custom("Roboto", size: 22))
+                    .foregroundColor(.white)
+            }
+        }
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
         }
@@ -66,7 +70,7 @@ private extension EditProfileView {
 
     var avatarView: some View {
         RoundedRectangle(cornerRadius: 30)
-            .fill(Color.editProfGray)
+            .fill(Color.textFieldGray)
             .frame(width: 150, height: 150)
             .overlay(alignment: .bottomTrailing) {
                 Button {
@@ -92,12 +96,6 @@ private extension EditProfileView {
             .fill(Color.editProfPurple)
             .frame(height: 166)
 
-            Text(Constants.headerTitle)
-                .foregroundStyle(.editProfWhite)
-                .font(Font.custom("Roboto", size: 20))
-                .padding(.top, 65)
-                .padding(.horizontal, 16)
-
             avatarView
                 .padding(.top, 107)
         }
@@ -106,7 +104,6 @@ private extension EditProfileView {
     var buttonsContainer: some View {
         VStack(spacing: 0) {
             NGGButton(Constants.saveButtonTitle) {
-                // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Нажали кнопку сохранить и продолжить")
                 viewModel.didTapSaveButton()
             }
@@ -114,7 +111,6 @@ private extension EditProfileView {
             .padding(.bottom, 8)
 
             Button {
-                // TODO: IOS-12: Добавить логику обработки нажатий
                 print("[DEBUG]: Сделать позже")
                 viewModel.didTapDoLaterButton()
             } label: {

@@ -39,14 +39,13 @@ extension MainProfileView {
                 shimmerinCellView
             }
         }
-        .padding(.top, 58)
+        .padding(.top, 20)
         .padding(.horizontal)
     }
 
     var shimmerinCellView: some View {
-        NGGShimmeringView()
+        NGGShimmeringCardView()
             .frame(height: 110)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
     var backgroundLineGradient: some View {
@@ -65,7 +64,7 @@ extension MainProfileView {
 
     var avatarView: some View {
         RoundedRectangle(cornerRadius: 30)
-            .fill(Color.editProfGray)
+            .fill(Color.textFieldGray)
             .frame(width: 150, height: 150)
     }
 
@@ -94,9 +93,12 @@ extension MainProfileView {
     var textContainer: some View {
         VStack(spacing: 20) {
             ZStack {
-                Text("\(viewModel.user.name) \(viewModel.user.surname)")
-                    .font(Font.custom("Roboto", size: 20))
-
+                VStack {
+                    Text("\(viewModel.user.name) \(viewModel.user.surname)")
+                        .font(Font.custom("Roboto", size: 20))
+                    Text(viewModel.user.email)
+                        .foregroundColor(Color.gray)
+                }
                 HStack {
                     Spacer()
                     Image(systemName: "square.and.pencil")
@@ -141,15 +143,16 @@ extension MainProfileView {
     }
 
     var listContainer: some View {
-        LazyVStack(spacing: 20) {
+        LazyVStack(spacing: 15) {
             ForEach(viewModel.stories) { story in
                 OneCardView(story: story)
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         viewModel.didTapCell(story: story)
                     }
             }
         }
-        .padding(.top, 58)
+        .padding(.top, 20)
         .padding(.horizontal)
     }
 }

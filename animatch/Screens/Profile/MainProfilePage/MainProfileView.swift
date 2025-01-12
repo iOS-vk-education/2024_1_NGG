@@ -18,7 +18,6 @@ struct MainProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Image(systemName: "arrow.left")
-                        .padding(.leading, 22)
                         .foregroundStyle(Color.white)
                         .onTapGesture {
                             coordinator.openPreviousScreen()
@@ -33,7 +32,6 @@ struct MainProfileView: View {
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .padding(.trailing, 24)
                         .foregroundStyle(Color.white)
                         .onTapGesture {
                             viewModel.logout()

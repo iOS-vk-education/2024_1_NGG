@@ -22,7 +22,6 @@ struct EditPreferencesView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Image(systemName: "arrow.left")
-                    .padding(.leading, 22)
                     .foregroundStyle(Color.white)
                     .onTapGesture {
                         coordinator.openPreviousScreen()

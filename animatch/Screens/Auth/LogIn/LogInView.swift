@@ -11,15 +11,17 @@ struct LogInView: View {
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
-        VStack(spacing: 0) {
-            logoView
-                .padding(.bottom, 66)
-            formsContainer
-            buttonsContainer
-            Spacer()
-            footerView
+        AdaptiveScrollView {
+            VStack(spacing: 0) {
+                VStack {
+                    formsContainer
+                    buttonsContainer
+                }
+                Spacer()
+                footerView
+            }
+            .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity)
         .background(backgroundLineGradient)
         .ignoresSafeArea()
         .onAppear {
@@ -55,20 +57,14 @@ private extension LogInView {
             Text(Constants.formsContainerTitle)
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
-                .padding(.bottom, 53)
+                .padding(.bottom, 34)
+                .padding(.top, 250)
 
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.email)
 
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.password)
         }
         .padding(.horizontal, 60)
-    }
-
-    var logoView: some View {
-        Image(.logo)
-            .resizable()
-            .frame(width: 209, height: 69)
-            .padding(.top, 140)
     }
 
     var buttonsContainer: some View {
@@ -78,18 +74,8 @@ private extension LogInView {
                 viewModel.validateData()
             }
             .padding(.horizontal, 60)
-            .padding(.bottom, 8)
-
-            Button {
-                // TODO: IOS-16: Добавить логику обработки нажатий
-                print("[DEBUG]: Восстановление пароля")
-            } label: {
-                Text(Constants.forgotPasswordButtonTitle)
-                    .underline()
-                    .foregroundColor(.editProfPurple)
-            }
+            .padding(.bottom, 80)
         }
-        .padding(.bottom, 100)
     }
 
     var footerView: some View {

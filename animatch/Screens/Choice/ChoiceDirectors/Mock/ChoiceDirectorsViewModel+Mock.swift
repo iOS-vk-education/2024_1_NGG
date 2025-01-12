@@ -13,7 +13,6 @@ import SwiftUI
 @Observable
 final class ChoiceDirectorsViewModelMock: ChoiceDirectorsViewModelLogic {
     var directors: [Directors] = []
-//    var selectedDirectors = []
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
@@ -75,7 +74,11 @@ private extension ChoiceDirectorsViewModelMock {
             "Мари Окада",
             "Тэцуро Араки",
             "Хаяо Миядзаки",
-            "Сатоси Кон"
+            "Сатоси Кон",
+            "Осаму Тэдзука",
+            "Кацухиро Отомо",
+            "Мамору Оси",
+            "Синъитиро Ватанабэ"
         ]
     }
 }
