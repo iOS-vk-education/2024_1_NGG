@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct NGGShimmeringView: View {
+    var kind: NGGShimmeringKind = .default
     @State private var isAnimating = false
     @State private var startPoint = UnitPoint(x: -1.8, y: -1.2)
     @State private var endPoint = UnitPoint(x: 0, y: -0.2)
 
     var body: some View {
         LinearGradient(
-            colors: Constants.colors,
+            colors: kind.colors,
             startPoint: startPoint,
             endPoint: endPoint
         )
@@ -31,6 +32,32 @@ struct NGGShimmeringView: View {
     }
 }
 
+extension NGGShimmeringView {
+    enum NGGShimmeringKind: Hashable {
+        case `default`
+        case inverted
+    }
+}
+
+private extension NGGShimmeringView.NGGShimmeringKind {
+    var colors: [Color] {
+        switch self {
+        case .default:
+            return [
+                Constants.shimmering2,
+                Constants.shimmering1,
+                Constants.shimmering2,
+            ]
+        case .inverted:
+            return [
+                Constants.shimmering1,
+                Constants.shimmering2,
+                Constants.shimmering1,
+            ]
+        }
+    }
+}
+
 // MARK: - Preview
 
 #Preview {
@@ -39,12 +66,9 @@ struct NGGShimmeringView: View {
 
 // MARK: - Constants
 
-private extension NGGShimmeringView {
+private extension NGGShimmeringView.NGGShimmeringKind {
     enum Constants {
-        static let colors = [
-            Color(uiColor: UIColor.cardGrey),
-            Color(uiColor: UIColor.editProfLightGrad),
-            Color(uiColor: UIColor.cardGrey),
-        ]
+        static let shimmering2 = Color(uiColor: UIColor.cardLightGray)
+        static let shimmering1 = Color(uiColor: UIColor.editProfLightGrad)
     }
 }

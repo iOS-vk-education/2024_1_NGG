@@ -11,7 +11,7 @@ struct NGGShimmeringCardView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundStyle(Color.cardGrey)
+                .foregroundStyle(Color.cardGray)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             VStack() {
                 NGGShimmeringView()
