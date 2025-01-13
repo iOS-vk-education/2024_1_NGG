@@ -31,7 +31,8 @@ private extension animatchApp {
     var startScreen: some View {
         switch viewModel.currentScreenState {
         case .initial:
-            DownloadPageView(viewModel: DownloadPageViewModel())
+            DownloadPageView(viewModel: DownloadPageViewModel(), startScreenViewModel: viewModel)
+                .ignoresSafeArea()
         case .signIn:
             LogInView(viewModel: LogInViewModelMock())
         case .signUp:
