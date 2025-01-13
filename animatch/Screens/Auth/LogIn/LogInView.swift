@@ -22,7 +22,7 @@ struct LogInView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .background(backgroundLineGradient)
+        .background(Color.background)
         .ignoresSafeArea()
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
@@ -37,20 +37,6 @@ struct LogInView: View {
 // MARK: - UI Subviews
 
 private extension LogInView {
-
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
 
     var formsContainer: some View {
         VStack(spacing: 0) {
