@@ -47,20 +47,6 @@ extension AnimeListView {
         .padding(.horizontal, 15)
         .padding(.top)
     }
-
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
 }
 
 // MARK: - Preview

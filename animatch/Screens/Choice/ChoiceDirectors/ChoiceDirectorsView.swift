@@ -14,8 +14,11 @@ struct ChoiceDirectorsView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            preferenceList
-                .padding(.top, 130)
+            VStack {
+                preferenceList
+                    .padding(.top, 130)
+                buttonContainer
+            }
             headerView
         }
         .navigationBarBackButtonHidden()
@@ -36,10 +39,7 @@ struct ChoiceDirectorsView: View {
             }
         }
         .ignoresSafeArea()
-        .background(backgroundLineGradient)
-        .overlay(alignment: .bottom) {
-            buttonContainer
-        }
+        .background(Color.background)
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
             viewModel.setCoordinator(coordinator)
@@ -50,20 +50,6 @@ struct ChoiceDirectorsView: View {
 // MARK: - UI Subviews
 
 private extension ChoiceDirectorsView {
-
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
 
     var headerView: some View {
         UnevenRoundedRectangle(
@@ -96,7 +82,7 @@ private extension ChoiceDirectorsView {
 
                                 if director.isSelected {
                                     Circle()
-                                        .fill(Color.purple)
+                                        .fill(Color.editProfPurple)
                                         .frame(width: 12, height: 12)
                                 }
                             }
@@ -121,7 +107,7 @@ private extension ChoiceDirectorsView {
         .disabled(!viewModel.anyDirectorSelected)
         .opacity(viewModel.anyDirectorSelected ? 1.0 : 0.5)
         .padding(.horizontal)
-        .padding(.bottom, 15)
+        .padding(.bottom, 40)
     }
 }
 

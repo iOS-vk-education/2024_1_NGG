@@ -68,7 +68,7 @@ private extension NGGShimmeringView.NGGShimmeringKind {
 
 private extension NGGShimmeringView.NGGShimmeringKind {
     enum Constants {
-        static let shimmering2 = Color(uiColor: UIColor.cardLightGray)
-        static let shimmering1 = Color(uiColor: UIColor.editProfLightGrad)
+        static let shimmering2 = Color(uiColor: UIColor.background)
+        static let shimmering1 = Color(uiColor: UIColor.cardLightGray)
     }
 }

@@ -23,7 +23,7 @@ struct SingUpView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .background(backgroundLineGradient)
+        .background(Color.background)
         .ignoresSafeArea()
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
@@ -35,27 +35,13 @@ struct SingUpView: View {
 
 private extension SingUpView {
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
-
     var formsContainer: some View {
         VStack(spacing: 0) {
             Text(Constants.formsContainerTitle)
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
                 .padding(.bottom, 34)
-                .padding(.top, 250)
+                .padding(.top, 220)
 
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputEmail)
             NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.inputPasswordFirst)
@@ -71,7 +57,6 @@ private extension SingUpView {
             }
         }
         .padding(.horizontal, 60)
-        .padding(.bottom, 80)
     }
 
     var footerView: some View {
@@ -88,13 +73,14 @@ private extension SingUpView {
                 Button {
                     viewModel.didTapOpenSignInScreen()
                 } label: {
-                    Text(Constants.singupButton)
+                    Text(Constants.logInButton)
                         .underline()
-                        .foregroundColor(.editProfPurple)
+                        .foregroundColor(.purpleLight)
                 }
             }
         }
-        .padding(.bottom, 130)
+        .frame(height: 80)
+        .padding(.bottom, 100)
     }
 }
 
@@ -113,11 +99,11 @@ private extension SingUpView {
 
     enum Constants {
         static let formsContainerTitle = "Регистрация"
-        static let nameTextFieldPlaceholder = "Введите эл. почту"
-        static let passwordTextFieldPlaceholder = "Введите пароль"
-        static let passwordrepeatTextFieldPlaceholder = "Повторите пароль"
+        static let nameTextFieldPlaceholder = "email"
+        static let passwordTextFieldPlaceholder = "password"
+        static let passwordrepeatTextFieldPlaceholder = "password repeat"
         static let haveAccountText = "Есть аккаунт?"
         static let continueButtonTitle = "Продолжить"
-        static let singupButton = "Войдите"
+        static let logInButton = "Войдите"
     }
 }

@@ -12,11 +12,9 @@ struct LogInView: View {
 
     var body: some View {
         AdaptiveScrollView {
-            VStack(spacing: 0) {
-                VStack {
-                    formsContainer
-                    buttonsContainer
-                }
+            VStack {
+                formsContainer
+                buttonsContainer
                 Spacer()
                 footerView
             }
@@ -30,7 +28,6 @@ struct LogInView: View {
         .alert(isPresented: $viewModel.showAlert) {
             Alert(title: Text("Ошибка входа"), message: Text(Constants.errorMessage), dismissButton: .default(Text("OK")))
         }
-
     }
 }
 
@@ -44,7 +41,7 @@ private extension LogInView {
                 .foregroundStyle(Color.editProfWhite)
                 .font(Font.custom("Roboto", size: 32))
                 .padding(.bottom, 34)
-                .padding(.top, 250)
+                .padding(.top, 220)
 
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.email)
 
@@ -60,7 +57,6 @@ private extension LogInView {
                 viewModel.validateData()
             }
             .padding(.horizontal, 60)
-            .padding(.bottom, 80)
         }
     }
 
@@ -80,11 +76,12 @@ private extension LogInView {
                 } label: {
                     Text(Constants.singupButton)
                         .underline()
-                        .foregroundColor(.editProfPurple)
+                        .foregroundColor(.purpleLight)
                 }
             }
         }
-        .padding(.bottom, 130)
+        .frame(height: 80)
+        .padding(.bottom, 100)
     }
 }
 
@@ -103,8 +100,8 @@ private extension LogInView {
 
     enum Constants {
         static let formsContainerTitle = "Вход"
-        static let nameTextFieldPlaceholder = "Введите эл. почту"
-        static let passwordTextFieldPlaceholder = "Введите пароль"
+        static let nameTextFieldPlaceholder = "email"
+        static let passwordTextFieldPlaceholder = "password"
         static let forgotPasswordButtonTitle = "Забыли пароль?"
         static let continueButtonTitle = "Продолжить"
         static let footerText = "Нет аккаунта? "

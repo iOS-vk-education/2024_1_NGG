@@ -16,7 +16,7 @@ struct AnimeListView: View {
         NavigationStack(path: $coordinator.navPath) {
             mainContent
                 .frame(maxWidth: .infinity)
-                .background(backgroundLineGradient)
+                .background(Color.background)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: AnimeListScreens.self) { screen in
                     openNextScreen(for: screen)

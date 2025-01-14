@@ -21,7 +21,7 @@ struct EditProfileView: View {
             }
         }
         .ignoresSafeArea()
-        .background(backgroundLineGradient)
+        .background(Color.background)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(Constants.headerTitle)
@@ -39,20 +39,6 @@ struct EditProfileView: View {
 
 private extension EditProfileView {
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
-
     var formsContainer: some View {
         VStack(spacing: 0) {
             Text(Constants.formsContainerTitle)
@@ -69,9 +55,7 @@ private extension EditProfileView {
     }
 
     var avatarView: some View {
-        RoundedRectangle(cornerRadius: 30)
-            .fill(Color.textFieldGray)
-            .frame(width: 150, height: 150)
+        AvatarView()
             .overlay(alignment: .bottomTrailing) {
                 Button {
                     // TODO: IOS-12: Добавить логику обработки нажатий

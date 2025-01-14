@@ -41,25 +41,11 @@ struct PreferencesView: View {
                     }
             }
         }
-        .background(backgroundLineGradient)
+        .background(Color.background)
     }
 }
 
 private extension PreferencesView {
-
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
 
     var genresSection: some View {
         Section(
@@ -68,7 +54,7 @@ private extension PreferencesView {
         ) {
             ForEach(viewModel.genres, id: \.self) { name in
                 Text(name)
-                    .font(Font.custom("Roboto", size: 20))
+                    .font(Font.custom("Roboto", size: 16))
                     .listRowBackground(Color.clear)
             }
         }
@@ -82,7 +68,7 @@ private extension PreferencesView {
         ) {
             ForEach(viewModel.directors, id: \.self) { name in
                 Text(name)
-                    .font(Font.custom("Roboto", size: 20))
+                    .font(Font.custom("Roboto", size: 16))
                     .listRowBackground(Color.clear)
             }
         }

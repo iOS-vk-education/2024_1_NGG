@@ -17,7 +17,7 @@ struct EditPreferencesView: View {
             }
             buttonContainer
         }
-        .background(backgroundLineGradient)
+        .background(Color.background)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -53,20 +53,6 @@ private extension EditPreferencesView {
         .padding()
     }
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
-
     var directorsList: some View {
         VStack(spacing: 12) {
             ForEach(viewModel.allDirectors, id: \.name) { director in
@@ -76,7 +62,7 @@ private extension EditPreferencesView {
                     HStack {
                         Text(director.name)
                             .foregroundColor(.white)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                         Spacer()
 
                         ZStack {
@@ -86,7 +72,7 @@ private extension EditPreferencesView {
 
                             if director.isSelected {
                                 Circle()
-                                    .fill(Color.purple)
+                                    .fill(Color.editProfPurple)
                                     .frame(width: 12, height: 12)
                             }
                         }
@@ -112,7 +98,7 @@ private extension EditPreferencesView {
                     HStack {
                         Text(genre.name)
                             .foregroundColor(.white)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                         Spacer()
 
                         ZStack {
@@ -122,7 +108,7 @@ private extension EditPreferencesView {
 
                             if genre.isSelected {
                                 Circle()
-                                    .fill(Color.purple)
+                                    .fill(Color.editProfPurple)
                                     .frame(width: 12, height: 12)
                             }
                         }

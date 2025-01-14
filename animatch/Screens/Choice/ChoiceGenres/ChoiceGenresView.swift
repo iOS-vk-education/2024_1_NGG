@@ -14,9 +14,10 @@ struct ChoiceGenresView: View {
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
-            VStack(spacing: 0) {
+            VStack {
                 headerView
                 preferenceList
+                buttonContainer
             }
             .navigationDestination(for: PreferenceScreens.self) { screen in
                 openNextScreen(for: screen)
@@ -30,10 +31,7 @@ struct ChoiceGenresView: View {
                 }
             }
             .ignoresSafeArea()
-            .background(backgroundLineGradient)
-            .overlay(alignment: .bottom) {
-                buttonContainer
-            }
+            .background(Color.background)
         }
         .accentColor(.white)
         .onAppear {
@@ -46,20 +44,6 @@ struct ChoiceGenresView: View {
 // MARK: - UI Subviews
 
 private extension ChoiceGenresView {
-
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
 
     var headerView: some View {
         ZStack(alignment: .top) {
@@ -95,7 +79,7 @@ private extension ChoiceGenresView {
 
                                 if genre.isSelected {
                                     Circle()
-                                        .fill(Color.purple)
+                                        .fill(Color.editProfPurple)
                                         .frame(width: 12, height: 12)
                                 }
                             }
@@ -120,7 +104,7 @@ private extension ChoiceGenresView {
         .disabled(!viewModel.anyGenreSelected)
         .opacity(viewModel.anyGenreSelected ? 1.0 : 0.5)
         .padding(.horizontal)
-        .padding(.bottom, 15)
+        .padding(.bottom, 40)
     }
 }
 
