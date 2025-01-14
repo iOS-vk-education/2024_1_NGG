@@ -12,7 +12,8 @@ struct DownloadPageView: UIViewControllerRepresentable {
     let startScreenViewModel: StartScreenViewModel
 
     func makeUIViewController(context: Context) -> DownloadPageViewController {
-        return DownloadPageViewController(viewModel: viewModel, startScreenViewModel: startScreenViewModel)
+        viewModel.setStartScreenViewModel(startScreenViewModel)
+        return DownloadPageViewController(viewModel: viewModel)
     }
 
     func updateUIViewController(_ uiViewController: DownloadPageViewController, context: Context) {}

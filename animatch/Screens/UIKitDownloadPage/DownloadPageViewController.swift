@@ -11,16 +11,14 @@ import SwiftUI
 final class DownloadPageViewController: UIViewController {
 
     private let viewModel: DownloadPageInput
-    private let startScreenViewModel: StartScreenViewModel
 
     private let logo = UIHostingController(rootView: NGGLogoView())
 
     private let logInButton = UIButton()
     private let registrationButton = UIButton()
 
-    init(viewModel: DownloadPageInput, startScreenViewModel: StartScreenViewModel) {
+    init(viewModel: DownloadPageInput) {
         self.viewModel = viewModel
-        self.startScreenViewModel = startScreenViewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -35,11 +33,12 @@ final class DownloadPageViewController: UIViewController {
         setupUI()
         setupLayout()
     }
+}
 
-    // MARK: - UI
+// MARK: - UI
 
+private extension DownloadPageViewController {
     private func setupUI() {
-        viewModel.setStartScreenViewModel(startScreenViewModel)
         view.backgroundColor = UIColor(.background)
 
         logo.view.backgroundColor = .clear
@@ -63,9 +62,11 @@ final class DownloadPageViewController: UIViewController {
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
     }
+}
 
-    // MARK: - Layout Setup
+// MARK: - Layout Setup
 
+private extension DownloadPageViewController {
     private func setupLayout() {
         logo.view.translatesAutoresizingMaskIntoConstraints = false
         logo.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
@@ -83,9 +84,12 @@ final class DownloadPageViewController: UIViewController {
         registrationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60).isActive = true
         registrationButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
+}
 
-    // MARK: - Actions
+// MARK: - Actions
 
+@objc
+private extension DownloadPageViewController {
     @objc
     private func didTapLogInButton() {
         viewModel.didTapLogIn()
