@@ -31,7 +31,7 @@ private struct LightPurpleButtonStyle: ButtonStyle {
         configuration.label
             .frame(maxWidth: .infinity)
             .padding()
-            .frame(height: 51)
+            .frame(height: 50)
             .background(Color.downloadLightPurple)
             .foregroundStyle(Color.editProfWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
