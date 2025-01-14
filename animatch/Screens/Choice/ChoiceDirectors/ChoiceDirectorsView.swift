@@ -17,26 +17,16 @@ struct ChoiceDirectorsView: View {
             VStack {
                 preferenceList
                     .padding(.top, 130)
+                    .overlay(alignment: .top){
+                        headerView
+                    }
                 buttonContainer
             }
             headerView
         }
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(Constants.headerTitle)
-                    .font(Font.custom("Roboto", size: 22))
-                    .foregroundColor(.white)
-            }
-
-            ToolbarItem(placement: .navigationBarLeading) {
-                Image(systemName: "arrow.left")
-                    .padding(.leading, 10)
-                    .foregroundStyle(Color.white)
-                    .onTapGesture {
-                        coordinator.openPreviousScreen()
-                    }
-            }
+            ToolbarItems
         }
         .ignoresSafeArea()
         .background(Color.background)
@@ -50,6 +40,23 @@ struct ChoiceDirectorsView: View {
 // MARK: - UI Subviews
 
 private extension ChoiceDirectorsView {
+    @ToolbarContentBuilder
+    var ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(Constants.headerTitle)
+                .font(Font.custom("Roboto", size: 22))
+                .foregroundColor(.white)
+        }
+
+        ToolbarItem(placement: .navigationBarLeading) {
+            Image(systemName: "arrow.left")
+                .padding(.leading, 10)
+                .foregroundStyle(Color.white)
+                .onTapGesture {
+                    coordinator.openPreviousScreen()
+                }
+        }
+    }
 
     var headerView: some View {
         UnevenRoundedRectangle(
@@ -65,7 +72,7 @@ private extension ChoiceDirectorsView {
     var preferenceList: some View {
         ScrollView {
             VStack(spacing: 12) {
-                ForEach(viewModel.directors, id: \.name) { director in
+                ForEach(viewModel.directors) { director in
                     Button(action: {
                         viewModel.toggleDirectorSelection(director: director)
                     }) {

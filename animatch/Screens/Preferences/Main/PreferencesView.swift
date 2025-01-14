@@ -27,25 +27,29 @@ struct PreferencesView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(Constants.title)
-                    .font(Font.custom("Roboto", size: 22))
-                    .foregroundColor(.white)
-            }
-
-            ToolbarItem(placement: .navigationBarLeading) {
-                Image(systemName: "arrow.left")
-                    .foregroundStyle(Color.white)
-                    .onTapGesture {
-                        coordinator.openPreviousScreen()
-                    }
-            }
+            ToolbarItems
         }
         .background(Color.background)
     }
 }
 
 private extension PreferencesView {
+    @ToolbarContentBuilder
+    var ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(Constants.title)
+                .font(Font.custom("Roboto", size: 22))
+                .foregroundColor(.white)
+        }
+
+        ToolbarItem(placement: .navigationBarLeading) {
+            Image(systemName: "arrow.left")
+                .foregroundStyle(Color.white)
+                .onTapGesture {
+                    coordinator.openPreviousScreen()
+                }
+        }
+    }
 
     var genresSection: some View {
         Section(

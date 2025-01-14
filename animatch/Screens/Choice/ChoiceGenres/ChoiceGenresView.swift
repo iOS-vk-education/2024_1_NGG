@@ -15,8 +15,10 @@ struct ChoiceGenresView: View {
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
             VStack {
-                headerView
                 preferenceList
+                    .overlay(alignment: .top){
+                        headerView
+                    }
                 buttonContainer
             }
             .navigationDestination(for: PreferenceScreens.self) { screen in
@@ -24,11 +26,7 @@ struct ChoiceGenresView: View {
                     .environment(coordinator)
             }
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(Constants.headerTitle)
-                        .font(Font.custom("Roboto", size: 22))
-                        .foregroundColor(.white)
-                }
+                ToolbarItems
             }
             .ignoresSafeArea()
             .background(Color.background)
@@ -44,6 +42,14 @@ struct ChoiceGenresView: View {
 // MARK: - UI Subviews
 
 private extension ChoiceGenresView {
+    @ToolbarContentBuilder
+    var ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(Constants.headerTitle)
+                .font(Font.custom("Roboto", size: 22))
+                .foregroundColor(.white)
+        }
+    }
 
     var headerView: some View {
         ZStack(alignment: .top) {
@@ -93,7 +99,8 @@ private extension ChoiceGenresView {
                     }
                 }
             }
-            .padding([.horizontal, .top], 16)
+            .padding(.horizontal, 16)
+            .padding(.top, 140)
         }
     }
 
