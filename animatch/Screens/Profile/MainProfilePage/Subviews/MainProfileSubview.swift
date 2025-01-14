@@ -21,7 +21,7 @@ extension MainProfileView {
         }
         .scrollContentBackground(.hidden)
         .ignoresSafeArea()
-        .background(backgroundLineGradient)
+        .background(Color.background)
     }
 
     @ViewBuilder
@@ -48,26 +48,6 @@ extension MainProfileView {
             .frame(height: 110)
     }
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
-
-    var avatarView: some View {
-        RoundedRectangle(cornerRadius: 30)
-            .fill(Color.textFieldGray)
-            .frame(width: 150, height: 150)
-    }
-
     var headerView: some View {
         GeometryReader { geometry in
             let minY = geometry.frame(in: .global).minY
@@ -83,7 +63,7 @@ extension MainProfileView {
                 .fill(Color.editProfPurple)
                 .frame(height: iscrolling ? 166 + minY: 166)
                 .offset(y: iscrolling ? -minY : 0)
-                avatarView
+                AvatarView()
                     .padding(.top, 107)
             }
         }
@@ -102,6 +82,7 @@ extension MainProfileView {
                 HStack {
                     Spacer()
                     Image(systemName: "square.and.pencil")
+                        .font(.system(size: 22))
                         .onTapGesture {
                             viewModel.didTapEdit()
                         }
@@ -110,7 +91,7 @@ extension MainProfileView {
             .padding(.top, 10)
         }
         .foregroundColor(.white)
-        .padding(.horizontal, 36)
+        .padding(.horizontal, 20)
     }
 
     var buttonContainer: some View {

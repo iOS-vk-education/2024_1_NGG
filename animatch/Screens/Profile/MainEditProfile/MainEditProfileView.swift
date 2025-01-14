@@ -20,7 +20,7 @@ struct MainEditProfileView: View {
                 buttonsContainer
             }
         }
-        .background(backgroundLineGradient)
+        .background(Color.background)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -47,20 +47,6 @@ struct MainEditProfileView: View {
 
 private extension MainEditProfileView {
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
-    }
-
     var formsContainer: some View {
         VStack(spacing: 0) {
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputName)
@@ -72,9 +58,7 @@ private extension MainEditProfileView {
     }
 
     var avatarView: some View {
-        RoundedRectangle(cornerRadius: 30)
-            .fill(Color.textFieldGray)
-            .frame(width: 150, height: 150)
+        AvatarView()
             .overlay(alignment: .bottomTrailing) {
                 Button {
                     // TODO: IOS-12: Добавить логику обработки нажатий

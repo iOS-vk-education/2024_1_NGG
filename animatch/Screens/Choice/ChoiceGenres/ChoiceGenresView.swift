@@ -14,26 +14,22 @@ struct ChoiceGenresView: View {
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
-            VStack(spacing: 0) {
-                headerView
+            VStack {
                 preferenceList
+                    .overlay(alignment: .top){
+                        headerView
+                    }
+                buttonContainer
             }
             .navigationDestination(for: PreferenceScreens.self) { screen in
                 openNextScreen(for: screen)
                     .environment(coordinator)
             }
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text(Constants.headerTitle)
-                        .font(Font.custom("Roboto", size: 22))
-                        .foregroundColor(.white)
-                }
+                ToolbarItems
             }
             .ignoresSafeArea()
-            .background(backgroundLineGradient)
-            .overlay(alignment: .bottom) {
-                buttonContainer
-            }
+            .background(Color.background)
         }
         .accentColor(.white)
         .onAppear {
@@ -46,19 +42,13 @@ struct ChoiceGenresView: View {
 // MARK: - UI Subviews
 
 private extension ChoiceGenresView {
-
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
+    @ToolbarContentBuilder
+    var ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(Constants.headerTitle)
+                .font(Font.custom("Roboto", size: 22))
+                .foregroundColor(.white)
+        }
     }
 
     var headerView: some View {
@@ -95,7 +85,7 @@ private extension ChoiceGenresView {
 
                                 if genre.isSelected {
                                     Circle()
-                                        .fill(Color.purple)
+                                        .fill(Color.editProfPurple)
                                         .frame(width: 12, height: 12)
                                 }
                             }
@@ -109,7 +99,8 @@ private extension ChoiceGenresView {
                     }
                 }
             }
-            .padding([.horizontal, .top], 16)
+            .padding(.horizontal, 16)
+            .padding(.top, 140)
         }
     }
 
@@ -120,7 +111,7 @@ private extension ChoiceGenresView {
         .disabled(!viewModel.anyGenreSelected)
         .opacity(viewModel.anyGenreSelected ? 1.0 : 0.5)
         .padding(.horizontal)
-        .padding(.bottom, 15)
+        .padding(.bottom, 40)
     }
 }
 

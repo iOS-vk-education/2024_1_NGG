@@ -14,32 +14,22 @@ struct ChoiceDirectorsView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            preferenceList
-                .padding(.top, 130)
+            VStack {
+                preferenceList
+                    .padding(.top, 130)
+                    .overlay(alignment: .top){
+                        headerView
+                    }
+                buttonContainer
+            }
             headerView
         }
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(Constants.headerTitle)
-                    .font(Font.custom("Roboto", size: 22))
-                    .foregroundColor(.white)
-            }
-
-            ToolbarItem(placement: .navigationBarLeading) {
-                Image(systemName: "arrow.left")
-                    .padding(.leading, 10)
-                    .foregroundStyle(Color.white)
-                    .onTapGesture {
-                        coordinator.openPreviousScreen()
-                    }
-            }
+            ToolbarItems
         }
         .ignoresSafeArea()
-        .background(backgroundLineGradient)
-        .overlay(alignment: .bottom) {
-            buttonContainer
-        }
+        .background(Color.background)
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
             viewModel.setCoordinator(coordinator)
@@ -50,19 +40,22 @@ struct ChoiceDirectorsView: View {
 // MARK: - UI Subviews
 
 private extension ChoiceDirectorsView {
+    @ToolbarContentBuilder
+    var ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(Constants.headerTitle)
+                .font(Font.custom("Roboto", size: 22))
+                .foregroundColor(.white)
+        }
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
+        ToolbarItem(placement: .navigationBarLeading) {
+            Image(systemName: "arrow.left")
+                .padding(.leading, 10)
+                .foregroundStyle(Color.white)
+                .onTapGesture {
+                    coordinator.openPreviousScreen()
+                }
+        }
     }
 
     var headerView: some View {
@@ -79,7 +72,7 @@ private extension ChoiceDirectorsView {
     var preferenceList: some View {
         ScrollView {
             VStack(spacing: 12) {
-                ForEach(viewModel.directors, id: \.name) { director in
+                ForEach(viewModel.directors) { director in
                     Button(action: {
                         viewModel.toggleDirectorSelection(director: director)
                     }) {
@@ -96,7 +89,7 @@ private extension ChoiceDirectorsView {
 
                                 if director.isSelected {
                                     Circle()
-                                        .fill(Color.purple)
+                                        .fill(Color.editProfPurple)
                                         .frame(width: 12, height: 12)
                                 }
                             }
@@ -121,7 +114,7 @@ private extension ChoiceDirectorsView {
         .disabled(!viewModel.anyDirectorSelected)
         .opacity(viewModel.anyDirectorSelected ? 1.0 : 0.5)
         .padding(.horizontal)
-        .padding(.bottom, 15)
+        .padding(.bottom, 40)
     }
 }
 

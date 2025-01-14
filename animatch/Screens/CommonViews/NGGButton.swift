@@ -27,12 +27,26 @@ struct NGGButton: View {
 // MARK: - PurpleButtonStyle
 
 private struct PurpleButtonStyle: ButtonStyle {
+    var backgroundLineGradient: some View {
+        LinearGradient(
+            gradient: Gradient(
+                colors: [
+                    .purpleLight,
+                    .editProfPurple
+                ]
+            ),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .ignoresSafeArea()
+    }
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
             .padding()
             .frame(height: 50)
-            .background(Color.editProfPurple)
+            .background(backgroundLineGradient)
             .foregroundStyle(Color.editProfWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
     }

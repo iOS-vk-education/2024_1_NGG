@@ -22,15 +22,26 @@ struct DescriptionAnimeView: View {
                 buttonView
             }
             .padding(.horizontal, 34)
-            .background(.editProfDarkGrad)
+            .background(Color.background)
             .frame(maxWidth: .infinity)
             .clipShape(
                 RoundedRectangle(cornerRadius: 40)
             )
             .padding(.top, -45)
         }
-        .background(Color.editProfDarkGrad)
+        .background(Color.background)
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .foregroundStyle(Color.white)
+                    .padding(.leading,16)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
+            }
+        }
         .onAppear {
             viewModel.setCoordinator(coordinator)
         }

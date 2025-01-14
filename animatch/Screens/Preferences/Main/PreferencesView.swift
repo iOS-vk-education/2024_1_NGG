@@ -27,38 +27,28 @@ struct PreferencesView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(Constants.title)
-                    .font(Font.custom("Roboto", size: 22))
-                    .foregroundColor(.white)
-            }
-
-            ToolbarItem(placement: .navigationBarLeading) {
-                Image(systemName: "arrow.left")
-                    .foregroundStyle(Color.white)
-                    .onTapGesture {
-                        coordinator.openPreviousScreen()
-                    }
-            }
+            ToolbarItems
         }
-        .background(backgroundLineGradient)
+        .background(Color.background)
     }
 }
 
 private extension PreferencesView {
+    @ToolbarContentBuilder
+    var ToolbarItems: some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            Text(Constants.title)
+                .font(Font.custom("Roboto", size: 22))
+                .foregroundColor(.white)
+        }
 
-    var backgroundLineGradient: some View {
-        LinearGradient(
-            gradient: Gradient(
-                colors: [
-                    .editProfLightGrad,
-                    .editProfDarkGrad
-                ]
-            ),
-            startPoint: .top,
-            endPoint: .center
-        )
-        .ignoresSafeArea()
+        ToolbarItem(placement: .navigationBarLeading) {
+            Image(systemName: "arrow.left")
+                .foregroundStyle(Color.white)
+                .onTapGesture {
+                    coordinator.openPreviousScreen()
+                }
+        }
     }
 
     var genresSection: some View {
@@ -68,7 +58,7 @@ private extension PreferencesView {
         ) {
             ForEach(viewModel.genres, id: \.self) { name in
                 Text(name)
-                    .font(Font.custom("Roboto", size: 20))
+                    .font(Font.custom("Roboto", size: 16))
                     .listRowBackground(Color.clear)
             }
         }
@@ -82,7 +72,7 @@ private extension PreferencesView {
         ) {
             ForEach(viewModel.directors, id: \.self) { name in
                 Text(name)
-                    .font(Font.custom("Roboto", size: 20))
+                    .font(Font.custom("Roboto", size: 16))
                     .listRowBackground(Color.clear)
             }
         }
