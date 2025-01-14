@@ -38,7 +38,7 @@ final class DownloadPageViewController: UIViewController {
 // MARK: - UI
 
 private extension DownloadPageViewController {
-    private func setupUI() {
+   func setupUI() {
         view.backgroundColor = UIColor(.background)
 
         logo.view.backgroundColor = .clear
@@ -55,7 +55,7 @@ private extension DownloadPageViewController {
         view.addSubview(registrationButton)
     }
 
-    private func setupButton(_ button: UIButton, title: String, backgroundColor: UIColor) {
+   func setupButton(_ button: UIButton, title: String, backgroundColor: UIColor) {
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = backgroundColor
