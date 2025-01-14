@@ -67,7 +67,7 @@ private extension DownloadPageViewController {
 // MARK: - Layout Setup
 
 private extension DownloadPageViewController {
-    private func setupLayout() {
+    func setupLayout() {
         logo.view.translatesAutoresizingMaskIntoConstraints = false
         logo.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
         logo.view.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -90,13 +90,11 @@ private extension DownloadPageViewController {
 
 @objc
 private extension DownloadPageViewController {
-    @objc
-    private func didTapLogInButton() {
+    func didTapLogInButton() {
         viewModel.didTapLogIn()
     }
 
-    @objc
-    private func didTapRegistrationButton() {
+    func didTapRegistrationButton() {
         viewModel.didTapRegister()
     }
 }
