@@ -1,0 +1,18 @@
+//
+//  File.swift
+//  cinematch
+//
+//  Created by Ксения Панкратова on 13.12.2024.
+//
+
+import Foundation
+import UIKit
+
+struct UserModel: Identifiable {
+    var id: Int
+    var name: String
+    var surname: String
+    var email: String
+    var password: String
+    var image: UIImage?
+}

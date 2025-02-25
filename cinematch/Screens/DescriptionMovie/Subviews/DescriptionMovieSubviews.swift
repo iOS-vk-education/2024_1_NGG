@@ -1,0 +1,75 @@
+//
+//  DescriptionMovieSubviews.swift
+//  cinematch
+//
+//  Created by Ксения Панкратова on 03.12.2024.
+//
+
+import SwiftUI
+
+extension DescriptionMovieView {
+
+    var descriptionView: some View {
+        DescriptionView(card: viewModel.story)
+            .font(Font.custom("Roboto", size: 12))
+            .padding(.top, 32)
+            .foregroundStyle(.white)
+    }
+
+    var similarMovieListView: some View {
+        VStack(alignment: .leading, spacing: 11) {
+            if !viewModel.story.similarMovies.isEmpty {
+                Text(Constants.similarMovieTitle)
+                    .font(Font.custom("Roboto", size: 12))
+                    .foregroundStyle(.white)
+            }
+
+            SimilarMovieView(images: viewModel.story) { story in
+                viewModel.didTapOpenSimilarStory(movie: story)
+            }
+
+        }
+        .padding(.bottom, 41)
+    }
+
+    var buttonView: some View {
+        NGGButton(Constants.trailerButtonTitle) {
+            // TODO: IOS-: Добавить логику обработки нажатий
+            print("[DEBUG]: Трейлер")
+        }
+        .padding(.horizontal, 26)
+        .padding(.bottom, 60)
+    }
+
+    var whereWatchCardView: some View {
+        HStack {
+            Text(Constants.whereWatchTitle)
+                .font(Font.custom("Roboto", size: 12))
+                .foregroundStyle(.white)
+            WhereWatchCardView(viewingPlatforms: viewModel.story.viewingPlatforms)
+        }
+    }
+}
+
+// MARK: - Preview
+
+#Preview {
+    NavigationStack {
+        DescriptionMovieView(viewModel: DescriptionMovieViewModelMock(story: .mockData))
+    }
+    .environment(Coordinator())
+}
+
+// MARK: - Constants
+
+private extension DescriptionMovieView {
+
+    enum Constants {
+        static let trailerButtonTitle = "Трейлер"
+        static let whereWatchTitle = "Где посмотреть:"
+        static let similarMovieTitle = "Если вам понравилось это аниме:"
+        static let similarMovieList = ["totoroSimilar1", "totoroSimilar2", "totoroSimilar3", "totoroSimilar4"]
+        static let whereWatchCardTitles = ["Start","Okko","Viji"]
+        static let whereWatchCardImages = ["start", "Image", "Image"]
+    }
+}

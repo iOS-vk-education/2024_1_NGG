@@ -1,0 +1,10 @@
+//
+//  MainEditProfileViewModel.swift
+//  cinematch
+//
+//  Created by Ксения Панкратова on 23.12.2024.
+//
+
+import Foundation
+
+final class MainEditProfileViewModel {}
