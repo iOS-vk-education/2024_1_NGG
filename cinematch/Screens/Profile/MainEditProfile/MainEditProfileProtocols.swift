@@ -11,6 +11,7 @@ import _PhotosUI_SwiftUI
 
 protocol MainEditProfileDisplayLogic: MainEditProfileViewModelInput {
     var bindingData: BindingData { get set }
+    var prevViewModel: MainProfileViewModelInput { get }
 }
 
 protocol MainEditProfileViewModelInput {

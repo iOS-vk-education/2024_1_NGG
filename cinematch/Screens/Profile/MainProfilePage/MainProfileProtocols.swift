@@ -25,6 +25,7 @@ protocol MainProfileViewModelInput {
     func didTapPreferences()
     func logout()
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+    func updateProfileImage(imageData: Data)
 }
 
 protocol MainProfileViewModelOutput {

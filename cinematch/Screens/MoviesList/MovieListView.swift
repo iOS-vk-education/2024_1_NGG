@@ -11,6 +11,7 @@ struct MovieListView: View {
     @State var viewModel: MovieListDisplayLogic & MovieListViewModelOutput
     @State private var coordinator = Coordinator()
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
+    private let mainProfileViewModel = MainProfileViewModelMock(delay: 2)
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
@@ -56,9 +57,9 @@ private extension MovieListView {
         case let .storyDetails(story):
             DescriptionMovieView(viewModel: viewModel.configureDetailsViewModel(story: story))
         case .profile:
-            MainProfileView(viewModel: MainProfileViewModelMock(delay: 2))
+            MainProfileView(viewModel: mainProfileViewModel)
         case .edit:
-            MainEditProfileView(viewModel: MainEditProfileViewModelMock())
+            MainEditProfileView(viewModel: MainEditProfileViewModelMock(prevViewModel: mainProfileViewModel))
         case .preferences:
             PreferencesView(viewModel: PreferencesViewModelMock())
         case .editPreferences:

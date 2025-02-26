@@ -106,6 +106,10 @@ extension MainProfileViewModelMock {
         let viewModel = DescriptionMovieViewModelMock(story: story)
         return viewModel
     }
+
+    func updateProfileImage(imageData: Data) {
+        user.image = imageData
+    }
 }
 
 // MARK: - Mock Data -

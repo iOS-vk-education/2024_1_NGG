@@ -106,7 +106,7 @@ private extension MainEditProfileView {
 
 #Preview {
     NavigationStack {
-        MainEditProfileView(viewModel: MainEditProfileViewModelMock())
+        MainEditProfileView(viewModel: MainEditProfileViewModelMock(prevViewModel: MainProfileViewModelMock(delay: 2)))
     }
     .environment(Coordinator())
 }

@@ -13,7 +13,12 @@ import _PhotosUI_SwiftUI
 
 @Observable
 final class MainEditProfileViewModelMock: MainEditProfileDisplayLogic {
+    var prevViewModel: MainProfileViewModelInput
     var bindingData: BindingData = BindingData()
+
+    init(prevViewModel: MainProfileViewModelInput) {
+        self.prevViewModel = prevViewModel
+    }
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -35,6 +40,7 @@ extension MainEditProfileViewModelMock {
         Task {
             if let imageData = try? await newItem?.loadTransferable(type: Data.self) {
                 self.bindingData.inputImage = UIImage(data: imageData)
+                prevViewModel.updateProfileImage(imageData: imageData)
             }
         }
     }
