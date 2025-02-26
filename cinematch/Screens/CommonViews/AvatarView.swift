@@ -15,11 +15,9 @@ struct AvatarView: View {
             if let userImage = image {
                 Image(uiImage: userImage)
                     .resizable()
-                    .scaledToFit()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 150, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
-                    .clipped()
             } else {
                 RoundedRectangle(cornerRadius: 30)
                     .fill(Color.background)

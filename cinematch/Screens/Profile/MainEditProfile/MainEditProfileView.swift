@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import _PhotosUI_SwiftUI
 
 struct MainEditProfileView: View {
     @State var viewModel: MainEditProfileDisplayLogic
@@ -50,28 +51,26 @@ private extension MainEditProfileView {
 
     var formsContainer: some View {
         VStack(spacing: 0) {
-            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputName)
-            NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $viewModel.inputSurname)
-            NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $viewModel.inputEmail)
+            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.bindingData.inputName)
+            NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $viewModel.bindingData.inputSurname)
+            NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $viewModel.bindingData.inputEmail)
         }
         .padding(.horizontal, 60)
         .padding(.top, 80)
     }
 
     var avatarView: some View {
-        AvatarView(image: viewModel.inputImage)
+        AvatarView(image: viewModel.bindingData.inputImage)
             .overlay(alignment: .bottomTrailing) {
-                Button {
-                    isPickerShow.toggle()
-                } label: {
+                PhotosPicker(selection: $viewModel.bindingData.selectedItem, matching: .images) {
                     Image(systemName: "plus.circle")
                         .resizable()
                         .foregroundStyle(.editProfWhite)
                         .frame(width: 24, height: 24)
                 }
-                .sheet(isPresented: $isPickerShow) {
-                    ImagePicker(image: $viewModel.inputImage)
-                }
+            }
+            .onChange(of: viewModel.bindingData.selectedItem) { _, newItem in
+                viewModel.selectedItemChange(newItem)
             }
     }
 

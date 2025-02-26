@@ -7,13 +7,11 @@
 
 import Foundation
 import UIKit
+import _PhotosUI_SwiftUI
 
+@Observable
 final class EditProfileViewModel: EditProfileDisplayLogic & EditProfileViewModelInput {
-    var inputName = ""
-    var inputSurname = ""
-    var inputEmail = ""
-    var inputImage: UIImage? = nil
-    var isPickerShow = false
+    var bindingData: BindingData = BindingData()
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
@@ -36,5 +34,13 @@ extension EditProfileViewModel {
         startScreenViewModel?.updateScreen(newScreenState: .choiceGenres)
         UserDefaults.standard.set(StartScreenState.choiceGenres.rawValue, forKey: "State")
         UserDefaults.standard.removeObject(forKey: "selectedGenres")
+    }
+
+    func selectedItemChange(_ newItem: PhotosPickerItem?) {
+        Task {
+            if let imageData = try? await newItem?.loadTransferable(type: Data.self) {
+                self.bindingData.inputImage = UIImage(data: imageData)
+            }
+        }
     }
 }

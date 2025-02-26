@@ -7,15 +7,14 @@
 
 import Foundation
 import UIKit
+import _PhotosUI_SwiftUI
 
 protocol MainEditProfileDisplayLogic: MainEditProfileViewModelInput {
-    var inputName: String { get set }
-    var inputSurname: String { get set }
-    var inputEmail: String { get set }
-    var inputImage: UIImage? { get set }
+    var bindingData: BindingData { get set }
 }
 
 protocol MainEditProfileViewModelInput {
     func didTapSaveButton()
     func setCoordinator(_ coordinator: Coordinator)
+    func selectedItemChange(_ newItem: PhotosPickerItem?)
 }

@@ -9,12 +9,11 @@
 
 import Foundation
 import UIKit
+import _PhotosUI_SwiftUI
 
+@Observable
 final class MainEditProfileViewModelMock: MainEditProfileDisplayLogic {
-    var inputName = ""
-    var inputSurname = ""
-    var inputEmail = ""
-    var inputImage: UIImage? = nil
+    var bindingData: BindingData = BindingData()
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -30,6 +29,14 @@ extension MainEditProfileViewModelMock {
 
     func didTapSaveButton() {
         coordinator?.openPreviousScreen()
+    }
+
+    func selectedItemChange(_ newItem: PhotosPickerItem?) {
+        Task {
+            if let imageData = try? await newItem?.loadTransferable(type: Data.self) {
+                self.bindingData.inputImage = UIImage(data: imageData)
+            }
+        }
     }
 }
 

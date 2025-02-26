@@ -7,17 +7,15 @@
 
 import Foundation
 import UIKit
+import _PhotosUI_SwiftUI
 
 protocol EditProfileDisplayLogic: EditProfileViewModelInput {
-    var inputName: String { get set }
-    var inputSurname: String { get set }
-    var inputEmail: String { get set }
-    var inputImage: UIImage? { get set }
-    var isPickerShow: Bool { get set }
+    var bindingData: BindingData { get set }
 }
 
 protocol EditProfileViewModelInput {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
     func didTapSaveButton()
     func didTapDoLaterButton()
+    func selectedItemChange(_ newItem: PhotosPickerItem?)
 }
