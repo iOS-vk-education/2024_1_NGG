@@ -51,9 +51,9 @@ extension LogInViewModelMock {
 private extension LogInViewModelMock {
     enum Constants {
         static let defaultUsers: [UserModel] = [
-            UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345", image: UIImage(systemName: "person.circle")!),
-            UserModel(id: 2, name: "Name2", surname: "Surname", email: "2@example.com", password: "qwerty", image: UIImage(systemName: "person.circle")!),
-            UserModel(id: 3, name: "Name3", surname: "Surname", email: "3", password: "3", image: UIImage(systemName: "person.circle")!)
+            UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345", image: UIImage(systemName: "person.circle")?.pngData()!),
+            UserModel(id: 2, name: "Name2", surname: "Surname", email: "2@example.com", password: "qwerty", image: UIImage(systemName: "person.circle")?.pngData()!),
+            UserModel(id: 3, name: "Name3", surname: "Surname", email: "3", password: "3", image: UIImage(systemName: "person.circle")?.pngData()!)
         ]
     }
 }

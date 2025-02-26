@@ -63,7 +63,7 @@ extension MainProfileView {
                 .fill(Color.editProfPurple)
                 .frame(height: iscrolling ? 166 + minY: 166)
                 .offset(y: iscrolling ? -minY : 0)
-                AvatarView(image: viewModel.user.image)
+                AvatarView(image: viewModel.getUserImage())
                     .padding(.top, 107)
             }
         }

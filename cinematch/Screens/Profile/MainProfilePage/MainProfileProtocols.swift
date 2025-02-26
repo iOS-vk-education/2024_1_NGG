@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 protocol MainProfileDisplayLogic: MainProfileViewModelInput {
-    var user: UserModel { get set}
+    var user: UserModel { get }
     var stories: [Module] { get }
     var showLoading: Bool { get }
     var selectedTab: Int { get set }
     var tabs: [Tab] { get }
+    func getUserImage() -> UIImage?
 }
 
 protocol MainProfileViewModelInput {

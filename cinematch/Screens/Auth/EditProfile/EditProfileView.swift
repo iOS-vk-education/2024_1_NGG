@@ -56,20 +56,20 @@ private extension EditProfileView {
     }
 
     var avatarView: some View {
-            AvatarView(image: viewModel.inputImage)
+        AvatarView(image: viewModel.inputImage)
             .overlay(alignment: .bottomTrailing) {
-            Button {
-                isPickerShow.toggle()
-            } label: {
-                Image(systemName: "plus.circle")
-                    .resizable()
-                    .foregroundStyle(.editProfWhite)
-                    .frame(width: 24, height: 24)
+                Button {
+                    isPickerShow.toggle()
+                } label: {
+                    Image(systemName: "plus.circle")
+                        .resizable()
+                        .foregroundStyle(.editProfWhite)
+                        .frame(width: 24, height: 24)
+                }
             }
             .sheet(isPresented: $isPickerShow) {
                 ImagePicker(image: $viewModel.inputImage)
             }
-        }
     }
 
     var headerView: some View {

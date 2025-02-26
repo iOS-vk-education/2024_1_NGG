@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct UserModel: Identifiable {
     var id: Int
@@ -14,5 +13,5 @@ struct UserModel: Identifiable {
     var surname: String
     var email: String
     var password: String
-    var image: UIImage?
+    var image: Data?
 }

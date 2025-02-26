@@ -17,7 +17,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
 
     private(set) var stories: [Module] = []
     private(set) var showLoading: Bool
-    var user: UserModel
+    private(set) var user: UserModel
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -51,6 +51,14 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
             stories = MockData.viewedStories
         default:
             stories = []
+        }
+    }
+
+    func getUserImage() -> UIImage? {
+        if let image = user.image {
+            return UIImage(data: image)
+        } else {
+            return nil
         }
     }
 }

@@ -13,6 +13,7 @@ protocol EditProfileDisplayLogic: EditProfileViewModelInput {
     var inputSurname: String { get set }
     var inputEmail: String { get set }
     var inputImage: UIImage? { get set }
+    var isPickerShow: Bool { get set }
 }
 
 protocol EditProfileViewModelInput {

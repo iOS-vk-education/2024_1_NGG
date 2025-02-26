@@ -13,6 +13,7 @@ final class EditProfileViewModel: EditProfileDisplayLogic & EditProfileViewModel
     var inputSurname = ""
     var inputEmail = ""
     var inputImage: UIImage? = nil
+    var isPickerShow = false
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
