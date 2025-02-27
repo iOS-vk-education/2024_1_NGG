@@ -10,7 +10,6 @@ import _PhotosUI_SwiftUI
 
 struct MainEditProfileView: View {
     @State var viewModel: MainEditProfileDisplayLogic
-    @State var isPickerShow = false
     @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
