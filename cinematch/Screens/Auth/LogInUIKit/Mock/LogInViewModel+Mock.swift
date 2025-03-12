@@ -2,7 +2,7 @@
 //  LogInViewModel+Mock.swift
 //  cinematch
 //
-//  Created by Ксения Панкратова on 13.12.2024.
+//  Created by Ксения Панкратова on 09.03.2025.
 //
 
 #if DEBUG
@@ -10,32 +10,27 @@
 import UIKit
 import Foundation
 
-@Observable
 final class LogInViewModelMock: LogInViewModelLogic {
     var email: String = ""
     var password: String = ""
     var showAlert: Bool = false
 
-    @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
 }
 
 // MARK: - LogInViewModelInput
 
 extension LogInViewModelMock {
-    func didTapContinue() {
-        startScreenViewModel?.updateScreen(newScreenState: .movieList)
-    }
 
     func didTapOpenRegistrationScreen() {
         startScreenViewModel?.updateScreen(newScreenState: .signUp)
     }
 
-    func validateData(){
+    func validateData() {
         if Constants.defaultUsers.contains(where: { $0.email == email && $0.password == password }) {
             showAlert = false
             UserDefaults.standard.set(StartScreenState.movieList.rawValue, forKey: "State")
-            didTapContinue()
+            startScreenViewModel?.updateScreen(newScreenState: .movieList)
         } else {
             showAlert = true
         }
@@ -57,6 +52,5 @@ private extension LogInViewModelMock {
         ]
     }
 }
-
 
 #endif
