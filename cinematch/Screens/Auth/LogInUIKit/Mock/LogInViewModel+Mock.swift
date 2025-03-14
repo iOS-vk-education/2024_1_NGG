@@ -11,8 +11,8 @@ import UIKit
 import Foundation
 
 final class LogInViewModelMock: LogInViewModelLogic {
-    var email: String = ""
-    var password: String = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
     var showAlert: Bool = false
 
     private var startScreenViewModel: StartScreenViewModel?

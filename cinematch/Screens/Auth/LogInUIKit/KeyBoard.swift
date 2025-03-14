@@ -21,7 +21,7 @@ extension LogInViewController {
         let keyboardHeight = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.height
 
         scrollView.contentInset = UIEdgeInsets(
-            top: view.safeAreaInsets.top,
+            top: 0,
             left: 0,
             bottom: keyboardHeight + view.safeAreaInsets.bottom,
             right: 0)
@@ -29,7 +29,7 @@ extension LogInViewController {
 
     @objc
     private func keyBoardWillHide(notification: NSNotification) {
-        scrollView.contentInset = UIEdgeInsets(top: view.safeAreaInsets.top, left: 0, bottom: view.safeAreaInsets.bottom, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
     @objc

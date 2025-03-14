@@ -21,16 +21,13 @@ final class LogInViewController: UIViewController {
     let scrollView: UIScrollView = UIScrollView()
     private let containerView: UIView = UIView()
 
-    private var emailText = ""
-    private var passwordText = ""
-
     private lazy var emailTextField: UIHostingController<NGGTextField> = {
         return UIHostingController(
             rootView: NGGTextField(
                 title: Constants.nameTextFieldPlaceholder,
                 text: Binding(
-                    get: { self.emailText },
-                    set: { self.emailText = $0 }
+                    get: { [weak self] in self?.viewModel.email ?? "" },
+                    set: { [weak self] in self?.viewModel.email = $0 }
                 )
             )
         )
@@ -41,8 +38,8 @@ final class LogInViewController: UIViewController {
             rootView: NGGSecureField(
                 Constants.passwordTextFieldPlaceholder,
                 text: Binding(
-                    get: { self.passwordText },
-                    set: { self.passwordText = $0 }
+                    get: { [weak self] in self?.viewModel.password ?? "" },
+                    set: { [weak self] in self?.viewModel.password = $0 }
                 )
             )
         )
@@ -50,7 +47,7 @@ final class LogInViewController: UIViewController {
 
     private lazy var logInButton: UIHostingController<NGGButton> = {
         return UIHostingController(rootView: NGGButton(Constants.continueButtonTitle) {
-            self.didTapLogInButton()
+            [weak self] in self?.didTapLogInButton()
         })
     }()
 
@@ -164,16 +161,15 @@ private extension LogInViewController {
 
 // MARK: - Actions
 
+@objc
 private extension LogInViewController {
-    @objc func didTapLogInButton() {
-        viewModel.email = emailText
-        viewModel.password = passwordText
+    func didTapLogInButton() {
         viewModel.validateData()
         guard viewModel.showAlert else { return }
         presentAlert(message: Constants.errorMessage)
     }
 
-    @objc func didTapRegistration() {
+    func didTapRegistration() {
         viewModel.didTapOpenRegistrationScreen()
     }
 }
