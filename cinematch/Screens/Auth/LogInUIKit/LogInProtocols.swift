@@ -17,6 +17,6 @@ protocol LogInViewModelLogic: LogInViewModelInput {
 
 protocol LogInViewModelInput {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
-    func didTapContinue()
     func didTapOpenRegistrationScreen()
+    func validateData()
 }
