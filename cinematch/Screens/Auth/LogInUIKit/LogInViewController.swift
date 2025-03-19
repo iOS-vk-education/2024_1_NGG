@@ -10,7 +10,7 @@ import UIKit
 import SwiftUI
 
 final class LogInViewController: UIViewController {
-    private var viewModel: LogInViewModelLogic
+    private var viewModel: LoginViewModelInput & LoginDisplayData & LoginViewModelDisplayLogic
 
     // MARK: - UI Elements
 
@@ -47,7 +47,10 @@ final class LogInViewController: UIViewController {
 
     private lazy var logInButton: UIHostingController<NGGButton> = {
         return UIHostingController(rootView: NGGButton(Constants.continueButtonTitle) {
-            [weak self] in self?.didTapLogInButton()
+            [weak self] in
+            Task {
+                await self?.didTapLogInButton()
+            }
         })
     }()
 
@@ -57,7 +60,7 @@ final class LogInViewController: UIViewController {
         return stackView
     }()
 
-    init(viewModel: LogInViewModelLogic) {
+    init(viewModel: LoginViewModelInput & LoginDisplayData & LoginViewModelDisplayLogic) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -163,10 +166,10 @@ private extension LogInViewController {
 
 @objc
 private extension LogInViewController {
-    func didTapLogInButton() {
-        viewModel.validateData()
-        guard viewModel.showAlert else { return }
-        presentAlert(message: Constants.errorMessage)
+    func didTapLogInButton() async {
+        await viewModel.didTapLogInButton()
+        guard viewModel.uiProperties.showAlert else { return }
+        presentAlert(message: viewModel.uiProperties.errorMessage)
     }
 
     func didTapRegistration() {

@@ -2,21 +2,46 @@
 //  LogInProtocols.swift
 //  cinematch
 //
-//  Created by Ксения Панкратова on 16.12.2024.
+//  Created by Ксения Панкратова on 16.03.2025.
 //
 
 import Foundation
 
-protocol LogInViewModelLogic: LogInViewModelInput {
+// MARK: - ViewModel
+
+protocol LoginDisplayData: AnyObject {
     var email: String { get set }
     var password: String { get set }
-    var showAlert: Bool { get set }
 
-    func validateData()
+    var uiProperties: UserModel.UIProperties { get set }
 }
 
-protocol LogInViewModelInput {
-    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+protocol LoginViewModelInput: AnyObject {
+    func didTapLogInButton() async
     func didTapOpenRegistrationScreen()
-    func validateData()
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+}
+
+protocol LoginViewModelDisplayLogic: AnyObject {
+    func logInSuccess()
+    func showErrorMessage(_ message: String)
+}
+
+// MARK: - Interactor
+
+protocol LoginBusinessLogic: AnyObject {
+    func logIn(email: String, password: String) async
+}
+
+// MARK: - Worker
+
+protocol LoginAuthLogic {
+    func makeAuth(email: String, password: String) async throws
+}
+
+// MARK: - Presenter
+
+protocol PresenterInput {
+    func didLogInSuccess()
+    func didLogInFailure(error: Error)
 }
