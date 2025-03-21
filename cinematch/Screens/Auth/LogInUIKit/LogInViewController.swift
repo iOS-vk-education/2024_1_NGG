@@ -48,9 +48,7 @@ final class LogInViewController: UIViewController {
     private lazy var logInButton: UIHostingController<NGGButton> = {
         return UIHostingController(rootView: NGGButton(Constants.continueButtonTitle) {
             [weak self] in
-            Task {
-                await self?.didTapLogInButton()
-            }
+            self?.didTapLogInButton()
         })
     }()
 
@@ -166,8 +164,8 @@ private extension LogInViewController {
 
 @objc
 private extension LogInViewController {
-    func didTapLogInButton() async {
-        await viewModel.didTapLogInButton()
+    func didTapLogInButton() {
+        viewModel.didTapLogInButton()
         guard viewModel.uiProperties.showAlert else { return }
         presentAlert(message: viewModel.uiProperties.errorMessage)
     }

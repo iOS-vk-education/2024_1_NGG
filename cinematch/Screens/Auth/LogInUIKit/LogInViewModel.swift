@@ -12,6 +12,7 @@ final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewMode
     @Published var email: String = ""
     @Published var password: String = ""
     var uiProperties = UserModel.UIProperties()
+    var receiveUserData = UserModel.User()
 
     private var startScreenViewModel: StartScreenViewModel?
     var interactor: LoginBusinessLogic?
@@ -20,8 +21,8 @@ final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewMode
 // MARK: - LoginViewModelInput
 
 extension LogInViewModel {
-    func didTapLogInButton() async {
-        await interactor?.logIn(email: email, password: password)
+    func didTapLogInButton() {
+        interactor?.logIn(email: email, password: password)
     }
 
     func didTapOpenRegistrationScreen() {
@@ -36,8 +37,9 @@ extension LogInViewModel {
 // MARK: - LoginViewModelDisplayLogic
 
 extension LogInViewModel {
-    func logInSuccess() {
+    func logInSuccess(userData: UserModel.User) {
         uiProperties.showAlert = false
+        receiveUserData = userData
         UserDefaults.standard.set(StartScreenState.movieList.rawValue, forKey: "State")
         startScreenViewModel?.updateScreen(newScreenState: .movieList)
     }

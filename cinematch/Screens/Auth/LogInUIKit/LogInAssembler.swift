@@ -10,10 +10,9 @@ import Foundation
 final class LogInAssembler {
     static func assemble() -> LogInViewModel {
         let viewModel = LogInViewModel()
-        let interactor = LogInInteractor()
-        let presenter = LogInPresenter()
         let worker = LogInWorker()
-        interactor.worker = worker
+        let interactor = LogInInteractor(worker: worker)
+        let presenter = LogInPresenter()
         interactor.presenter = presenter
         viewModel.interactor = interactor
         presenter.viewModel = viewModel

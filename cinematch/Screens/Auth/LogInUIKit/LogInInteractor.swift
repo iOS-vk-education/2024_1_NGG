@@ -7,14 +7,25 @@
 
 final class LogInInteractor: LoginBusinessLogic {
     var presenter: PresenterInput?
-    var worker: LoginAuthLogic?
+    var worker: LoginAuthLogic
 
-    func logIn(email: String, password: String) async {
-        do {
-            try await worker?.makeAuth(email: email, password: password)
-            presenter?.didLogInSuccess()
-        } catch {
-            presenter?.didLogInFailure(error: error)
+    init(worker: LoginAuthLogic) {
+        self.worker = worker
+    }
+
+    func logIn(email: String, password: String) {
+        Task {
+            do {
+                let doc = try await worker.makeAuth(email: email, password: password)
+                await MainActor.run {
+                    presenter?.didLogInSuccess(userData: doc)
+                    print(doc)
+                }
+            } catch {
+                await MainActor.run {
+                    presenter?.didLogInFailure(error: error)
+                }
+            }
         }
     }
 }
