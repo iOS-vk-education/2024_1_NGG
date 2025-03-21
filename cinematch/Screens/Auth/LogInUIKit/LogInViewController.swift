@@ -166,8 +166,8 @@ private extension LogInViewController {
 private extension LogInViewController {
     func didTapLogInButton() {
         viewModel.didTapLogInButton()
-        guard viewModel.uiProperties.showAlert else { return }
-        presentAlert(message: viewModel.uiProperties.errorMessage)
+        //?
+        presentAlert(message: viewModel.uiProperties.errorMessage, isShowing: viewModel.uiProperties.showAlert)
     }
 
     func didTapRegistration() {

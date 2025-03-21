@@ -14,7 +14,6 @@ protocol LoginDisplayData: AnyObject {
     var password: String { get set }
 
     var uiProperties: UserModel.UIProperties { get set }
-    // почему тут get set
     var receiveUserData: UserModel.User { get set }
 }
 

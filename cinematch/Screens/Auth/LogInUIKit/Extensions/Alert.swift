@@ -8,12 +8,14 @@
 import UIKit
 
 extension LogInViewController {
-    func presentAlert(title: String = Constants.alertTitle, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        alertController.addAction(UIAlertAction(title: Constants.alertButtonTitle, style: .default))
-
-        present(alertController, animated: true, completion: nil)
+    func presentAlert(title: String = Constants.alertTitle, message: String, isShowing: Bool) {
+        if isShowing {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: Constants.alertButtonTitle, style: .default))
+            
+            present(alertController, animated: true, completion: nil)
+        }
     }
 }
 
