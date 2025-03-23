@@ -19,7 +19,6 @@ final class LogInInteractor: LoginBusinessLogic {
                 let doc = try await worker.makeAuth(email: email, password: password)
                 await MainActor.run {
                     presenter?.didLogInSuccess(userData: doc)
-                    print(doc)
                 }
             } catch {
                 await MainActor.run {
