@@ -14,7 +14,6 @@ final class LogInPresenter: PresenterInput {
     func didLogInSuccess(userData: UserModel.UserData) {
         let data = processingData(userData: userData)
         viewModel.logInSuccess(userData: data)
-        print("[DEBUG]: \(data)")
     }
 
     func didLogInFailure(error: Error) {
