@@ -8,10 +8,9 @@
 import Foundation
 
 final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewModelDisplayLogic {
-
-    @Published var email: String = ""
-    @Published var password: String = ""
     var uiProperties = UserModel.UIProperties()
+    @Published var showAlert = false
+    @Published var errorMessage = ""
     var receiveUserData = UserModel.User()
 
     private var startScreenViewModel: StartScreenViewModel?
@@ -22,7 +21,7 @@ final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewMode
 
 extension LogInViewModel {
     func didTapLogInButton() {
-        interactor?.logIn(email: email, password: password)
+        interactor?.logIn(email: uiProperties.email, password: uiProperties.password)
     }
 
     func didTapOpenRegistrationScreen() {
@@ -38,14 +37,13 @@ extension LogInViewModel {
 
 extension LogInViewModel {
     func logInSuccess(userData: UserModel.User) {
-        uiProperties.showAlert = false
         receiveUserData = userData
         UserDefaults.standard.set(StartScreenState.movieList.rawValue, forKey: "State")
         startScreenViewModel?.updateScreen(newScreenState: .movieList)
     }
 
     func showErrorMessage(_ message: String) {
-        uiProperties.showAlert = true
-        uiProperties.errorMessage = message
+        showAlert = true
+        errorMessage = message
     }
 }

@@ -9,10 +9,10 @@ import Foundation
 
 enum UserModel {
     struct User {
-        var name: String = ""
-        var surname: String = ""
-        var email: String = ""
-        var password: String = ""
+        var name = ""
+        var surname = ""
+        var email = ""
+        var password = ""
         var image: Data?
     }
 
@@ -25,7 +25,7 @@ enum UserModel {
     }
 
     struct UIProperties {
-        var showAlert: Bool = false
-        var errorMessage: String = ""
+        var email = ""
+        var password = ""
     }
 }

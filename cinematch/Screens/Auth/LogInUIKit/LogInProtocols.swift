@@ -10,10 +10,9 @@ import Foundation
 // MARK: - ViewModel
 
 protocol LoginDisplayData: AnyObject {
-    var email: String { get set }
-    var password: String { get set }
-
     var uiProperties: UserModel.UIProperties { get set }
+    var showAlert: Bool { get set }
+    var errorMessage: String { get set }
     var receiveUserData: UserModel.User { get set }
 }
 

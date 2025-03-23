@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class LogInPresenter: PresenterInput {
     weak var viewModel: LoginViewModelDisplayLogic!
@@ -25,8 +26,8 @@ final class LogInPresenter: PresenterInput {
     }
 
     func processingData(userData: UserModel.UserData) -> UserModel.User {
-        var imageData: Data?
-        //...
+        var imageData = UIImage.totoro1.jpegData(compressionQuality: 2)
+
         return UserModel.User(
             name: userData.name,
             surname: userData.surname,

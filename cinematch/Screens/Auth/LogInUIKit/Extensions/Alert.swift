@@ -11,9 +11,13 @@ extension LogInViewController {
     func presentAlert(title: String = Constants.alertTitle, message: String, isShowing: Bool) {
         if isShowing {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            
-            alertController.addAction(UIAlertAction(title: Constants.alertButtonTitle, style: .default))
-            
+
+            alertController.addAction(UIAlertAction(title: Constants.alertButtonTitle, style: .default) { [weak self] _ in
+                guard let viewModel = self?.viewModel as? LogInViewModel else { return }
+                viewModel.showAlert = false
+                viewModel.errorMessage = ""
+            })
+
             present(alertController, animated: true, completion: nil)
         }
     }
