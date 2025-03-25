@@ -19,6 +19,7 @@ final class LogInInteractor: LoginBusinessLogic {
         Task {
             do {
                 let authResult = try await worker.makeAuth(email: email, password: password)
+
                 await getUserData(authResult: authResult)
             } catch {
                 await MainActor.run {
