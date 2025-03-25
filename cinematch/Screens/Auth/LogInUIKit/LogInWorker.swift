@@ -13,7 +13,7 @@ final class LogInWorker: LoginAuthLogic {
         guard !email.isEmpty && !password.isEmpty else {
             throw LoginError.emptyTestFields
         }
-        
+
         do {
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
 
