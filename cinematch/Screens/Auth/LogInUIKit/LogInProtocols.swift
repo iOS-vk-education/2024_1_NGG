@@ -14,7 +14,7 @@ protocol LoginDisplayData: AnyObject {
     var uiProperties: UserModel.UIProperties { get set }
     var showAlert: Bool { get set }
     var errorMessage: String { get set }
-    var receiveUserData: UserModel.User { get set }
+    var receiveUserData: SavedUserModel? { get set }
 }
 
 protocol LoginViewModelInput: AnyObject {
@@ -24,7 +24,7 @@ protocol LoginViewModelInput: AnyObject {
 }
 
 protocol LoginViewModelDisplayLogic: AnyObject {
-    func logInSuccess(userData: UserModel.User)
+    func logInSuccess(userData: SavedUserModel)
     func showErrorMessage(_ message: String)
 }
 
@@ -45,6 +45,6 @@ protocol LoginAuthLogic {
 // MARK: - Presenter
 
 protocol PresenterInput {
-    func didLogInSuccess(userData: UserModel.UserData)
+    func didLogInSuccess(userData: SavedUserModel)
     func didLogInFailure(error: Error)
 }

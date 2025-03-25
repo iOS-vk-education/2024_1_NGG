@@ -31,8 +31,17 @@ final class LogInInteractor: LoginBusinessLogic {
     func getUserData(authResult: AuthDataResult) async {
         do {
             let userData = try await worker.fetchUserData(authResult: authResult)
+
+            let savedUserModel = SavedUserModel(
+                id: userData.id,
+                name: userData.name,
+                surname: userData.surname,
+                email: userData.email,
+                imageState: .loading(url: userData.image)
+            )
+
             await MainActor.run {
-                presenter?.didLogInSuccess(userData: userData)
+                presenter?.didLogInSuccess(userData: savedUserModel)
             }
         } catch {
             await MainActor.run {

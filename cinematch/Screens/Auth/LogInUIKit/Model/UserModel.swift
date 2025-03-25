@@ -13,7 +13,7 @@ enum UserModel {
         var name = ""
         var surname = ""
         var email = ""
-        var image: String?
+        var image: Data?
     }
 
     struct UserData: Decodable {

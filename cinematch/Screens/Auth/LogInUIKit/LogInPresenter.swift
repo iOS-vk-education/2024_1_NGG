@@ -11,16 +11,8 @@ import UIKit
 final class LogInPresenter: PresenterInput {
     weak var viewModel: LoginViewModelDisplayLogic!
 
-    func didLogInSuccess(userData: UserModel.UserData) {
-        let data = UserModel.User(
-            id: userData.id,
-            name: userData.name,
-            surname: userData.surname,
-            email: userData.email,
-            image: userData.image
-        )
-
-        viewModel.logInSuccess(userData: data)
+    func didLogInSuccess(userData: SavedUserModel) {
+        viewModel.logInSuccess(userData: userData)
     }
 
     func didLogInFailure(error: Error) {
