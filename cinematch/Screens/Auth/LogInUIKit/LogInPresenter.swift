@@ -12,7 +12,14 @@ final class LogInPresenter: PresenterInput {
     weak var viewModel: LoginViewModelDisplayLogic!
 
     func didLogInSuccess(userData: UserModel.UserData) {
-        let data = processingData(userData: userData)
+        let data = UserModel.User(
+            id: userData.id,
+            name: userData.name,
+            surname: userData.surname,
+            email: userData.email,
+            image: userData.image
+        )
+        
         viewModel.logInSuccess(userData: data)
     }
 
@@ -22,17 +29,5 @@ final class LogInPresenter: PresenterInput {
         } else {
             viewModel.showErrorMessage(error.localizedDescription)
         }
-    }
-
-    func processingData(userData: UserModel.UserData) -> UserModel.User {
-        var imageData = UIImage.totoro1.jpegData(compressionQuality: 2)
-
-        return UserModel.User(
-            name: userData.name,
-            surname: userData.surname,
-            email: userData.email,
-            password: userData.password,
-            image: imageData
-        )
     }
 }

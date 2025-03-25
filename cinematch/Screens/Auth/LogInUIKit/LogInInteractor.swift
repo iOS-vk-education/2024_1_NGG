@@ -5,6 +5,8 @@
 //  Created by Ксения Панкратова on 16.03.2025.
 //
 
+import FirebaseAuth
+
 final class LogInInteractor: LoginBusinessLogic {
     var presenter: PresenterInput?
     var worker: LoginAuthLogic
@@ -16,14 +18,25 @@ final class LogInInteractor: LoginBusinessLogic {
     func logIn(email: String, password: String) {
         Task {
             do {
-                let doc = try await worker.makeAuth(email: email, password: password)
-                await MainActor.run {
-                    presenter?.didLogInSuccess(userData: doc)
-                }
+                let authResult = try await worker.makeAuth(email: email, password: password)
+                await getUserData(authResult: authResult)
             } catch {
                 await MainActor.run {
                     presenter?.didLogInFailure(error: error)
                 }
+            }
+        }
+    }
+
+    func getUserData(authResult: AuthDataResult) async {
+        do {
+            let userData = try await worker.fetchUserData(authResult: authResult)
+            await MainActor.run {
+                presenter?.didLogInSuccess(userData: userData)
+            }
+        } catch {
+            await MainActor.run {
+                presenter?.didLogInFailure(error: error)
             }
         }
     }

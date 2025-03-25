@@ -9,14 +9,15 @@ import Foundation
 
 enum UserModel {
     struct User {
+        var id = ""
         var name = ""
         var surname = ""
         var email = ""
-        var password = ""
-        var image: Data?
+        var image: String?
     }
 
     struct UserData: Decodable {
+        var id: String
         var name: String
         var surname: String
         var email: String

@@ -157,7 +157,7 @@ private extension MainProfileViewModelMock {
             )
         }
 
-        static let user = UserModel.User( name: "Name", surname: "Surname", email: "1@example.com", password: "12345", image: nil)
+        static let user = UserModel.User( name: "Name", surname: "Surname", email: "1@example.com", image: nil)
     }
 }
 

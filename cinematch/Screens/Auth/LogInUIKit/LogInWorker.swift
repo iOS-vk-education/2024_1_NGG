@@ -9,25 +9,28 @@ import FirebaseAuth
 import FirebaseFirestore
 
 final class LogInWorker: LoginAuthLogic {
-    func makeAuth(email: String, password: String) async throws -> UserModel.UserData {
+    func makeAuth(email: String, password: String) async throws -> AuthDataResult {
+        guard !email.isEmpty && !password.isEmpty else {
+            throw LoginError.emptyTestFields
+        }
+        
         do {
-            guard !email.isEmpty && !password.isEmpty else {
-                throw LoginError.emptyTestFields
-            }
-
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
-            let userId = authResult.user.uid
-            let doc = try await Firestore.firestore().collection("users").document(userId).getDocument()
 
-            guard let userData = try? doc.data(as: UserModel.UserData.self) else {
-                throw LoginError.emptyData
-            }
-
-            return userData
-        } catch let error as LoginError {
-            throw error
+            return authResult
         } catch {
             throw LoginError.wrongEmailOrPassword
+        }
+    }
+
+    func fetchUserData(authResult: AuthDataResult) async throws -> UserModel.UserData {
+        do {
+            let userId = authResult.user.uid
+            let userData = try await Firestore.firestore().collection("users").document(userId).getDocument().data(as: UserModel.UserData.self)
+
+            return userData
+        } catch {
+            throw LoginError.emptyData
         }
     }
 }

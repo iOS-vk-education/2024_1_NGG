@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 // MARK: - ViewModel
 
@@ -31,12 +32,14 @@ protocol LoginViewModelDisplayLogic: AnyObject {
 
 protocol LoginBusinessLogic: AnyObject {
     func logIn(email: String, password: String)
+    func getUserData(authResult: AuthDataResult) async
 }
 
 // MARK: - Worker
 
 protocol LoginAuthLogic {
-    func makeAuth(email: String, password: String) async throws -> UserModel.UserData
+    func makeAuth(email: String, password: String) async throws -> AuthDataResult
+    func fetchUserData(authResult: AuthDataResult) async throws -> UserModel.UserData
 }
 
 // MARK: - Presenter
