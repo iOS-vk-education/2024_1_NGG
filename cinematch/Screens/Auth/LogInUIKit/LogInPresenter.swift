@@ -19,7 +19,7 @@ final class LogInPresenter: PresenterInput {
             email: userData.email,
             image: userData.image
         )
-        
+
         viewModel.logInSuccess(userData: data)
     }
 
