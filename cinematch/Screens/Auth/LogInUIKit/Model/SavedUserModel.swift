@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct SavedUserModel {
+struct SavedUserModel: Hashable {
     var id: String
     var name: String
     var surname: String
