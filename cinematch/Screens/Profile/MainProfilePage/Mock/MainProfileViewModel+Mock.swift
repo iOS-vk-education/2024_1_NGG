@@ -17,7 +17,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
 
     private(set) var stories: [Module] = []
     private(set) var showLoading: Bool
-    private(set) var user: UserModel
+    private(set) var user: UserModel.User
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -27,7 +27,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
     init(
         delay: TimeInterval = 0,
         showLoading: Bool = false,
-        user: UserModel = MockData.user
+        user: UserModel.User = MockData.user
 
     ) {
         self.delay = delay
@@ -157,7 +157,7 @@ private extension MainProfileViewModelMock {
             )
         }
 
-        static let user = UserModel(id: 1, name: "Name", surname: "Surname", email: "1@example.com", password: "12345", image: nil)
+        static let user = UserModel.User( name: "Name", surname: "Surname", email: "1@example.com", image: nil)
     }
 }
 

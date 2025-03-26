@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogInView: UIViewControllerRepresentable {
-    let viewModel: LogInViewModelLogic
+    let viewModel = LogInAssembler.assemble()
     let startScreenViewModel: StartScreenViewModel
 
     func makeUIViewController(context: Context) -> LogInViewController {

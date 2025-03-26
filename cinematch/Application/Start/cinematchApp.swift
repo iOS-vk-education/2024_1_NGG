@@ -44,7 +44,7 @@ private extension cinematchApp {
             DownloadPageView(viewModel: DownloadPageViewModel(), startScreenViewModel: viewModel)
                 .ignoresSafeArea()
         case .logIn:
-            LogInView(viewModel: LogInViewModelMock(), startScreenViewModel: viewModel)
+            LogInView(startScreenViewModel: viewModel)
                 .ignoresSafeArea()
         case .signUp:
             SignUpView(viewModel: SignUpViewModelMock())

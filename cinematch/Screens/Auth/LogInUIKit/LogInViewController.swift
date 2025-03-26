@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Combine
 
 final class LogInViewController: UIViewController {
-    private var viewModel: LogInViewModelLogic
+    var viewModel: LoginViewModelInput & LoginDisplayData
 
     // MARK: - UI Elements
 
@@ -18,16 +19,18 @@ final class LogInViewController: UIViewController {
     private let regButton = UIButton()
     private let divider = UIView()
     private let textLabel = UILabel()
-    let scrollView: UIScrollView = UIScrollView()
-    private let containerView: UIView = UIView()
+    let scrollView = UIScrollView()
+    private let containerView = UIView()
+
+    private var disposeBag: Set<AnyCancellable> = []
 
     private lazy var emailTextField: UIHostingController<NGGTextField> = {
         return UIHostingController(
             rootView: NGGTextField(
                 title: Constants.nameTextFieldPlaceholder,
                 text: Binding(
-                    get: { [weak self] in self?.viewModel.email ?? "" },
-                    set: { [weak self] in self?.viewModel.email = $0 }
+                    get: { [weak self] in self?.viewModel.uiProperties.email ?? "" },
+                    set: { [weak self] in self?.viewModel.uiProperties.email = $0 }
                 )
             )
         )
@@ -38,8 +41,8 @@ final class LogInViewController: UIViewController {
             rootView: NGGSecureField(
                 Constants.passwordTextFieldPlaceholder,
                 text: Binding(
-                    get: { [weak self] in self?.viewModel.password ?? "" },
-                    set: { [weak self] in self?.viewModel.password = $0 }
+                    get: { [weak self] in self?.viewModel.uiProperties.password ?? "" },
+                    set: { [weak self] in self?.viewModel.uiProperties.password = $0 }
                 )
             )
         )
@@ -47,7 +50,8 @@ final class LogInViewController: UIViewController {
 
     private lazy var logInButton: UIHostingController<NGGButton> = {
         return UIHostingController(rootView: NGGButton(Constants.continueButtonTitle) {
-            [weak self] in self?.didTapLogInButton()
+            [weak self] in
+            self?.didTapLogInButton()
         })
     }()
 
@@ -57,7 +61,7 @@ final class LogInViewController: UIViewController {
         return stackView
     }()
 
-    init(viewModel: LogInViewModelLogic) {
+    init(viewModel: LoginViewModelInput & LoginDisplayData) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -69,29 +73,78 @@ final class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+
         setupLayout()
         setupKeyboard()
+        subscribe()
     }
 }
 
 private extension LogInViewController {
+    func subscribe() {
+        guard let viewModel = viewModel as? LogInViewModel else { return }
+
+        Publishers.CombineLatest(viewModel.$showAlert, viewModel.$errorMessage)
+            .dropFirst()
+            .filter { showAlert, message in
+                showAlert && !message.isEmpty
+            }
+            .sink { [weak self] showAlert, message in
+                self?.presentAlert(message: message, isShowing: showAlert)
+            }
+            .store(in: &disposeBag)
+    }
+
     func setupUI() {
         view.backgroundColor = UIColor(.background)
+        scrollView.contentInsetAdjustmentBehavior = .never
+        setUpTitle()
+        setUpEmailTextField()
+        setUpPasswordTextField()
+        setUpDivider()
+        setUpLogInButton()
+        setupRegButton()
+        setUpTextLabel()
+        setUpStackView()
 
+        view.addSubviews(scrollView)
+        scrollView.addSubviews(containerView)
+        addChildren(emailTextField, passwordTextField, logInButton)
+        containerView.addSubviews(
+            screenTitle,
+            divider,
+            stackView,
+            emailTextField.view,
+            passwordTextField.view,
+            logInButton.view
+        )
+    }
+
+    func setUpTitle() {
         screenTitle.text = Constants.formsContainerTitle
         screenTitle.textColor = .white
         screenTitle.font = .systemFont(ofSize: 32, weight: .semibold)
         screenTitle.textAlignment = .center
+    }
 
+    func setUpEmailTextField() {
         emailTextField.view.backgroundColor = .clear
+    }
 
+    func setUpPasswordTextField() {
         passwordTextField.view.backgroundColor = .clear
+    }
 
+    func setUpDivider() {
         divider.backgroundColor = .white
         divider.alpha = 0.7
+    }
 
+    func setUpLogInButton() {
         logInButton.view.backgroundColor = .clear
+    }
 
+    func setupRegButton() {
         let attributedTitle = NSAttributedString(
             string: Constants.singupButton,
             attributes: [
@@ -103,20 +156,17 @@ private extension LogInViewController {
 
         regButton.setAttributedTitle(attributedTitle, for: .normal)
         regButton.addTarget(self, action: #selector(didTapRegistration), for: .touchUpInside)
+    }
 
+    func setUpTextLabel() {
         textLabel.text = Constants.footerText
         textLabel.textColor = .white
         textLabel.font = .systemFont(ofSize: 16)
+    }
 
+    func setUpStackView() {
         stackView.addArrangedSubview(textLabel)
         stackView.addArrangedSubview(regButton)
-
-        scrollView.contentInsetAdjustmentBehavior = .never
-
-        view.addSubviews(scrollView)
-        scrollView.addSubviews(containerView)
-        addChildren(emailTextField, passwordTextField, logInButton)
-        containerView.addSubviews(screenTitle, divider, stackView, emailTextField.view, passwordTextField.view, logInButton.view)
     }
 
     func setupLayout() {
@@ -164,9 +214,7 @@ private extension LogInViewController {
 @objc
 private extension LogInViewController {
     func didTapLogInButton() {
-        viewModel.validateData()
-        guard viewModel.showAlert else { return }
-        presentAlert(message: Constants.errorMessage)
+        viewModel.didTapLogInButton()
     }
 
     func didTapRegistration() {

@@ -7,11 +7,26 @@
 
 import Foundation
 
-struct UserModel: Identifiable {
-    var id: Int
-    var name: String
-    var surname: String
-    var email: String
-    var password: String
-    var image: Data?
+enum UserModel {
+    struct User {
+        var id = ""
+        var name = ""
+        var surname = ""
+        var email = ""
+        var image: Data?
+    }
+
+    struct UserData: Decodable {
+        var id: String
+        var name: String
+        var surname: String
+        var email: String
+        var password: String
+        var image: String?
+    }
+
+    struct UIProperties {
+        var email = ""
+        var password = ""
+    }
 }
