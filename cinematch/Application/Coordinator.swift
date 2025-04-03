@@ -10,7 +10,7 @@ import Foundation
 import Observation
 
 @Observable
-final class Coordinator {
+final class Coordinator: ObservableObject {
     var navPath = NavigationPath()
 }
 

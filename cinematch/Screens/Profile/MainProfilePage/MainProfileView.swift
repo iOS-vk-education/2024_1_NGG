@@ -14,30 +14,30 @@ struct MainProfileView: View {
 
     var body: some View {
         mainContainer
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Image(systemName: "arrow.left")
-                        .foregroundStyle(Color.white)
-                        .onTapGesture {
-                            coordinator.openPreviousScreen()
-                        }
-                }
-
-                ToolbarItem(placement: .principal) {
-                    Text(Constants.headerTitle)
-                        .font(Font.custom("Roboto", size: 22))
-                        .foregroundColor(.white)
-                }
-
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .foregroundStyle(Color.white)
-                        .onTapGesture {
-                            viewModel.logout()
-                        }
-                }
-            }
+//            .navigationBarBackButtonHidden()
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Image(systemName: "arrow.left")
+//                        .foregroundStyle(Color.white)
+//                        .onTapGesture {
+//                            coordinator.openPreviousScreen()
+//                        }
+//                }
+//
+//                ToolbarItem(placement: .principal) {
+//                    Text(Constants.headerTitle)
+//                        .font(Font.custom("Roboto", size: 22))
+//                        .foregroundColor(.white)
+//                }
+//
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Image(systemName: "rectangle.portrait.and.arrow.right")
+//                        .foregroundStyle(Color.white)
+//                        .onTapGesture {
+//                            viewModel.logout()
+//                        }
+//                }
+//            }
             .onAppear {
                 UISegmentedControl.appearance().setTitleTextAttributes(
                     [.foregroundColor: UIColor.white],

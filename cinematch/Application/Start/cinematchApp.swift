@@ -25,6 +25,10 @@ struct cinematchApp: App {
         let coloredAppearance = UINavigationBarAppearance()
         coloredAppearance.configureWithOpaqueBackground()
         coloredAppearance.backgroundColor = .editProfPurple
+        coloredAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 24, weight: .semibold)
+        ]
         UINavigationBar.appearance().standardAppearance = coloredAppearance
     }
 
@@ -51,7 +55,8 @@ private extension cinematchApp {
         case .editProfile:
             EditProfileView(viewModel: EditProfileViewModel())
         case .movieList:
-            MovieListView(viewModel: MovieListViewModelMock(delay: 2))
+            MovieListView()
+                .ignoresSafeArea()
         case .choiceGenres:
             ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
         }
