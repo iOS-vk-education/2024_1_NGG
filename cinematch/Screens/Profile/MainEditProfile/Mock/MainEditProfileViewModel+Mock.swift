@@ -21,14 +21,14 @@ final class MainEditProfileViewModelMock: MainEditProfileDisplayLogic {
     }
 
     @ObservationIgnored
-    private var coordinator: Coordinator?
+    private var coordinator: NavigationControllerCoordinator?
 }
 
 // MARK: - MainEditProfileViewModelInput
 
 extension MainEditProfileViewModelMock {
 
-    func setCoordinator(_ coordinator: Coordinator) {
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
         self.coordinator = coordinator
     }
 

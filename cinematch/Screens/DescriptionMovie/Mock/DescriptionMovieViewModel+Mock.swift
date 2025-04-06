@@ -14,7 +14,7 @@ final class DescriptionMovieViewModelMock: DescriptionMovieDisplayLogic & Descri
     private(set) var story: Module
 
     @ObservationIgnored
-    private var coordinator: Coordinator?
+    private var coordinator: NavigationControllerCoordinator?
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
@@ -26,7 +26,7 @@ final class DescriptionMovieViewModelMock: DescriptionMovieDisplayLogic & Descri
 
 extension DescriptionMovieViewModelMock {
 
-    func setCoordinator(_ coordinator: Coordinator) {
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
         self.coordinator = coordinator
     }
 

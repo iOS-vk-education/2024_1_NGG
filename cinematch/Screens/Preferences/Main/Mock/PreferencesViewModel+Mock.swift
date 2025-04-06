@@ -15,7 +15,7 @@ final class PreferencesViewModelMock: PreferencesDisplayLogic {
     private(set) var directors: [String]
     private(set) var genres: [String]
     @ObservationIgnored
-    private var coordinator: Coordinator?
+    private var coordinator: NavigationControllerCoordinator?
 
     init() {
         directors = UserDefaults.standard
@@ -33,7 +33,7 @@ final class PreferencesViewModelMock: PreferencesDisplayLogic {
 
 extension PreferencesViewModelMock {
 
-    func setCoordinator(_ coordinator: Coordinator) {
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
         self.coordinator = coordinator
     }
 

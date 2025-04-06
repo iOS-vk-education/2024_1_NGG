@@ -11,7 +11,7 @@ import SwiftUI
 
 final class MovieListController: UIViewController {
     private let viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput
-    @State private var coordinator = Coordinator()
+    private let coordinator = NavigationControllerCoordinator()
 
     private var movies: [FilmCell.Configuration] = []
 
@@ -40,6 +40,8 @@ final class MovieListController: UIViewController {
         super.viewDidLoad()
         setup()
 
+        viewModel.setCoordinator(coordinator)
+        coordinator.navigationController = self.navigationController
         viewModel.onAppear { [weak self] in
             self?.updateMovies()
         }
@@ -90,7 +92,7 @@ final class MovieListController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: avatarButton)
 
-        navigationController?.navigationBar.tintColor = .white
+//        navigationController?.navigationBar.tintColor = .white
     }
 
     private func setupCollectionView() {
@@ -136,7 +138,7 @@ extension MovieListController: UICollectionViewDataSource {
 extension MovieListController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedStory = viewModel.stories[indexPath.item]
-        openNextScreen(for: .storyDetails(selectedStory), viewModel: viewModel, coordinator: coordinator)
+        viewModel.didTapCell(story: selectedStory)
     }
 }
 
@@ -153,9 +155,10 @@ extension MovieListController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Actions
 
-@objc private extension MovieListController {
+@objc
+private extension MovieListController {
     func didTapProfile() {
-        openNextScreen(for: .profile, viewModel: viewModel, coordinator: coordinator)
+        viewModel.didTapProfile()
     }
 }
 

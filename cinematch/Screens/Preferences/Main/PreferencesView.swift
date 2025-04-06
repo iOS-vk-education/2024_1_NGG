@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PreferencesView: View {
     @State var viewModel: PreferencesDisplayLogic
-    @Environment(Coordinator.self) private var coordinator
+    @Environment(NavigationControllerCoordinator.self) private var coordinator
 
     var body: some View {
         VStack {
@@ -92,7 +92,7 @@ private extension PreferencesView {
 
 #Preview {
     PreferencesView(viewModel: PreferencesViewModelMock())
-        .environment(Coordinator())
+        .environment(NavigationControllerCoordinator())
 }
 
 // MARK: - Constants

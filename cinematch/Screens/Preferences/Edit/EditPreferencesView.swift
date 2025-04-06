@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EditPreferencesView: View {
     @State var viewModel: EditPreferencesDisplayLogic
-    @Environment(Coordinator.self) var coordinator
+    @Environment(NavigationControllerCoordinator.self) var coordinator
     @State private var selectedCategory: Category = .genres
 
     var body: some View {
@@ -138,7 +138,7 @@ private extension EditPreferencesView {
 
 #Preview {
     EditPreferencesView(viewModel: EditPreferencesViewModelMock())
-        .environment(Coordinator())
+        .environment(NavigationControllerCoordinator())
 }
 
 // MARK: - Constants

@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct MovieListView: UIViewControllerRepresentable {
-    let viewModel = MovieListAssembler.assemble()
-
     func makeUIViewController(context: Context) -> UINavigationController {
-        let movieListVC = MovieListController(viewModel: viewModel)
-        return UINavigationController(rootViewController: movieListVC)
-    }
+            let navigationController = UINavigationController()
+            let viewModel = MovieListAssembler.assemble()
+            let movieListController = MovieListController(viewModel: viewModel)
+
+            navigationController.viewControllers = [movieListController]
+
+            return navigationController
+        }
 
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
 }

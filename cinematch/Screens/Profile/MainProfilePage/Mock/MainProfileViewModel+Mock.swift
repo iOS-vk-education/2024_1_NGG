@@ -20,7 +20,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
     private(set) var user: UserModel.User
 
     @ObservationIgnored
-    private var coordinator: Coordinator?
+    private var coordinator: NavigationControllerCoordinator?
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
 
@@ -77,7 +77,7 @@ extension MainProfileViewModelMock {
         }
     }
 
-    func setCoordinator(_ coordinator: Coordinator) {
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
         self.coordinator = coordinator
     }
 

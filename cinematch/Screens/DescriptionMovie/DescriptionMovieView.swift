@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DescriptionMovieView: View {
     @State var viewModel: DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput
-    @Environment(Coordinator.self) private var coordinator
+    @Environment(NavigationControllerCoordinator.self) private var coordinator
 
     var body: some View {
         ScrollView {
@@ -31,17 +31,17 @@ struct DescriptionMovieView: View {
         }
         .background(Color.background)
         .ignoresSafeArea()
-//        .navigationBarBackButtonHidden()
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Image(systemName: "arrow.left")
-//                    .foregroundStyle(Color.white)
-//                    .padding(.leading,16)
-//                    .onTapGesture {
-//                        coordinator.openPreviousScreen()
-//                    }
-//            }
-//        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Image(systemName: "arrow.left")
+                    .foregroundStyle(Color.white)
+                    .padding(.leading,16)
+                    .onTapGesture {
+                        coordinator.openPreviousScreen()
+                    }
+            }
+        }
         .onAppear {
             viewModel.setCoordinator(coordinator)
         }
@@ -55,5 +55,5 @@ struct DescriptionMovieView: View {
         DescriptionMovieView(
             viewModel: DescriptionMovieViewModelMock(story: .mockData))
     }
-    .environment(Coordinator())
+    .environment(NavigationControllerCoordinator())
 }

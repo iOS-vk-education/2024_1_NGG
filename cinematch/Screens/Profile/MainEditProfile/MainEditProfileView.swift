@@ -10,7 +10,7 @@ import _PhotosUI_SwiftUI
 
 struct MainEditProfileView: View {
     @State var viewModel: MainEditProfileDisplayLogic
-    @Environment(Coordinator.self) private var coordinator
+    @Environment(NavigationControllerCoordinator.self) private var coordinator
 
     var body: some View {
         AdaptiveScrollView {
@@ -107,7 +107,7 @@ private extension MainEditProfileView {
     NavigationStack {
         MainEditProfileView(viewModel: MainEditProfileViewModelMock(prevViewModel: MainProfileViewModelMock(delay: 2)))
     }
-    .environment(Coordinator())
+    .environment(NavigationControllerCoordinator())
 }
 
 // MARK: - Constants

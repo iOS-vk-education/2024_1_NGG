@@ -18,7 +18,7 @@ protocol MainProfileDisplayLogic: MainProfileViewModelInput {
 }
 
 protocol MainProfileViewModelInput {
-    func setCoordinator(_ coordinator: Coordinator)
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator)
     func onAppear()
     func didTapCell(story: Module)
     func didTapEdit()

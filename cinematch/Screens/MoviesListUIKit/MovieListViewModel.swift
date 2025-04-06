@@ -14,7 +14,7 @@ final class MovieListViewModel: MovieListDisplayLogic {
     private(set) var showLoading: Bool
     private(set) var user: UserModel.User
 
-    private var coordinator: Coordinator?
+    private var coordinator: NavigationControllerCoordinator?
 
     init(
         stories: [Module] = [],
@@ -28,7 +28,7 @@ final class MovieListViewModel: MovieListDisplayLogic {
 }
 
 extension MovieListViewModel: MovieListViewModelInput {
-    func setCoordinator(_ coordinator: Coordinator) {
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
         self.coordinator = coordinator
     }
 
@@ -46,6 +46,14 @@ extension MovieListViewModel: MovieListViewModelOutput {
     func configureDetailsViewModel(story: Module) -> any DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput {
         let viewModel = DescriptionMovieViewModelMock(story: story)
         return viewModel
+    }
+
+    func didTapCell(story: Module) {
+        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
+    }
+
+    func didTapProfile() {
+        coordinator?.addScreen(screen: MovieListScreens.profile)
     }
 }
 

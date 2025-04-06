@@ -12,7 +12,7 @@ protocol DescriptionMovieDisplayLogic: DescriptionMovieViewModelInput {
 }
 
 protocol DescriptionMovieViewModelInput {
-    func setCoordinator(_ coordinator: Coordinator)
+    func setCoordinator(_ coordinator: NavigationControllerCoordinator)
     func didTapOpenSimilarStory(movie: Module)
 }
 
