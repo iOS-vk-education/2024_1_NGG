@@ -9,7 +9,7 @@ import Foundation
 
 final class MovieListAssembler {
     static func assemble() -> MovieListViewModel {
-        let networkService = NetworkService()
+        let networkService = Network()
         let viewModel = MovieListViewModel()
         let interactor = MovieListInteractor(networkService: networkService)
         let presenter = MovieListPresenter()

@@ -10,36 +10,44 @@ import Foundation
 // MARK: - ViewModel
 
 protocol MovieListDisplayData: AnyObject {
-    var stories: [Module] { get }
-    var showLoading: Bool { get }
+    var stories: [MovieCard] { get }
     var user: UserModel.User { get }
+    var genres: [String] { get }
+    var directors: [Int] { get }
+    var uiProperties: UIProperties { get }
 }
 
 protocol MovieListViewModelInput: AnyObject {
     func setCoordinator(_ coordinator: NavigationControllerCoordinator)
-    func onAppear(completion: @escaping () -> Void)
+    func loadMovies(completion: @escaping () -> Void)
 }
 
 protocol MovieListViewModelOutput: AnyObject {
-    func configureDetailsViewModel(story: Module) -> DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput
-    func didTapCell(story: Module)
+//    func configureDetailsViewModel(story: Module) -> DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput
+    func didTapCell(story: MovieCard)
     func didTapProfile()
 }
 
 protocol MovieListDisplayLogic: AnyObject {
-    func didFetchMovies(with movies: [Module])
+    func didFetchMovies(with movies: [MovieCard])
     func showErrorMessage(_ message: String)
+
+    func didfetchMovieDescription(story: MovieDescription)
 }
 
 // MARK: - Interactor
 
 protocol MovieListBusinessLogic {
-    func getMovies() async
+    func getMovies(genres: [String], directors: [Int], page: Int) async
+    func getDescriptionMovie(movieId: Int) async
 }
 
 // MARK: - Presenter
 
 protocol MovieListPresenterInput {
-    func didFetchMoviewSuccess(with movies: [Module])
-    func didFetchMoviewFailure(with error: Error)
+    func didFetchMoviesSuccess(with movies: [MovieCard])
+    func didFetchMoviesFailure(with error: Error)
+
+    func didFetchMovieDescriptionSuccess(with movie: MovieDescription)
+    func didFetchMovieDescriptionFailure(with error: Error)
 }

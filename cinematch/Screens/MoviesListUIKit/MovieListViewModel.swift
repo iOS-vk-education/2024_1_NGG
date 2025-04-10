@@ -10,19 +10,19 @@ import Foundation
 final class MovieListViewModel: MovieListDisplayLogic {
     var interactor: MovieListBusinessLogic!
 
-    private(set) var stories: [Module]
-    private(set) var showLoading: Bool
+    private(set) var stories: [MovieCard]
     private(set) var user: UserModel.User
+    private(set) var genres: [String] = ["драма","триллер"]
+    private(set) var directors: [Int] = [2317924, 22260]
+    private(set) var uiProperties = UIProperties()
 
     private var coordinator: NavigationControllerCoordinator?
 
     init(
-        stories: [Module] = [],
-        showLoading: Bool = false,
+        stories: [MovieCard] = [],
         user: UserModel.User = MockData.user
     ) {
         self.stories = stories
-        self.showLoading = showLoading
         self.user = user
     }
 }
@@ -32,24 +32,32 @@ extension MovieListViewModel: MovieListViewModelInput {
         self.coordinator = coordinator
     }
 
-    func onAppear(completion: @escaping () -> Void) {
-        showLoading = true
+    func loadMovies(completion: @escaping () -> Void) {
+        guard uiProperties.canLoadMorePages, !uiProperties.isLoadingMore else {
+            completion()
+            return
+        }
+
+        uiProperties.isLoadingMore = true
 
         Task {
-            await interactor.getMovies()
+            await interactor.getMovies(genres: genres, directors: directors, page: uiProperties.currentPage)
+            uiProperties.currentPage += 1
             completion()
         }
     }
 }
 
 extension MovieListViewModel: MovieListViewModelOutput {
-    func configureDetailsViewModel(story: Module) -> any DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput {
-        let viewModel = DescriptionMovieViewModelMock(story: story)
-        return viewModel
-    }
-
-    func didTapCell(story: Module) {
-        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
+//    func configureDetailsViewModel(story: Module) -> any DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput {
+//        let viewModel = DescriptionMovieViewModelMock(story: story)
+//        return viewModel
+//    }
+//
+    func didTapCell(story: MovieCard) {
+        Task {
+            await interactor.getDescriptionMovie(movieId: story.id)
+        }
     }
 
     func didTapProfile() {
@@ -58,14 +66,23 @@ extension MovieListViewModel: MovieListViewModelOutput {
 }
 
 extension MovieListViewModel: MovieListDisplayData {
-    func didFetchMovies(with movies: [Module]) {
-        stories = movies
-        showLoading = false
+    func didFetchMovies(with movies: [MovieCard]) {
+        if uiProperties.currentPage == 1 {
+                stories = movies
+            } else {
+                stories += movies
+            }
+
+        uiProperties.canLoadMorePages = !movies.isEmpty
+        uiProperties.isLoadingMore = false
     }
 
     func showErrorMessage(_ message: String) {
-        showLoading = false
         print("[DEBUG]: \(message)")
+    }
+
+    func didfetchMovieDescription(story: MovieDescription) {
+//        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
     }
 }
 

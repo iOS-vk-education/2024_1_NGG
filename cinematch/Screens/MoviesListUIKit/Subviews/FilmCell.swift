@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Foundation
 import SkeletonView
 
 extension FilmCell {
@@ -22,8 +21,6 @@ extension FilmCell {
 
 final class FilmCell: UICollectionViewCell {
 
-    // MARK: Public Properties
-
     var configuration: Configuration {
         didSet {
             guard oldValue != configuration else { return }
@@ -31,27 +28,24 @@ final class FilmCell: UICollectionViewCell {
         }
     }
 
-    // MARK: UI Subviews
+    private let backgroundImage = UIImageView()
+    private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+    private let dimmingView = UIView()
 
-    private var backgroundImage = UIImageView()
-    private var titleLabel = UILabel()
-    private var genresLabel = UILabel()
-    private var rightInfoLabel = UILabel()
-    private let blurEffectView = UIVisualEffectView()
-
-    private var infoStackView = UIStackView()
-    private var verticalStackView = UIStackView()
-
-    // MARK: Lifecycle
+    private let titleLabel = UILabel()
+    private let genresLabel = UILabel()
+    private let rightInfoLabel = UILabel()
 
     override init(frame: CGRect) {
-        self.configuration = .init()
+        configuration = .init()
         super.init(frame: frame)
+
+        isSkeletonable = true
+        contentView.isSkeletonable = true
 
         setup()
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -62,109 +56,110 @@ private extension FilmCell {
     func setup() {
         contentView.clipsToBounds = true
 
-        setupBackgroundImage()
-        setupInfoStackView()
-        setupVerticalStackView()
+        setupBackground()
+        setupLabels()
 
-        contentView.addSubviews(
-            backgroundImage,
-            verticalStackView
-        )
+        contentView.addSubview(backgroundImage)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(genresLabel)
+        contentView.addSubview(rightInfoLabel)
 
-        addConstraints()
-        updateConfiguration()
+        setupConstraints()
     }
 
-    func setupBackgroundImage() {
-        backgroundImage = {
-            let image = UIImageView()
-            image.layer.cornerRadius = 15
-            image.clipsToBounds = true
-            image.contentMode = .scaleAspectFill
+    func setupBackground() {
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImage.layer.cornerRadius = 15
+        backgroundImage.clipsToBounds = true
+        backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.backgroundColor = .cardGray
 
-            return image
-        }()
+        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        dimmingView.translatesAutoresizingMaskIntoConstraints = false
+
+        blurEffectView.alpha = 0.4
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+
+        backgroundImage.addSubview(dimmingView)
+        backgroundImage.addSubview(blurEffectView)
     }
 
-    func setupInfoStackView() {
-        infoStackView = {
-            let stack = UIStackView()
-            stack.axis = .horizontal
-            stack.distribution = .equalSpacing
-            stack.alignment = .fill
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            return stack
-        }()
+    func setupLabels() {
+        [titleLabel, genresLabel, rightInfoLabel].forEach {
+            $0.textColor = .white
+            $0.isSkeletonable = true
+            $0.linesCornerRadius = 4
+            $0.numberOfLines = 1
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
 
-        genresLabel = {
-            let label = UILabel()
-            label.textColor = .white
-            label.font = .systemFont(ofSize: 14)
-            return label
-        }()
-
-        rightInfoLabel = {
-            let label = UILabel()
-            label.textColor = .white
-            label.font = .systemFont(ofSize: 14)
-            return label
-        }()
-
-        let spacer = UIView()
-        spacer.translatesAutoresizingMaskIntoConstraints = false
-
-        infoStackView.addArrangedSubview(genresLabel)
-        infoStackView.addArrangedSubview(spacer)
-        infoStackView.addArrangedSubview(rightInfoLabel)
+        titleLabel.font = .systemFont(ofSize: 28, weight: .medium)
+        genresLabel.font = .systemFont(ofSize: 14)
+        rightInfoLabel.font = .systemFont(ofSize: 14)
+        rightInfoLabel.textAlignment = .right
     }
 
-    func setupVerticalStackView() {
-        verticalStackView = {
-            let stack = UIStackView()
-            stack.axis = .vertical
-            stack.alignment = .fill
-            stack.distribution = .equalSpacing
-            stack.spacing = 12
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            return stack
-        }()
-
-        titleLabel = {
-            let title = UILabel()
-            title.textColor = .white
-            title.font = .systemFont(ofSize: 28)
-            title.translatesAutoresizingMaskIntoConstraints = false
-            return title
-        }()
-
-        verticalStackView.addArrangedSubview(titleLabel)
-        verticalStackView.addArrangedSubview(infoStackView)
-    }
-
-    func addConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backgroundImage.topAnchor.constraint(equalTo: contentView.topAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
-            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -21),
+            dimmingView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor),
+            dimmingView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor),
+            dimmingView.topAnchor.constraint(equalTo: backgroundImage.topAnchor),
+            dimmingView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor),
+
+            blurEffectView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor),
+            blurEffectView.topAnchor.constraint(equalTo: backgroundImage.topAnchor),
+            blurEffectView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor),
+
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            titleLabel.heightAnchor.constraint(equalToConstant: 32),
+
+            genresLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
+            genresLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            genresLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+            genresLabel.heightAnchor.constraint(equalToConstant: 20),
+
+            rightInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
+            rightInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            rightInfoLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
+            rightInfoLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 
     func updateConfiguration() {
-//        if configuration.isShimmering {
-//            showSkeleton()
-//        } else {
-//            removeSkeleton()
+        if configuration.isShimmering {
+            showSkeleton()
+        } else {
+            hideSkeleton()
 
             backgroundImage.image = configuration.image
             titleLabel.text = configuration.title
             genresLabel.text = configuration.genre
             rightInfoLabel.text = "\(configuration.type) \(configuration.year)"
-//        }
+        }
+
+        blurEffectView.isHidden = configuration.isShimmering
+        dimmingView.isHidden = configuration.isShimmering
+    }
+
+    func showSkeleton() {
+        [titleLabel, genresLabel, rightInfoLabel].forEach {
+            $0.text = nil
+            $0.showAnimatedGradientSkeleton()
+        }
+        backgroundImage.image = nil
+    }
+
+    func hideSkeleton() {
+        [titleLabel, genresLabel, rightInfoLabel].forEach {
+            $0.hideSkeleton()
+        }
     }
 }
