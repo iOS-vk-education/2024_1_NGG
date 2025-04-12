@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SkeletonView
 
 extension FilmCell {
     struct Configuration: Hashable {
@@ -15,7 +14,6 @@ extension FilmCell {
         var type = ""
         var year = ""
         var image: UIImage?
-        var isShimmering = false
     }
 }
 
@@ -39,9 +37,6 @@ final class FilmCell: UICollectionViewCell {
     override init(frame: CGRect) {
         configuration = .init()
         super.init(frame: frame)
-
-        isSkeletonable = true
-        contentView.isSkeletonable = true
 
         setup()
     }
@@ -87,7 +82,6 @@ private extension FilmCell {
     func setupLabels() {
         [titleLabel, genresLabel, rightInfoLabel].forEach {
             $0.textColor = .white
-            $0.isSkeletonable = true
             $0.linesCornerRadius = 4
             $0.numberOfLines = 1
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -134,32 +128,9 @@ private extension FilmCell {
     }
 
     func updateConfiguration() {
-        if configuration.isShimmering {
-            showSkeleton()
-        } else {
-            hideSkeleton()
-
-            backgroundImage.image = configuration.image
-            titleLabel.text = configuration.title
-            genresLabel.text = configuration.genre
-            rightInfoLabel.text = "\(configuration.type) \(configuration.year)"
-        }
-
-        blurEffectView.isHidden = configuration.isShimmering
-        dimmingView.isHidden = configuration.isShimmering
-    }
-
-    func showSkeleton() {
-        [titleLabel, genresLabel, rightInfoLabel].forEach {
-            $0.text = nil
-            $0.showAnimatedGradientSkeleton()
-        }
-        backgroundImage.image = nil
-    }
-
-    func hideSkeleton() {
-        [titleLabel, genresLabel, rightInfoLabel].forEach {
-            $0.hideSkeleton()
-        }
+        backgroundImage.image = configuration.image
+        titleLabel.text = configuration.title
+        genresLabel.text = configuration.genre
+        rightInfoLabel.text = "\(configuration.type) \(configuration.year)"
     }
 }

@@ -15,9 +15,3 @@ struct MovieCard {
     let year: Int
     let mainImage: Data
 }
-
-struct UIProperties {
-    var currentPage = 1
-    var canLoadMorePages = true
-    var isLoadingMore = false
-}

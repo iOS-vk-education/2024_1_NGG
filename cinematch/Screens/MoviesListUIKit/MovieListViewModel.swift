@@ -41,6 +41,7 @@ extension MovieListViewModel: MovieListViewModelInput {
         uiProperties.isLoadingMore = true
 
         Task {
+            @MainActor in
             await interactor.getMovies(genres: genres, directors: directors, page: uiProperties.currentPage)
             uiProperties.currentPage += 1
             completion()
@@ -83,6 +84,14 @@ extension MovieListViewModel: MovieListDisplayData {
 
     func didfetchMovieDescription(story: MovieDescription) {
 //        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
+    }
+}
+
+extension MovieListViewModel {
+    struct UIProperties: Hashable {
+        var currentPage = 1
+        var canLoadMorePages = true
+        var isLoadingMore = false
     }
 }
 
