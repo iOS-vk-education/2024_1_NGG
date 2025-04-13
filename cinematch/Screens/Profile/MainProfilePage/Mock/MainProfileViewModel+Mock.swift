@@ -86,7 +86,7 @@ extension MainProfileViewModelMock {
     }
 
     func didTapCell(story: Module) {
-//        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
+        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
     }
 
     func didTapEdit() {

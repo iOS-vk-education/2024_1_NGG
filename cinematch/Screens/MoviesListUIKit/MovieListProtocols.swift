@@ -14,7 +14,7 @@ protocol MovieListDisplayData: AnyObject {
     var user: UserModel.User { get }
     var genres: [String] { get }
     var directors: [Int] { get }
-    var uiProperties: UIProperties { get }
+    var uiProperties: MovieListModel.UIProperties { get }
 }
 
 protocol MovieListViewModelInput: AnyObject {

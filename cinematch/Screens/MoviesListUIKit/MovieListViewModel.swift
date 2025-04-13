@@ -15,7 +15,7 @@ final class MovieListViewModel: MovieListDisplayLogic {
     private(set) var user: UserModel.User
     private(set) var genres: [String] = ["драма","триллер"]
     private(set) var directors: [Int] = [2317924, 22260]
-    private(set) var uiProperties = UIProperties()
+    private(set) var uiProperties = MovieListModel.UIProperties()
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -91,17 +91,9 @@ extension MovieListViewModel: MovieListDisplayData {
     }
 
     func didfetchMovieDescription(story: MovieDescription) {
-//        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
+        // TODO: IOS-46: Получение подробной информации по фильму
     }
 }
-
-//extension MovieListViewModel {
-//    struct UIProperties: Hashable {
-//        var currentPage = 1
-//        var canLoadMorePages = true
-//        var isLoadingMore = false
-//    }
-//}
 
 // MARK: - MockData
 
