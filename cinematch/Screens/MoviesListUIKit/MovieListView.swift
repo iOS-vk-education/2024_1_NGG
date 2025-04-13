@@ -24,9 +24,8 @@ struct MovieListWrapper: UIViewControllerRepresentable {
 struct MovieListView: View {
     @State private var coordinator = Coordinator()
     @State private var viewModel = MovieListAssembler.assemble()
-
-    private let mainProfileViewModel = MainProfileViewModelMock(delay: 2)
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
+    private let mainProfileViewModel = MainProfileViewModelMock(delay: 2)
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
@@ -36,6 +35,7 @@ struct MovieListView: View {
                     openNextScreen(for: screen)
                         .environment(coordinator)
                 }
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden()
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
