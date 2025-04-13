@@ -16,6 +16,6 @@ protocol MainEditProfileDisplayLogic: MainEditProfileViewModelInput {
 
 protocol MainEditProfileViewModelInput {
     func didTapSaveButton()
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator)
+    func setCoordinator(_ coordinator: Coordinator)
     func selectedItemChange(_ newItem: PhotosPickerItem?)
 }

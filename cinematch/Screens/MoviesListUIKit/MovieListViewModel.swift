@@ -7,6 +7,7 @@
 
 import Foundation
 
+@Observable
 final class MovieListViewModel: MovieListDisplayLogic {
     var interactor: MovieListBusinessLogic!
 
@@ -16,7 +17,10 @@ final class MovieListViewModel: MovieListDisplayLogic {
     private(set) var directors: [Int] = [2317924, 22260]
     private(set) var uiProperties = UIProperties()
 
-    private var coordinator: NavigationControllerCoordinator?
+    @ObservationIgnored
+    private var coordinator: Coordinator?
+    @ObservationIgnored
+    private var startScreenViewModel: StartScreenViewModel?
 
     init(
         stories: [MovieCard] = [],
@@ -28,7 +32,11 @@ final class MovieListViewModel: MovieListDisplayLogic {
 }
 
 extension MovieListViewModel: MovieListViewModelInput {
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
+        self.startScreenViewModel = startScreenViewModel
+    }
+    
+    func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
     }
 
@@ -50,11 +58,11 @@ extension MovieListViewModel: MovieListViewModelInput {
 }
 
 extension MovieListViewModel: MovieListViewModelOutput {
-//    func configureDetailsViewModel(story: Module) -> any DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput {
-//        let viewModel = DescriptionMovieViewModelMock(story: story)
-//        return viewModel
-//    }
-//
+    func configureDetailsViewModel(story: Module) -> any DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput {
+        let viewModel = DescriptionMovieViewModelMock(story: story)
+        return viewModel
+    }
+
     func didTapCell(story: MovieCard) {
         Task {
             await interactor.getDescriptionMovie(movieId: story.id)
@@ -87,13 +95,13 @@ extension MovieListViewModel: MovieListDisplayData {
     }
 }
 
-extension MovieListViewModel {
-    struct UIProperties: Hashable {
-        var currentPage = 1
-        var canLoadMorePages = true
-        var isLoadingMore = false
-    }
-}
+//extension MovieListViewModel {
+//    struct UIProperties: Hashable {
+//        var currentPage = 1
+//        var canLoadMorePages = true
+//        var isLoadingMore = false
+//    }
+//}
 
 // MARK: - MockData
 

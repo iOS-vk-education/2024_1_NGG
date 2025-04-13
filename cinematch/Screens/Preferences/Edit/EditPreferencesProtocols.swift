@@ -13,7 +13,7 @@ protocol EditPreferencesDisplayLogic: EditPreferencesViewModelInput {
 }
 
 protocol EditPreferencesViewModelInput {
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator)
+    func setCoordinator(_ coordinator: Coordinator)
     func toggleDirectorSelection(director: Directors)
     func toggleGenreSelection(genre: Genre)
     func didTapContinue()

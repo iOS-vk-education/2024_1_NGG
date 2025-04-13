@@ -15,7 +15,7 @@ final class EditPreferencesViewModelMock: EditPreferencesDisplayLogic {
     private(set) var allDirectors: [Directors] = []
     private(set) var allGenres: [Genre] = []
     @ObservationIgnored
-    private var coordinator: NavigationControllerCoordinator?
+    private var coordinator: Coordinator?
 
     init() {
         allGenres = MockData.defaultGenres.map {
@@ -31,7 +31,7 @@ final class EditPreferencesViewModelMock: EditPreferencesDisplayLogic {
 
 extension EditPreferencesViewModelMock {
 
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
+    func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
     }
 

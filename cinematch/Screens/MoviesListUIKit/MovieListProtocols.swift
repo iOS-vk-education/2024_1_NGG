@@ -18,12 +18,13 @@ protocol MovieListDisplayData: AnyObject {
 }
 
 protocol MovieListViewModelInput: AnyObject {
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator)
+    func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
+    func setCoordinator(_ coordinator: Coordinator)
     func loadMovies(completion: @escaping () -> Void)
 }
 
 protocol MovieListViewModelOutput: AnyObject {
-//    func configureDetailsViewModel(story: Module) -> DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput
+    func configureDetailsViewModel(story: Module) -> DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput
     func didTapCell(story: MovieCard)
     func didTapProfile()
 }

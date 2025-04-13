@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainProfileView: View {
     @State var viewModel: MainProfileDisplayLogic & MainProfileViewModelOutput
-    @Environment(NavigationControllerCoordinator.self) private var coordinator
+    @Environment(Coordinator.self) private var coordinator
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
@@ -58,5 +58,5 @@ struct MainProfileView: View {
         MainProfileView(viewModel: MainProfileViewModelMock(delay: 2))
     }
     .environment(StartScreenViewModel())
-    .environment(NavigationControllerCoordinator())
+    .environment(Coordinator())
 }

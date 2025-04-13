@@ -20,7 +20,7 @@ final class MainProfileViewModelMock: MainProfileDisplayLogic & MainProfileViewM
     private(set) var user: UserModel.User
 
     @ObservationIgnored
-    private var coordinator: NavigationControllerCoordinator?
+    private var coordinator: Coordinator?
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
 
@@ -77,7 +77,7 @@ extension MainProfileViewModelMock {
         }
     }
 
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator) {
+    func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
     }
 
@@ -86,7 +86,7 @@ extension MainProfileViewModelMock {
     }
 
     func didTapCell(story: Module) {
-        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
+//        coordinator?.addScreen(screen: MovieListScreens.storyDetails(story))
     }
 
     func didTapEdit() {

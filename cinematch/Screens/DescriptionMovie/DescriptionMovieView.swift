@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DescriptionMovieView: View {
     @State var viewModel: DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput
-    @Environment(NavigationControllerCoordinator.self) private var coordinator
+    @Environment(Coordinator.self) private var coordinator
 
     var body: some View {
         ScrollView {
@@ -55,5 +55,5 @@ struct DescriptionMovieView: View {
         DescriptionMovieView(
             viewModel: DescriptionMovieViewModelMock(story: .mockData))
     }
-    .environment(NavigationControllerCoordinator())
+    .environment(Coordinator())
 }

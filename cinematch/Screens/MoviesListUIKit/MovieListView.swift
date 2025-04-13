@@ -7,16 +7,76 @@
 
 import SwiftUI
 
-struct MovieListView: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UINavigationController {
-            let navigationController = UINavigationController()
-            let viewModel = MovieListAssembler.assemble()
-            let movieListController = MovieListController(viewModel: viewModel)
+struct MovieListWrapper: UIViewControllerRepresentable {
+    let viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput
+    let startScreenViewModel: StartScreenViewModel
+    let coordinator: Coordinator
 
-            navigationController.viewControllers = [movieListController]
+    func makeUIViewController(context: Context) -> MovieListController {
+        viewModel.setStartScreenViewModel(startScreenViewModel)
+        viewModel.setCoordinator(coordinator)
+        return MovieListController(viewModel: viewModel)
+    }
 
-            return navigationController
+    func updateUIViewController(_ uiViewController: MovieListController, context: Context) {}
+}
+
+struct MovieListView: View {
+    @State private var coordinator = Coordinator()
+    @State private var viewModel = MovieListAssembler.assemble()
+
+    private let mainProfileViewModel = MainProfileViewModelMock(delay: 2)
+    @Environment(StartScreenViewModel.self) private var startScreenViewModel
+
+    var body: some View {
+        NavigationStack(path: $coordinator.navPath) {
+            MovieListWrapper(viewModel: viewModel, startScreenViewModel: startScreenViewModel, coordinator: coordinator)
+                .ignoresSafeArea()
+                .navigationDestination(for: MovieListScreens.self) { screen in
+                    openNextScreen(for: screen)
+                        .environment(coordinator)
+                }
+                .navigationBarBackButtonHidden()
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Image(systemName: "person.fill")
+                            .padding(.leading, 10)
+                            .foregroundStyle(Color.white)
+                            .onTapGesture {
+                                viewModel.didTapProfile()
+                            }
+                    }
+
+                    ToolbarItem(placement: .principal) {
+                        Text(Constants.title)
+                            .font(Font.custom("Roboto", size: 22))
+                            .foregroundColor(.white)
+                    }
+                }
         }
+    }
+}
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
+private extension MovieListView {
+    @ViewBuilder
+    func openNextScreen(for screen: MovieListScreens) -> some View {
+        switch screen {
+        case let .storyDetails(story):
+            DescriptionMovieView(viewModel: viewModel.configureDetailsViewModel(story: story))
+        case .profile:
+            MainProfileView(viewModel: mainProfileViewModel)
+        case .edit:
+            MainEditProfileView(viewModel: MainEditProfileViewModelMock(prevViewModel: mainProfileViewModel))
+        case .preferences:
+            PreferencesView(viewModel: PreferencesViewModelMock())
+        case .editPreferences:
+            EditPreferencesView(viewModel: EditPreferencesViewModelMock())
+        }
+    }
+}
+
+private extension MovieListView {
+    enum Constants {
+        static let title = "Список фильмов"
+    }
 }

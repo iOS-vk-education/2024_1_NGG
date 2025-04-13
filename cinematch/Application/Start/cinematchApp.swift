@@ -31,9 +31,6 @@ struct cinematchApp: App {
             .font: UIFont.systemFont(ofSize: 24, weight: .semibold)
         ]
         UINavigationBar.appearance().standardAppearance = coloredAppearance
-
-        SkeletonAppearance.default.tintColor = .cardLightGray
-        SkeletonAppearance.default.gradient = SkeletonGradient(baseColor: .background)
     }
 
     var body: some Scene {
@@ -60,7 +57,6 @@ private extension cinematchApp {
             EditProfileView(viewModel: EditProfileViewModel())
         case .movieList:
             MovieListView()
-                .ignoresSafeArea()
         case .choiceGenres:
             ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
         }

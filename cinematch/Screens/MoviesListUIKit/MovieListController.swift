@@ -6,13 +6,11 @@
 //
 
 import UIKit
-import SkeletonView
 import SwiftUI
 
 final class MovieListController: UIViewController {
     private let viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput
-    private let coordinator = NavigationControllerCoordinator()
-
+    
     private let loadMoreButton = UIButton()
 
     private let collectionView: UICollectionView = {
@@ -25,23 +23,6 @@ final class MovieListController: UIViewController {
                                            right: Constants.cellSpacing)
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
-
-    private var displayConfigurations: [FilmCell.Configuration] {
-        if viewModel.stories.isEmpty || viewModel.uiProperties.isLoadingMore {
-            return Array(repeating: FilmCell.Configuration(isShimmering: true), count: 6)
-        } else {
-            return viewModel.stories.map {
-                FilmCell.Configuration(
-                    title: $0.title,
-                    genre: $0.genre,
-                    type: $0.type,
-                    year: "\($0.year)",
-                    image: UIImage(data: $0.mainImage),
-                    isShimmering: false
-                )
-            }
-        }
-    }
 
     init(viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput) {
         self.viewModel = viewModel
@@ -56,8 +37,6 @@ final class MovieListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        viewModel.setCoordinator(coordinator)
-        coordinator.navigationController = self.navigationController
 
         viewModel.loadMovies { [weak self] in
             DispatchQueue.main.async {
@@ -74,7 +53,6 @@ final class MovieListController: UIViewController {
     // MARK: - Setup
 
     private func setup() {
-        setupNavigationBar()
         setupCollectionView()
         setupView()
         setupLoadMoreButton()
@@ -82,45 +60,16 @@ final class MovieListController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = .background
-        view.isSkeletonable = false
-        collectionView.isSkeletonable = false
         view.addSubview(collectionView)
         view.addSubview(loadMoreButton)
     }
 
-    private func setupNavigationBar() {
-        navigationItem.title = Constants.title
-        let avatarButton = UIButton(type: .custom)
-
-        if let imageData = viewModel.user.image,
-           let avatarImage = UIImage(data: imageData) {
-            avatarButton.setImage(avatarImage, for: .normal)
-            avatarButton.imageView?.contentMode = .scaleAspectFill
-        } else {
-            avatarButton.backgroundColor = .background
-            avatarButton.layer.borderWidth = 2
-            avatarButton.layer.borderColor = UIColor.textFieldGray.cgColor
-        }
-
-        avatarButton.layer.cornerRadius = 10
-        avatarButton.clipsToBounds = true
-        avatarButton.addTarget(self, action: #selector(didTapProfile), for: .touchUpInside)
-        avatarButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            avatarButton.widthAnchor.constraint(equalToConstant: 36),
-            avatarButton.heightAnchor.constraint(equalToConstant: 36)
-        ])
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: avatarButton)
-    }
-
     private func setupCollectionView() {
-        collectionView.isSkeletonable = true
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(FilmCell.self)
+        collectionView.register(SkeletonCell.self)
     }
 
     private func setupLoadMoreButton() {
@@ -149,14 +98,30 @@ final class MovieListController: UIViewController {
 
 extension MovieListController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayConfigurations.count
+        let count = viewModel.stories.count
+        if viewModel.uiProperties.isLoadingMore {
+            return count + 20
+        }
+        return count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let config = displayConfigurations[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(FilmCell.self, for: indexPath)
-        cell.configuration = config
-        return cell
+        let count = viewModel.stories.count
+        if indexPath.item < count {
+            let story = viewModel.stories[indexPath.item]
+            let config = FilmCell.Configuration(
+                title: story.title,
+                genre: story.genre,
+                type: story.type,
+                year: "\(story.year)",
+                image: UIImage(data: story.mainImage)
+            )
+            let cell = collectionView.dequeueReusableCell(FilmCell.self, for: indexPath)
+            cell.configuration = config
+            return cell
+        } else {
+            return collectionView.dequeueReusableCell(SkeletonCell.self, for: indexPath)
+        }
     }
 }
 
@@ -164,6 +129,10 @@ extension MovieListController: UICollectionViewDataSource {
 
 extension MovieListController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !viewModel.uiProperties.isLoadingMore,
+              indexPath.item < viewModel.stories.count else {
+            return
+        }
         let selectedStory = viewModel.stories[indexPath.item]
         viewModel.didTapCell(story: selectedStory)
     }
@@ -191,12 +160,6 @@ extension MovieListController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension MovieListController: SkeletonCollectionViewDataSource {
-    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
-        FilmCell.reuseIdentifier
-    }
-}
-
 // MARK: - Actions
 
 @objc
@@ -220,7 +183,6 @@ private extension MovieListController {
 
 private extension MovieListController {
     enum Constants {
-        static let title = "Список фильмов"
         static let cellSpacing: CGFloat = 16
         static let cellHeight: CGFloat = 110
     }

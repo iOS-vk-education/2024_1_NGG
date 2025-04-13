@@ -13,7 +13,7 @@ protocol PreferencesDisplayLogic: PreferencesViewModelInput {
 }
 
 protocol PreferencesViewModelInput {
-    func setCoordinator(_ coordinator: NavigationControllerCoordinator)
+    func setCoordinator(_ coordinator: Coordinator)
     func didTapEdit()
     func reloadData()
 }
