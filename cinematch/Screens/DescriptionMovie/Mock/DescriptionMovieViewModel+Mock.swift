@@ -25,13 +25,12 @@ final class DescriptionMovieViewModelMock: DescriptionMovieDisplayLogic & Descri
 }
 
 extension DescriptionMovieViewModelMock {
-
     func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
     }
 
     func didTapOpenSimilarStory(movie: Module) {
-        coordinator?.addScreen(screen: MovieListScreens.storyDetails(movie))
+//        coordinator?.addScreen(screen: MovieListScreens.storyDetails(movie))
     }
 
     func configureDetailsViewModel(story: Module) -> any DescriptionMovieDisplayLogic & DescriptionMovieViewModelOutput {

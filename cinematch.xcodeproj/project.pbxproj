@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD10A5A72D9B50FE00AA9897 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = FD10A5A62D9B50FE00AA9897 /* SkeletonView */; };
 		FDA1B35D2D8B0C03008DCE7A /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FDA1B35C2D8B0C03008DCE7A /* FirebaseDatabase */; };
 		FDD3BF3D2D68C66A0073C3B3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FDD3BF3C2D68C66A0073C3B3 /* FirebaseAnalytics */; };
 		FDD3BF3F2D68C66A0073C3B3 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FDD3BF3E2D68C66A0073C3B3 /* FirebaseAuth */; };
@@ -46,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDA1B35D2D8B0C03008DCE7A /* FirebaseDatabase in Frameworks */,
+				FD10A5A72D9B50FE00AA9897 /* SkeletonView in Frameworks */,
 				FDD3BF3D2D68C66A0073C3B3 /* FirebaseAnalytics in Frameworks */,
 				FDD3BF432D68C66A0073C3B3 /* FirebaseFirestore in Frameworks */,
 				FDD3BF412D68C66A0073C3B3 /* FirebaseCore in Frameworks */,
@@ -107,6 +109,7 @@
 				FDD3BF422D68C66A0073C3B3 /* FirebaseFirestore */,
 				FDD3BF442D68C66A0073C3B3 /* FirebaseStorage */,
 				FDA1B35C2D8B0C03008DCE7A /* FirebaseDatabase */,
+				FD10A5A62D9B50FE00AA9897 /* SkeletonView */,
 			);
 			productName = animatch;
 			productReference = FDDA0A452CD7F16700B90453 /* cinematch.app */;
@@ -138,6 +141,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				FDD3BF3B2D68C66A0073C3B3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FD10A5A52D9B50FE00AA9897 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FDDA0A462CD7F16700B90453 /* Products */;
@@ -373,6 +377,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FD10A5A52D9B50FE00AA9897 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 		FDD3BF3B2D68C66A0073C3B3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -384,6 +396,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FD10A5A62D9B50FE00AA9897 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FD10A5A52D9B50FE00AA9897 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		FDA1B35C2D8B0C03008DCE7A /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FDD3BF3B2D68C66A0073C3B3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

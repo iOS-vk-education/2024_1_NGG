@@ -127,7 +127,6 @@ private extension ChoiceGenresView {
     }
 }
 
-
 // MARK: - Preview
 
 #Preview {

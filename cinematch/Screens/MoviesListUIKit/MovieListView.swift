@@ -2,30 +2,45 @@
 //  MovieListView.swift
 //  cinematch
 //
-//  Created by Ксения Панкратова on 27.11.2024.
+//  Created by Ксения Панкратова on 27.03.2025.
 //
 
 import SwiftUI
 
+struct MovieListWrapper: UIViewControllerRepresentable {
+    let viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput
+    let startScreenViewModel: StartScreenViewModel
+    let coordinator: Coordinator
+
+    func makeUIViewController(context: Context) -> MovieListController {
+        viewModel.setStartScreenViewModel(startScreenViewModel)
+        viewModel.setCoordinator(coordinator)
+        return MovieListController(viewModel: viewModel)
+    }
+
+    func updateUIViewController(_ uiViewController: MovieListController, context: Context) {}
+}
+
 struct MovieListView: View {
-    @State var viewModel: MovieListDisplayLogic & MovieListViewModelOutput
     @State private var coordinator = Coordinator()
+    @State private var viewModel = MovieListAssembler.assemble()
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
     private let mainProfileViewModel = MainProfileViewModelMock(delay: 2)
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
-            mainContent
-                .frame(maxWidth: .infinity)
-                .background(Color.background)
-                .navigationBarTitleDisplayMode(.inline)
+            MovieListWrapper(viewModel: viewModel, startScreenViewModel: startScreenViewModel, coordinator: coordinator)
+                .ignoresSafeArea()
                 .navigationDestination(for: MovieListScreens.self) { screen in
                     openNextScreen(for: screen)
                         .environment(coordinator)
                 }
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarBackButtonHidden()
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Image(systemName: "person.fill")
+                            .padding(.leading, 10)
                             .foregroundStyle(Color.white)
                             .onTapGesture {
                                 viewModel.didTapProfile()
@@ -33,22 +48,14 @@ struct MovieListView: View {
                     }
 
                     ToolbarItem(placement: .principal) {
-                        Text(Constants.titleMain)
+                        Text(Constants.title)
                             .font(Font.custom("Roboto", size: 22))
                             .foregroundColor(.white)
                     }
                 }
         }
-        .accentColor(.white)
-        .onAppear {
-            viewModel.setCoordinator(coordinator)
-            viewModel.setStartScreenViewModel(startScreenViewModel)
-            viewModel.onAppear()
-        }
     }
 }
-
-// MARK: - Navigation Destination
 
 private extension MovieListView {
     @ViewBuilder
@@ -68,9 +75,8 @@ private extension MovieListView {
     }
 }
 
-// MARK: - Preview
-
-#Preview {
-    MovieListView(viewModel: MovieListViewModelMock(delay: 2))
-        .environment(StartScreenViewModel())
+private extension MovieListView {
+    enum Constants {
+        static let title = "Список фильмов"
+    }
 }

@@ -23,7 +23,6 @@ struct MainProfileView: View {
                             coordinator.openPreviousScreen()
                         }
                 }
-
                 ToolbarItem(placement: .principal) {
                     Text(Constants.headerTitle)
                         .font(Font.custom("Roboto", size: 22))
