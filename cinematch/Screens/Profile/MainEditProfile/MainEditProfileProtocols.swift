@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 import _PhotosUI_SwiftUI
 
 protocol MainEditProfileDisplayLogic: MainEditProfileViewModelInput {
