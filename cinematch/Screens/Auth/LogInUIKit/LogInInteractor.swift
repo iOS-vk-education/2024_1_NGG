@@ -18,35 +18,14 @@ final class LogInInteractor: LoginBusinessLogic {
     func logIn(email: String, password: String) {
         Task {
             do {
-                let authResult = try await worker.makeAuth(email: email, password: password)
-
-                await getUserData(authResult: authResult)
+                try await worker.makeAuth(email: email, password: password)
+                await MainActor.run {
+                    presenter?.didLogInSuccess()
+                }
             } catch {
                 await MainActor.run {
                     presenter?.didLogInFailure(error: error)
                 }
-            }
-        }
-    }
-
-    func getUserData(authResult: AuthDataResult) async {
-        do {
-            let userData = try await worker.fetchUserData(authResult: authResult)
-
-            let savedUserModel = SavedUserModel(
-                id: userData.id,
-                name: userData.name,
-                surname: userData.surname,
-                email: userData.email,
-                imageState: .loading(url: userData.image)
-            )
-
-            await MainActor.run {
-                presenter?.didLogInSuccess(userData: savedUserModel)
-            }
-        } catch {
-            await MainActor.run {
-                presenter?.didLogInFailure(error: error)
             }
         }
     }

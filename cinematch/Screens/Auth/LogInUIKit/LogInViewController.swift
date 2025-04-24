@@ -48,8 +48,8 @@ final class LogInViewController: UIViewController {
         )
     }()
 
-    private lazy var logInButton: UIHostingController<NGGButton> = {
-        return UIHostingController(rootView: NGGButton(Constants.continueButtonTitle) {
+    private lazy var logInButton: UIHostingController<NGGLoadingButton> = {
+        return UIHostingController(rootView: NGGLoadingButton(Constants.continueButtonTitle, isLoading: viewModel.isLoading) {
             [weak self] in
             self?.didTapLogInButton()
         })

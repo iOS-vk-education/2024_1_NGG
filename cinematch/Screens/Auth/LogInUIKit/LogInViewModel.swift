@@ -11,7 +11,7 @@ final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewMode
     var uiProperties = UserModel.UIProperties()
     @Published var showAlert = false
     @Published var errorMessage = ""
-    var receiveUserData: SavedUserModel?
+    @Published var isLoading = false
 
     private var startScreenViewModel: StartScreenViewModel?
     var interactor: LoginBusinessLogic?
@@ -21,6 +21,7 @@ final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewMode
 
 extension LogInViewModel {
     func didTapLogInButton() {
+        isLoading = true
         interactor?.logIn(email: uiProperties.email, password: uiProperties.password)
     }
 
@@ -36,13 +37,14 @@ extension LogInViewModel {
 // MARK: - LoginViewModelDisplayLogic
 
 extension LogInViewModel {
-    func logInSuccess(userData: SavedUserModel) {
-        receiveUserData = userData
+    func logInSuccess() {
+        isLoading = false
         UserDefaults.standard.set(StartScreenState.movieList.rawValue, forKey: "State")
         startScreenViewModel?.updateScreen(newScreenState: .movieList)
     }
 
     func showErrorMessage(_ message: String) {
+        isLoading = false
         showAlert = true
         errorMessage = message
     }

@@ -9,36 +9,40 @@ import FirebaseAuth
 import FirebaseFirestore
 
 final class LogInWorker: LoginAuthLogic {
-    func makeAuth(email: String, password: String) async throws -> AuthDataResult {
+    func makeAuth(email: String, password: String) async throws {
         guard !email.isEmpty && !password.isEmpty else {
             throw LoginError.emptyTestFields
         }
 
         do {
-            let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
-
-            return authResult
+            try await Auth.auth().signIn(withEmail: email, password: password)
         } catch {
-            throw LoginError.wrongEmailOrPassword
+            throw mapFirebaseError(error)
         }
     }
+}
 
-    func fetchUserData(authResult: AuthDataResult) async throws -> UserModel.UserData {
-        do {
-            let userId = authResult.user.uid
-            let userData = try await Firestore.firestore().collection("users").document(userId).getDocument().data(as: UserModel.UserData.self)
+private func mapFirebaseError(_ error: Error) -> LoginError {
+    let nsError = error as NSError
 
-            return userData
-        } catch {
-            throw LoginError.emptyData
-        }
+    switch AuthErrorCode(rawValue: nsError.code) {
+    case .wrongPassword, .userNotFound, .invalidEmail:
+        return .wrongEmailOrPassword
+    case .networkError:
+        return .networkError
+    case .tooManyRequests:
+        return .tooManyAttempts
+    default:
+        return .unknownError
     }
 }
 
 enum LoginError: Error {
     case emptyTestFields
     case wrongEmailOrPassword
-    case emptyData
+    case networkError
+    case tooManyAttempts
+    case unknownError
 
     var localizedDescription: String {
         switch self {
@@ -46,8 +50,12 @@ enum LoginError: Error {
             return "Заполните все поля"
         case .wrongEmailOrPassword:
             return "Неверный email или пароль"
-        case .emptyData:
-            return "Не удалось получить данные пользователя"
+        case .networkError:
+            return "Отсутствует подключение к интернету"
+        case .tooManyAttempts:
+            return "Слишком много неудачных попыток. Попробуйте позже"
+        case .unknownError:
+            return "Ошибка входа"
         }
     }
 }
