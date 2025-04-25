@@ -17,6 +17,7 @@ struct NGGTextField: View {
             Text(title)
                 .foregroundColor(Color.editProfGrayLight)
         }
+        .textInputAutocapitalization(.never)
         .padding(.leading, 16)
         .frame(height: 51)
         .foregroundColor(.white)
