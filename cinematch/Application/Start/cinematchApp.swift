@@ -52,13 +52,13 @@ private extension cinematchApp {
             LogInView(startScreenViewModel: viewModel)
                 .ignoresSafeArea()
         case .signUp:
-            SignUpView(viewModel: SignUpViewModelMock())
+            SignUpView(viewModel: SignUpViewModel())
         case .editProfile:
             EditProfileView(viewModel: EditProfileViewModel())
         case .movieList:
             MovieListView()
         case .choiceGenres:
-            ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
+            ChoiceGenresView(viewModel: ChoiceGenresViewModel())
         }
     }
 }
