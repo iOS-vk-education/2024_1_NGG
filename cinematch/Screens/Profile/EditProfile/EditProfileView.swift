@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct EditProfileView: View {
-    @State var viewModel: EditProfileDisplayLogic
+    @State var viewModel: EditProfileDisplayLogic & EditProfileViewModelInput
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
@@ -29,6 +29,9 @@ struct EditProfileView: View {
                     .font(Font.custom("Roboto", size: 22))
                     .foregroundColor(.white)
             }
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text(viewModel.errorMessage), message: Text(Constants.alertTitle), dismissButton: .default(Text(Constants.alertButtonTitle)))
         }
         .onAppear {
             viewModel.setStartScreenViewModel(startScreenViewModel)
@@ -50,9 +53,9 @@ private extension EditProfileView {
 
             NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.bindingData.inputName)
             NGGTextField(title: Constants.surnameTextFieldPlaceholder, text: $viewModel.bindingData.inputSurname)
-            NGGTextField(title: Constants.emailTextFieldPlaceholder, text: $viewModel.bindingData.inputEmail)
         }
         .padding(.horizontal, 60)
+        .padding(.top, 50)
     }
 
     var avatarView: some View {
@@ -88,19 +91,12 @@ private extension EditProfileView {
 
     var buttonsContainer: some View {
         VStack(spacing: 0) {
-            NGGButton(Constants.saveButtonTitle) {
+            NGGLoadingButton(Constants.saveButtonTitle, isLoading: viewModel.isSaving) {
                 viewModel.didTapSaveButton()
             }
+            .disabled(viewModel.validateFields())
             .padding(.horizontal, 60)
             .padding(.bottom, 8)
-
-            Button {
-                viewModel.didTapDoLaterButton()
-            } label: {
-                Text(Constants.makeLaterButtonTitle)
-                    .underline()
-                    .foregroundColor(.editProfPurple)
-            }
         }
         .padding(.bottom, 100)
     }
@@ -124,8 +120,8 @@ private extension EditProfileView {
         static let formsContainerTitle = "Добавьте имя и фамилию"
         static let nameTextFieldPlaceholder = "Имя"
         static let surnameTextFieldPlaceholder = "Фамилия"
-        static let emailTextFieldPlaceholder = "pochta@pochta.com"
-        static let makeLaterButtonTitle = "Сделать позже"
         static let saveButtonTitle = "Сохранить и продолжить"
+        static let alertTitle = "Ошибка"
+        static let alertButtonTitle = "Ок"
     }
 }
