@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State var viewModel: SignUpViewModelLogic
+    @State var viewModel: SignUpDisplayData & SignUpViewModelInput
     @Environment(StartScreenViewModel.self) private var startScreenViewModel
 
     var body: some View {
@@ -22,6 +22,9 @@ struct SignUpView: View {
                 footerView
             }
             .frame(maxWidth: .infinity)
+        }
+        .alert(isPresented: $viewModel.uiProperties.showAlert) {
+            Alert(title: Text(Constants.alertTitle), message: Text(viewModel.uiProperties.errorMessage), dismissButton: .default(Text(Constants.alertButtonTitle)))
         }
         .background(Color.background)
         .ignoresSafeArea()
@@ -43,16 +46,16 @@ private extension SignUpView {
                 .padding(.bottom, 34)
                 .padding(.top, 220)
 
-            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputEmail)
-            NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.inputPasswordFirst)
-            NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $viewModel.inputPasswordSecond)
+            NGGTextField(title: Constants.nameTextFieldPlaceholder, text: $viewModel.inputData.email)
+            NGGSecureField(Constants.passwordTextFieldPlaceholder, text: $viewModel.inputData.passwordFirst)
+            NGGSecureField(Constants.passwordrepeatTextFieldPlaceholder, text: $viewModel.inputData.passwordSecond)
         }
         .padding(.horizontal, 60)
     }
 
     var buttonsContainer: some View {
         VStack(spacing: 0) {
-            NGGButton(Constants.continueButtonTitle) {
+            NGGLoadingButton(Constants.continueButtonTitle, isLoading: viewModel.uiProperties.isLoading) {
                 viewModel.didTapContinue()
             }
         }
@@ -88,7 +91,7 @@ private extension SignUpView {
 
 #Preview {
     NavigationStack{
-        SignUpView(viewModel: SignUpViewModelMock())
+        SignUpView(viewModel: SignUpViewModel())
     }
     .environment(StartScreenViewModel())
 }
@@ -105,5 +108,7 @@ private extension SignUpView {
         static let haveAccountText = "Есть аккаунт?"
         static let continueButtonTitle = "Продолжить"
         static let logInButton = "Войдите"
+        static let alertTitle = "Ошибка"
+        static let alertButtonTitle = "Ок"
     }
 }

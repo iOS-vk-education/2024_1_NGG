@@ -7,10 +7,9 @@
 
 import Foundation
 
-protocol SignUpViewModelLogic: SignUpViewModelInput {
-    var inputEmail: String { get set }
-    var inputPasswordFirst: String { get set }
-    var inputPasswordSecond: String { get set }
+protocol SignUpDisplayData {
+    var inputData: InputData { get set }
+    var uiProperties: SignUpModel.UIProperties { get set }
 }
 
 protocol SignUpViewModelInput {
