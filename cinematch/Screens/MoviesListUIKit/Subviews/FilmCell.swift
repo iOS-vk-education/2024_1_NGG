@@ -82,9 +82,10 @@ private extension FilmCell {
     func setupLabels() {
         [titleLabel, genresLabel, rightInfoLabel].forEach {
             $0.textColor = .white
-            $0.linesCornerRadius = 4
             $0.numberOfLines = 1
             $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.layer.cornerRadius = 4
+            $0.layer.masksToBounds = true
         }
 
         titleLabel.font = .systemFont(ofSize: 28, weight: .medium)

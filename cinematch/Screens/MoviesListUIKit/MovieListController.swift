@@ -10,7 +10,7 @@ import SwiftUI
 
 final class MovieListController: UIViewController {
     private let viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput
-    
+
     private let loadMoreButton = UIButton()
 
     private let collectionView: UICollectionView = {
@@ -39,9 +39,7 @@ final class MovieListController: UIViewController {
         setup()
 
         viewModel.loadMovies { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
     }
 
@@ -108,14 +106,7 @@ extension MovieListController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let count = viewModel.stories.count
         if indexPath.item < count {
-            let story = viewModel.stories[indexPath.item]
-            let config = FilmCell.Configuration(
-                title: story.title,
-                genre: story.genre,
-                type: story.type,
-                year: "\(story.year)",
-                image: UIImage(data: story.mainImage)
-            )
+            let config = viewModel.configuration(at: indexPath.item)!
             let cell = collectionView.dequeueReusableCell(FilmCell.self, for: indexPath)
             cell.configuration = config
             return cell
@@ -172,9 +163,7 @@ private extension MovieListController {
         loadMoreButton.isHidden = true
 
         viewModel.loadMovies { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.collectionView.reloadData()
         }
     }
 }

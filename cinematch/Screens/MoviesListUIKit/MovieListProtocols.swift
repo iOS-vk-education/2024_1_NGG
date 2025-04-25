@@ -11,16 +11,17 @@ import Foundation
 
 protocol MovieListDisplayData: AnyObject {
     var stories: [MovieCard] { get }
-    var user: UserModel.User { get }
     var genres: [String] { get }
     var directors: [Int] { get }
     var uiProperties: MovieListModel.UIProperties { get }
+
+    func configuration(at index: Int) -> FilmCell.Configuration?
 }
 
 protocol MovieListViewModelInput: AnyObject {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel)
     func setCoordinator(_ coordinator: Coordinator)
-    func loadMovies(completion: @escaping () -> Void)
+    func loadMovies(completion: @MainActor @escaping () -> Void)
 }
 
 protocol MovieListViewModelOutput: AnyObject {

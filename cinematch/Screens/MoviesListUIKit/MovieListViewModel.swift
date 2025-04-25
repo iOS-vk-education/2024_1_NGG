@@ -6,15 +6,16 @@
 //
 
 import Foundation
+import FirebaseAuth
+import FirebaseFirestore
 
 @Observable
 final class MovieListViewModel: MovieListDisplayLogic {
     var interactor: MovieListBusinessLogic!
 
     private(set) var stories: [MovieCard]
-    private(set) var user: UserModel.User
-    private(set) var genres: [String] = ["драма","триллер"]
-    private(set) var directors: [Int] = [2317924, 22260]
+    private(set) var genres: [String] = []
+    private(set) var directors: [Int] = []
     private(set) var uiProperties = MovieListModel.UIProperties()
 
     @ObservationIgnored
@@ -23,11 +24,20 @@ final class MovieListViewModel: MovieListDisplayLogic {
     private var startScreenViewModel: StartScreenViewModel?
 
     init(
-        stories: [MovieCard] = [],
-        user: UserModel.User = MockData.user
+        stories: [MovieCard] = []
     ) {
         self.stories = stories
-        self.user = user
+    }
+
+    func configuration(at index: Int) -> FilmCell.Configuration? {
+        let story = stories[index]
+        return FilmCell.Configuration(
+            title: story.title,
+            genre: story.genre,
+            type: story.type,
+            year: "\(story.year)",
+            image: UIImage(data: story.mainImage)
+        )
     }
 }
 
@@ -35,21 +45,22 @@ extension MovieListViewModel: MovieListViewModelInput {
     func setStartScreenViewModel(_ startScreenViewModel: StartScreenViewModel) {
         self.startScreenViewModel = startScreenViewModel
     }
-    
+
     func setCoordinator(_ coordinator: Coordinator) {
         self.coordinator = coordinator
     }
 
-    func loadMovies(completion: @escaping () -> Void) {
+    func loadMovies(completion: @MainActor @escaping () -> Void) {
         guard uiProperties.canLoadMorePages, !uiProperties.isLoadingMore else {
-            completion()
+            Task { @MainActor in
+                completion()
+            }
             return
         }
 
         uiProperties.isLoadingMore = true
 
-        Task {
-            @MainActor in
+        Task { @MainActor in
             await interactor.getMovies(genres: genres, directors: directors, page: uiProperties.currentPage)
             uiProperties.currentPage += 1
             completion()
@@ -77,10 +88,10 @@ extension MovieListViewModel: MovieListViewModelOutput {
 extension MovieListViewModel: MovieListDisplayData {
     func didFetchMovies(with movies: [MovieCard]) {
         if uiProperties.currentPage == 1 {
-                stories = movies
-            } else {
-                stories += movies
-            }
+            stories = movies
+        } else {
+            stories += movies
+        }
 
         uiProperties.canLoadMorePages = !movies.isEmpty
         uiProperties.isLoadingMore = false
@@ -92,13 +103,5 @@ extension MovieListViewModel: MovieListDisplayData {
 
     func didfetchMovieDescription(story: MovieDescription) {
         // TODO: IOS-46: Получение подробной информации по фильму
-    }
-}
-
-// MARK: - MockData
-
-private extension MovieListViewModel {
-    enum MockData {
-        static let user = UserModel.User( name: "Name", surname: "Surname", email: "1@example.com", image: nil)
     }
 }

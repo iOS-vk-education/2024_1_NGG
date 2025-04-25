@@ -8,8 +8,8 @@
 import Foundation
 
 enum APIConstants {
-    static let apiKey = "TDJZ4GD-4PYM6B1-KMRA1Z2-H2BD233"
-//    static let apiKey = "ZPTA2RA-AHJMPX1-JGTTJHD-TCX496M"
+    //    static let apiKey = "TDJZ4GD-4PYM6B1-KMRA1Z2-H2BD233"
+    static let apiKey = "ZPTA2RA-AHJMPX1-JGTTJHD-TCX496M"
 }
 
 protocol MovieServiceProtocol {
@@ -22,24 +22,29 @@ protocol MovieServiceProtocol {
 enum MovieService: MovieServiceProtocol {
     case recMovies(genres: [String], directors: [Int], page: Int)
     case descriptionMovie(id: Int)
+    case genres
+    case findDirector(name: String)
 
     var baseUrl: String {
-        return "https://api.kinopoisk.dev/v1.4"
+        return "https://api.kinopoisk.dev"
     }
 
     var path: String {
         switch self {
         case .recMovies:
-            return "/movie"
-
+            return "/v1.4/movie"
         case .descriptionMovie(let id):
-            return "/movie/\(id)"
+            return "/v1.4/movie/\(id)"
+        case .genres:
+            return "/v1/movie/possible-values-by-field"
+        case .findDirector(_):
+            return "/v1.4/person/search"
         }
     }
 
     var parameters: [String: Any]? {
         switch self {
-        case .recMovies(let genres, let directors, let page):
+        case let .recMovies(genres, directors, page):
             return [
                 "sortField": "votes.kp",
                 "sortType": "-1",
@@ -58,6 +63,15 @@ enum MovieService: MovieServiceProtocol {
             ]
         case .descriptionMovie(_):
             return nil
+        case .genres:
+            return [
+                "field": "genres.name"
+            ]
+        case .findDirector(let name):
+            return [
+                "limit": "20",
+                "query": "\(name)"
+            ]
         }
     }
 
