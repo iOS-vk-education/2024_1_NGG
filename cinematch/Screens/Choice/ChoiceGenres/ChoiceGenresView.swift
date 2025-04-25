@@ -14,12 +14,12 @@ struct ChoiceGenresView: View {
 
     var body: some View {
         NavigationStack(path: $coordinator.navPath) {
-            VStack {
-                preferenceList
-                    .overlay(alignment: .top){
-                        headerView
-                    }
-                buttonContainer
+            ZStack(alignment: .top) {
+                VStack(spacing: 0) {
+                    preferenceList
+                    buttonContainer
+                }
+                headerView
             }
             .navigationDestination(for: PreferenceScreens.self) { screen in
                 openNextScreen(for: screen)
@@ -31,10 +31,21 @@ struct ChoiceGenresView: View {
             .ignoresSafeArea()
             .background(Color.background)
         }
+        .alert(isPresented: $viewModel.uiProperties.showAlert) {
+            Alert(
+                title: Text(Constants.alertTitle),
+                message: Text(viewModel.uiProperties.errorMessage),
+                dismissButton: .default(Text(Constants.alertButtonTitle),
+                                        action: {
+                                            viewModel.fetchGenres()
+                                        })
+            )
+        }
         .accentColor(.white)
         .onAppear {
             viewModel.setCoordinator(coordinator)
             viewModel.setStartScreenViewModel(startScreenViewModel)
+            viewModel.fetchGenres()
         }
     }
 }
@@ -122,7 +133,7 @@ private extension ChoiceGenresView {
     func openNextScreen(for screen: PreferenceScreens) -> some View {
         switch screen {
         case .directors:
-            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
+            ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModel())
         }
     }
 }
@@ -131,7 +142,7 @@ private extension ChoiceGenresView {
 
 #Preview {
     NavigationStack {
-        ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
+        ChoiceGenresView(viewModel: ChoiceGenresViewModel())
     }
     .environment(StartScreenViewModel())
 }
@@ -140,7 +151,9 @@ private extension ChoiceGenresView {
 
 private extension ChoiceGenresView {
     enum Constants {
-        static let headerTitle = "Выберите жанры аниме"
+        static let headerTitle = "Выберите жанры"
         static let buttonTitle = "Продолжить"
+        static let alertTitle = "Ошибка"
+        static let alertButtonTitle = "Ок"
     }
 }
