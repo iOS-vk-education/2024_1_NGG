@@ -28,6 +28,13 @@ struct ChoiceDirectorsView: View {
         .toolbar {
             ToolbarItems
         }
+        .alert(isPresented: $viewModel.uiProperties.showAlert) {
+            Alert(
+                title: Text(Constants.alertTitle),
+                message: Text(viewModel.uiProperties.errorMessage),
+                dismissButton: .default(Text(Constants.alertButtonTitle))
+            )
+        }
         .ignoresSafeArea()
         .background(Color.background)
         .onAppear {
@@ -122,7 +129,7 @@ private extension ChoiceDirectorsView {
 
 #Preview {
     NavigationStack{
-        ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModelMock())
+        ChoiceDirectorsView(viewModel: ChoiceDirectorsViewModel())
     }
     .environment(StartScreenViewModel())
     .environment(Coordinator())
@@ -135,5 +142,7 @@ private extension ChoiceDirectorsView {
     enum Constants {
         static let headerTitle = "Выберите режиссеров"
         static let buttonTitle = "Продолжить"
+        static let alertTitle = "Ошибка"
+        static let alertButtonTitle = "Ок"
     }
 }
