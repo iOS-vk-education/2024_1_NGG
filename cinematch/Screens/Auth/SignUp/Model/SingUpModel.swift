@@ -8,7 +8,7 @@
 import Foundation
 
 enum SignUpModel {
-    struct UIProperties {
+    struct UIProperties: Hashable {
         var showAlert = false
         var isLoading = false
         var errorMessage = ""

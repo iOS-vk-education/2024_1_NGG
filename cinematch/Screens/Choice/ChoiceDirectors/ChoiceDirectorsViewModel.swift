@@ -12,16 +12,17 @@ import Combine
 
 @Observable
 final class ChoiceDirectorsViewModel: ChoiceDirectorsViewModelLogic {
-    var directors: [Directors] = []
+    private(set) var directors: [Directors] = []
     var uiProperties = ChoiceDirectorsModel.UIProperties()
 
+    @ObservationIgnored
     private let networkService: MovieListNetworkProtocol
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
     @ObservationIgnored
     private var coordinator: Coordinator?
-
+    @ObservationIgnored
     private var cancellables = Set<AnyCancellable>()
 
     init(networkService: MovieListNetworkProtocol = Network()) {
@@ -34,18 +35,19 @@ final class ChoiceDirectorsViewModel: ChoiceDirectorsViewModelLogic {
     }
 
     func toggleDirectorSelection(director: Directors) {
-        if let index = directors.firstIndex(where: { $0.id == director.id }) {
-            directors[index].isSelected.toggle()
+        guard let index = directors.firstIndex(where: { $0.id == director.id }) else { return }
 
-            var saved = UserDefaults.standard.stringArray(forKey: "selectedDirectors") ?? []
+        directors[index].isSelected.toggle()
 
-            if directors[index].isSelected {
-                saved.append(directors[index].name)
-            } else {
-                saved.removeAll { $0 == directors[index].name }
-            }
-            UserDefaults.standard.set(saved, forKey: "selectedDirectors")
+        var saved = UserDefaults.standard.stringArray(forKey: "selectedDirectors") ?? []
+
+        if directors[index].isSelected {
+            saved.append(directors[index].name)
         }
+        else {
+            saved.removeAll { $0 == directors[index].name }
+        }
+        UserDefaults.standard.set(saved, forKey: "selectedDirectors")
     }
 }
 

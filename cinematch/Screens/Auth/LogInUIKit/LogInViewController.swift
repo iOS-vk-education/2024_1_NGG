@@ -49,7 +49,7 @@ final class LogInViewController: UIViewController {
     }()
 
     private lazy var logInButton: UIHostingController<NGGLoadingButton> = {
-        return UIHostingController(rootView: NGGLoadingButton(Constants.continueButtonTitle, isLoading: viewModel.isLoading) {
+        return UIHostingController(rootView: NGGLoadingButton(Constants.continueButtonTitle, isLoading: viewModel.uiProperties.isLoading) {
             [weak self] in
             self?.didTapLogInButton()
         })
@@ -84,15 +84,18 @@ private extension LogInViewController {
     func subscribe() {
         guard let viewModel = viewModel as? LogInViewModel else { return }
 
-        Publishers.CombineLatest(viewModel.$showAlert, viewModel.$errorMessage)
-            .dropFirst()
-            .filter { showAlert, message in
-                showAlert && !message.isEmpty
-            }
-            .sink { [weak self] showAlert, message in
-                self?.presentAlert(message: message, isShowing: showAlert)
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            viewModel.$uiProperties.map(\.showAlert),
+            viewModel.$uiProperties.map(\.errorMessage)
+        )
+        .dropFirst()
+        .filter { showAlert, message in
+            showAlert && !message.isEmpty
+        }
+        .sink { [weak self] showAlert, message in
+            self?.presentAlert(message: message, isShowing: showAlert)
+        }
+        .store(in: &disposeBag)
     }
 
     func setupUI() {

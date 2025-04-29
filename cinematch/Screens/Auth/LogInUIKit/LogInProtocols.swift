@@ -12,9 +12,6 @@ import FirebaseAuth
 
 protocol LoginDisplayData: AnyObject {
     var uiProperties: UserModel.UIProperties { get set }
-    var showAlert: Bool { get set }
-    var errorMessage: String { get set }
-    var isLoading: Bool { get }
 }
 
 protocol LoginViewModelInput: AnyObject {

@@ -54,6 +54,7 @@ final class MovieListInteractor: MovieListBusinessLogic {
 
     func transformMoviesToCards(_ movies: MoviesResponseModel) async -> [MovieCard] {
         var movieCards: [MovieCard] = []
+        movieCards.reserveCapacity(movies.docs.count)
 
         for movie in movies.docs {
             let posterUrlString = movie.poster.url

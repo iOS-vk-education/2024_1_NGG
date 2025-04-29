@@ -8,10 +8,7 @@
 import Foundation
 
 final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewModelDisplayLogic {
-    var uiProperties = UserModel.UIProperties()
-    @Published var showAlert = false
-    @Published var errorMessage = ""
-    @Published var isLoading = false
+    @Published var uiProperties = UserModel.UIProperties()
 
     private var startScreenViewModel: StartScreenViewModel?
     var interactor: LoginBusinessLogic?
@@ -21,7 +18,7 @@ final class LogInViewModel: LoginViewModelInput, LoginDisplayData, LoginViewMode
 
 extension LogInViewModel {
     func didTapLogInButton() {
-        isLoading = true
+        uiProperties.isLoading = true
         interactor?.logIn(email: uiProperties.email, password: uiProperties.password)
     }
 
@@ -38,14 +35,14 @@ extension LogInViewModel {
 
 extension LogInViewModel {
     func logInSuccess() {
-        isLoading = false
+        uiProperties.isLoading = false
         UserDefaults.standard.set(StartScreenState.movieList.rawValue, forKey: "State")
         startScreenViewModel?.updateScreen(newScreenState: .movieList)
     }
 
     func showErrorMessage(_ message: String) {
-        isLoading = false
-        showAlert = true
-        errorMessage = message
+        uiProperties.isLoading = false
+        uiProperties.showAlert = true
+        uiProperties.errorMessage = message
     }
 }

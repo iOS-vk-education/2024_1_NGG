@@ -19,7 +19,7 @@ final class EditProfileViewModel: EditProfileDisplayLogic, EditProfileViewModelI
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
-
+    @ObservationIgnored
     private var cancellables = Set<AnyCancellable>()
 }
 

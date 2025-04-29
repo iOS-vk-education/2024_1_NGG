@@ -14,8 +14,8 @@ extension LogInViewController {
 
             alertController.addAction(UIAlertAction(title: Constants.alertButtonTitle, style: .default) { [weak self] _ in
                 guard let viewModel = self?.viewModel as? LogInViewModel else { return }
-                viewModel.showAlert = false
-                viewModel.errorMessage = ""
+                viewModel.uiProperties.showAlert = false
+                viewModel.uiProperties.errorMessage = ""
             })
 
             present(alertController, animated: true, completion: nil)

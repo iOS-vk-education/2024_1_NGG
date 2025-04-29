@@ -16,7 +16,7 @@ final class SignUpViewModel: SignUpDisplayData, SignUpViewModelInput {
 
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
-
+    @ObservationIgnored
     private var cancellables = Set<AnyCancellable>()
 }
 

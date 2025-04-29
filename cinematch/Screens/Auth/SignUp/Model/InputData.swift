@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct InputData {
+struct InputData: Hashable {
     var email = ""
     var passwordFirst = ""
     var passwordSecond = ""

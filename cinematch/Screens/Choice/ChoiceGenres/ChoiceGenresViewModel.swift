@@ -25,7 +25,7 @@ final class ChoiceGenresViewModel: ChoiceGenresDisplayLogic {
     private var coordinator: Coordinator?
     @ObservationIgnored
     private var startScreenViewModel: StartScreenViewModel?
-
+    @ObservationIgnored
     private var cancellables = Set<AnyCancellable>()
 
     init(networkService: MovieListNetworkProtocol = Network()) {

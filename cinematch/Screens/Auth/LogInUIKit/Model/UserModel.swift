@@ -28,5 +28,8 @@ enum UserModel {
     struct UIProperties {
         var email = ""
         var password = ""
+        var showAlert = false
+        var errorMessage = ""
+        var isLoading = false
     }
 }
