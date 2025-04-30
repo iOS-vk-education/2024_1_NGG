@@ -60,10 +60,12 @@ extension MovieListViewModel: MovieListViewModelInput {
 
         uiProperties.isLoadingMore = true
 
-        Task { @MainActor in
+        Task {
             await interactor.getMovies(genres: genres, directors: directors, page: uiProperties.currentPage)
-            uiProperties.currentPage += 1
-            completion()
+            await MainActor.run {
+                uiProperties.currentPage += 1
+                completion()
+            }
         }
     }
 }
