@@ -12,9 +12,6 @@ import FirebaseAuth
 
 protocol LoginDisplayData: AnyObject {
     var uiProperties: UserModel.UIProperties { get set }
-    var showAlert: Bool { get set }
-    var errorMessage: String { get set }
-    var receiveUserData: SavedUserModel? { get set }
 }
 
 protocol LoginViewModelInput: AnyObject {
@@ -24,7 +21,7 @@ protocol LoginViewModelInput: AnyObject {
 }
 
 protocol LoginViewModelDisplayLogic: AnyObject {
-    func logInSuccess(userData: SavedUserModel)
+    func logInSuccess()
     func showErrorMessage(_ message: String)
 }
 
@@ -32,19 +29,17 @@ protocol LoginViewModelDisplayLogic: AnyObject {
 
 protocol LoginBusinessLogic: AnyObject {
     func logIn(email: String, password: String)
-    func getUserData(authResult: AuthDataResult) async
 }
 
 // MARK: - Worker
 
 protocol LoginAuthLogic {
-    func makeAuth(email: String, password: String) async throws -> AuthDataResult
-    func fetchUserData(authResult: AuthDataResult) async throws -> UserModel.UserData
+    func makeAuth(email: String, password: String) async throws
 }
 
 // MARK: - Presenter
 
 protocol PresenterInput {
-    func didLogInSuccess(userData: SavedUserModel)
+    func didLogInSuccess()
     func didLogInFailure(error: Error)
 }

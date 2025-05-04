@@ -22,7 +22,6 @@ struct NGGSecureField: View {
             Group {
                 if isSecured {
                     StyledSecureField(title: title, text: $text)
-
                 } else {
                     NGGTextField(title: title, text: $text)
                 }
@@ -53,6 +52,7 @@ private struct StyledSecureField: View {
             Text(title)
                 .foregroundColor(Color.editProfGrayLight)
         }
+        .textInputAutocapitalization(.never)
         .padding(.leading, 16)
         .frame(height: 51)
         .foregroundColor(.white)

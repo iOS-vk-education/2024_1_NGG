@@ -67,7 +67,7 @@ private extension DescriptionMovieView {
     enum Constants {
         static let trailerButtonTitle = "Трейлер"
         static let whereWatchTitle = "Где посмотреть:"
-        static let similarMovieTitle = "Если вам понравилось это аниме:"
+        static let similarMovieTitle = "Если вам понравился это фильм:"
         static let similarMovieList = ["totoroSimilar1", "totoroSimilar2", "totoroSimilar3", "totoroSimilar4"]
         static let whereWatchCardTitles = ["Start","Okko","Viji"]
         static let whereWatchCardImages = ["start", "Image", "Image"]

@@ -52,6 +52,38 @@ private struct PurpleButtonStyle: ButtonStyle {
     }
 }
 
+// MARK: - NGGLoadingButton
+
+struct NGGLoadingButton: View {
+    private let title: String
+    private let isLoading: Bool
+    private var action: (() -> Void)?
+
+    init(_ title: String, isLoading: Bool, action: (() -> Void)? = nil) {
+        self.title = title
+        self.isLoading = isLoading
+        self.action = action
+    }
+
+    var body: some View {
+        Button(action: {
+            if !isLoading {
+                action?()
+            }
+        }) {
+            ZStack {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                } else {
+                    Text(title)
+                }
+            }
+        }
+        .buttonStyle(PurpleButtonStyle())
+    }
+}
+
 // MARK: - Preview
 
 #Preview {

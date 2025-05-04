@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseCore
+import SkeletonView
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -25,6 +26,10 @@ struct cinematchApp: App {
         let coloredAppearance = UINavigationBarAppearance()
         coloredAppearance.configureWithOpaqueBackground()
         coloredAppearance.backgroundColor = .editProfPurple
+        coloredAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.systemFont(ofSize: 24, weight: .semibold)
+        ]
         UINavigationBar.appearance().standardAppearance = coloredAppearance
     }
 
@@ -47,13 +52,13 @@ private extension cinematchApp {
             LogInView(startScreenViewModel: viewModel)
                 .ignoresSafeArea()
         case .signUp:
-            SignUpView(viewModel: SignUpViewModelMock())
+            SignUpView(viewModel: SignUpViewModel())
         case .editProfile:
             EditProfileView(viewModel: EditProfileViewModel())
         case .movieList:
-            MovieListView(viewModel: MovieListViewModelMock(delay: 2))
+            MovieListView()
         case .choiceGenres:
-            ChoiceGenresView(viewModel: ChoiceGenresViewModelMock())
+            ChoiceGenresView(viewModel: ChoiceGenresViewModel())
         }
     }
 }
