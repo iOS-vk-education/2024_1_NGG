@@ -13,7 +13,7 @@ protocol MovieListDisplayData: AnyObject {
     var stories: [MovieCard] { get }
     var genres: [String] { get }
     var directors: [Int] { get }
-    var uiProperties: MovieListModel.UIProperties { get }
+    var uiProperties: MovieListModel.UIProperties { get set }
 
     func configuration(at index: Int) -> FilmCell.Configuration?
 }
@@ -31,25 +31,19 @@ protocol MovieListViewModelOutput: AnyObject {
 }
 
 protocol MovieListDisplayLogic: AnyObject {
-    func didFetchMovies(with movies: [MovieCard])
+    func didFetchMovies(with movies: [MovieCard], totalPages: Int)
     func showErrorMessage(_ message: String)
-
-    func didfetchMovieDescription(story: MovieDescription)
 }
 
 // MARK: - Interactor
 
 protocol MovieListBusinessLogic {
     func getMovies(genres: [String], directors: [Int], page: Int) async
-    func getDescriptionMovie(movieId: Int) async
 }
 
 // MARK: - Presenter
 
 protocol MovieListPresenterInput {
-    func didFetchMoviesSuccess(with movies: [MovieCard])
+    func didFetchMoviesSuccess(with movies: [MovieCard], totalPages: Int)
     func didFetchMoviesFailure(with error: Error)
-
-    func didFetchMovieDescriptionSuccess(with movie: MovieDescription)
-    func didFetchMovieDescriptionFailure(with error: Error)
 }

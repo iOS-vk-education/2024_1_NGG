@@ -16,7 +16,7 @@ final class MovieListViewModel: MovieListDisplayLogic {
     private(set) var stories: [MovieCard]
     private(set) var genres: [String] = []
     private(set) var directors: [Int] = []
-    private(set) var uiProperties = MovieListModel.UIProperties()
+    var uiProperties = MovieListModel.UIProperties()
 
     @ObservationIgnored
     private var coordinator: Coordinator?
@@ -51,19 +51,19 @@ extension MovieListViewModel: MovieListViewModelInput {
     }
 
     func loadMovies(completion: @MainActor @escaping () -> Void) {
-        guard uiProperties.canLoadMorePages, !uiProperties.isLoadingMore else {
-            Task { @MainActor in
-                completion()
-            }
-            return
-        }
-
-        uiProperties.isLoadingMore = true
+        guard !uiProperties.isLoading, !uiProperties.isLastPage else { return }
 
         Task {
+            await MainActor.run {
+                uiProperties.isLoading = true
+                completion()
+            }
+
             await interactor.getMovies(genres: genres, directors: directors, page: uiProperties.currentPage)
+
             await MainActor.run {
                 uiProperties.currentPage += 1
+                uiProperties.isLoading = false
                 completion()
             }
         }
@@ -77,9 +77,8 @@ extension MovieListViewModel: MovieListViewModelOutput {
     }
 
     func didTapCell(story: MovieCard) {
-        Task {
-            await interactor.getDescriptionMovie(movieId: story.id)
-        }
+        // TODO: IOS-46: Переход на карточку
+        print("[DEBUG]: нажали на фильм")
     }
 
     func didTapProfile() {
@@ -88,22 +87,17 @@ extension MovieListViewModel: MovieListViewModelOutput {
 }
 
 extension MovieListViewModel: MovieListDisplayData {
-    func didFetchMovies(with movies: [MovieCard]) {
+    func didFetchMovies(with movies: [MovieCard], totalPages: Int) {
         if uiProperties.currentPage == 1 {
             stories = movies
         } else {
             stories += movies
         }
-
-        uiProperties.canLoadMorePages = !movies.isEmpty
-        uiProperties.isLoadingMore = false
+        uiProperties.totalPages = totalPages
+        uiProperties.isLastPage = uiProperties.currentPage >= totalPages || movies.isEmpty
     }
 
     func showErrorMessage(_ message: String) {
         print("[DEBUG]: \(message)")
-    }
-
-    func didfetchMovieDescription(story: MovieDescription) {
-        // TODO: IOS-46: Получение подробной информации по фильму
     }
 }

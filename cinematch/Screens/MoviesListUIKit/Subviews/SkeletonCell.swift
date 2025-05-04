@@ -8,12 +8,10 @@
 import UIKit
 
 final class SkeletonCell: UICollectionViewCell {
-
-    private let backgroundImage = UIView()
-
+    private let posterImageView = UIView()
     private let titleLabel = UILabel()
-    private let genresLabel = UILabel()
-    private let rightInfoLabel = UILabel()
+    private let genreLabel = UILabel()
+    private let typeYearLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,74 +26,74 @@ final class SkeletonCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        titleLabel.layoutIfNeeded()
-        genresLabel.layoutIfNeeded()
-        rightInfoLabel.layoutIfNeeded()
-
+        posterImageView.layer.sublayers?.first?.frame = posterImageView.bounds
         titleLabel.layer.sublayers?.first?.frame = titleLabel.bounds
-        genresLabel.layer.sublayers?.first?.frame = genresLabel.bounds
-        rightInfoLabel.layer.sublayers?.first?.frame = rightInfoLabel.bounds
+        genreLabel.layer.sublayers?.first?.frame = genreLabel.bounds
+        typeYearLabel.layer.sublayers?.first?.frame = typeYearLabel.bounds
     }
 }
 
 extension SkeletonCell: SkeletonLoadable {
     func setup() {
-        [titleLabel, genresLabel, rightInfoLabel].forEach {
+        contentView.layer.borderColor = UIColor.cardGray.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 12
+        contentView.clipsToBounds = true
+
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
+        posterImageView.layer.cornerRadius = 8
+        posterImageView.clipsToBounds = true
+
+        [titleLabel, genreLabel, typeYearLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.layer.cornerRadius = 10
             $0.clipsToBounds = true
         }
 
+        posterImageView.layoutIfNeeded()
+        let shimmerImage = makeShimmerLayer(on: posterImageView)
+        posterImageView.layer.insertSublayer(shimmerImage, at: 0)
+
         titleLabel.layoutIfNeeded()
         let shimmerTitle = makeShimmerLayer(on: titleLabel)
         titleLabel.layer.insertSublayer(shimmerTitle, at: 0)
 
-        genresLabel.layoutIfNeeded()
-        let shimmerGenres = makeShimmerLayer(on: genresLabel)
-        genresLabel.layer.insertSublayer(shimmerGenres, at: 0)
+        genreLabel.layoutIfNeeded()
+        let shimmerGenres = makeShimmerLayer(on: genreLabel)
+        genreLabel.layer.insertSublayer(shimmerGenres, at: 0)
 
-        rightInfoLabel.layoutIfNeeded()
-        let shimmerRight = makeShimmerLayer(on: rightInfoLabel)
-        rightInfoLabel.layer.insertSublayer(shimmerRight, at: 0)
-
-        setupBackground()
-    }
-
-    func setupBackground() {
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImage.layer.cornerRadius = 15
-        backgroundImage.clipsToBounds = true
-        backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage.backgroundColor = .cardGray
+        typeYearLabel.layoutIfNeeded()
+        let shimmerRight = makeShimmerLayer(on: typeYearLabel)
+        typeYearLabel.layer.insertSublayer(shimmerRight, at: 0)
     }
 
     func layout() {
-        addSubview(backgroundImage)
+        addSubview(posterImageView)
         addSubview(titleLabel)
-        addSubview(genresLabel)
-        addSubview(rightInfoLabel)
+        addSubview(genreLabel)
+        addSubview(typeYearLabel)
 
         NSLayoutConstraint.activate([
-            backgroundImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: trailingAnchor),
-            backgroundImage.topAnchor.constraint(equalTo: topAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 21),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            titleLabel.heightAnchor.constraint(equalToConstant: 32),
+            posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            posterImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            posterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            posterImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
 
-            genresLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            genresLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            genresLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
-            genresLabel.heightAnchor.constraint(equalToConstant: 20),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            titleLabel.heightAnchor.constraint(equalToConstant: 24),
 
-            rightInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            rightInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            rightInfoLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
-            rightInfoLabel.heightAnchor.constraint(equalToConstant: 20)
+            genreLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
+            genreLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 20),
+            genreLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+            genreLabel.heightAnchor.constraint(equalToConstant: 16),
+
+            typeYearLabel.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 12),
+            typeYearLabel.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 20),
+            typeYearLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
+            typeYearLabel.heightAnchor.constraint(equalToConstant: 16)
         ])
     }
 }

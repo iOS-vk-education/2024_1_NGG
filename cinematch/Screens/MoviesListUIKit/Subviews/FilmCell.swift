@@ -18,7 +18,6 @@ extension FilmCell {
 }
 
 final class FilmCell: UICollectionViewCell {
-
     var configuration: Configuration {
         didSet {
             guard oldValue != configuration else { return }
@@ -26,13 +25,11 @@ final class FilmCell: UICollectionViewCell {
         }
     }
 
-    private let backgroundImage = UIImageView()
-    private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-    private let dimmingView = UIView()
-
+    private let posterImageView = UIImageView()
     private let titleLabel = UILabel()
-    private let genresLabel = UILabel()
-    private let rightInfoLabel = UILabel()
+    private let genreLabel = UILabel()
+    private let typeYearLabel = UILabel()
+    private let textStack = UIStackView()
 
     override init(frame: CGRect) {
         configuration = .init()
@@ -47,40 +44,37 @@ final class FilmCell: UICollectionViewCell {
 }
 
 private extension FilmCell {
-
     func setup() {
+        contentView.layer.borderColor = UIColor.cardGray.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 12
         contentView.clipsToBounds = true
 
-        setupBackground()
-        setupLabels()
+        setupPoster()
+        setupTextStack()
 
-        contentView.addSubview(backgroundImage)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(genresLabel)
-        contentView.addSubview(rightInfoLabel)
+        contentView.addSubviews(posterImageView, textStack)
 
         setupConstraints()
     }
 
-    func setupBackground() {
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImage.layer.cornerRadius = 15
-        backgroundImage.clipsToBounds = true
-        backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage.backgroundColor = .cardGray
-
-        dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        dimmingView.translatesAutoresizingMaskIntoConstraints = false
-
-        blurEffectView.alpha = 0.4
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-
-        backgroundImage.addSubview(dimmingView)
-        backgroundImage.addSubview(blurEffectView)
+    func setupPoster() {
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
+        posterImageView.contentMode = .scaleAspectFill
+        posterImageView.clipsToBounds = true
+        posterImageView.layer.cornerRadius = 8
     }
 
-    func setupLabels() {
-        [titleLabel, genresLabel, rightInfoLabel].forEach {
+    func setupTextStack() {
+        textStack.addArrangedSubview(titleLabel)
+        textStack.addArrangedSubview(genreLabel)
+        textStack.addArrangedSubview(typeYearLabel)
+        textStack.axis = .vertical
+        textStack.spacing = 4
+        textStack.translatesAutoresizingMaskIntoConstraints = false
+        textStack.setCustomSpacing(10, after: titleLabel)
+
+        [titleLabel, genreLabel, typeYearLabel].forEach {
             $0.textColor = .white
             $0.numberOfLines = 1
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -88,50 +82,30 @@ private extension FilmCell {
             $0.layer.masksToBounds = true
         }
 
-        titleLabel.font = .systemFont(ofSize: 28, weight: .medium)
-        genresLabel.font = .systemFont(ofSize: 14)
-        rightInfoLabel.font = .systemFont(ofSize: 14)
-        rightInfoLabel.textAlignment = .right
+        titleLabel.font = .systemFont(ofSize: 22, weight: .semibold)
+        genreLabel.font = .systemFont(ofSize: 14)
+        genreLabel.alpha = 0.8
+        typeYearLabel.font = .systemFont(ofSize: 14)
+        typeYearLabel.alpha = 0.8
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            backgroundImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            backgroundImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            posterImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            posterImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            posterImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
 
-            dimmingView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor),
-            dimmingView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor),
-            dimmingView.topAnchor.constraint(equalTo: backgroundImage.topAnchor),
-            dimmingView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor),
-
-            blurEffectView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor),
-            blurEffectView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor),
-            blurEffectView.topAnchor.constraint(equalTo: backgroundImage.topAnchor),
-            blurEffectView.bottomAnchor.constraint(equalTo: backgroundImage.bottomAnchor),
-
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 21),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            titleLabel.heightAnchor.constraint(equalToConstant: 32),
-
-            genresLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            genresLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            genresLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
-            genresLabel.heightAnchor.constraint(equalToConstant: 20),
-
-            rightInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-            rightInfoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            rightInfoLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.3),
-            rightInfoLabel.heightAnchor.constraint(equalToConstant: 20)
+            textStack.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 20),
+            textStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            textStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
 
     func updateConfiguration() {
-        backgroundImage.image = configuration.image
+        posterImageView.image = configuration.image
         titleLabel.text = configuration.title
-        genresLabel.text = configuration.genre
-        rightInfoLabel.text = "\(configuration.type) \(configuration.year)"
+        genreLabel.text = configuration.genre
+        typeYearLabel.text = "\(configuration.type), \(configuration.year)"
     }
 }

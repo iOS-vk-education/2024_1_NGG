@@ -22,10 +22,10 @@ final class MovieListInteractor: MovieListBusinessLogic {
             let (genres, directors) = try await fetchUserPreference()
             let movies = try await networkService.fetchMovies(genres: genres, directors: directors, page: page)
 
-            let moviesCard = await transformMoviesToCards(movies)
+            let (moviesCard, totalPages) = await transformMoviesToCards(movies)
 
             await MainActor.run {
-                presenter?.didFetchMoviesSuccess(with: moviesCard)
+                presenter?.didFetchMoviesSuccess(with: moviesCard, totalPages: totalPages)
             }
         } catch {
             await MainActor.run {
@@ -52,41 +52,35 @@ final class MovieListInteractor: MovieListBusinessLogic {
         return (genres, directors)
     }
 
-    func transformMoviesToCards(_ movies: MoviesResponseModel) async -> [MovieCard] {
+    func transformMoviesToCards(_ movies: MoviesResponseModel) async -> ([MovieCard], Int) {
         var movieCards: [MovieCard] = []
         movieCards.reserveCapacity(movies.docs.count)
 
-        for movie in movies.docs {
-            let posterUrlString = movie.poster.url
-            let genreString = movie.genres.map { $0.name }.joined(separator: ", ")
+        await withTaskGroup(of: MovieCard?.self) { group in
+            for movie in movies.docs {
+                group.addTask {
+                    let genreString = movie.genres.map { $0.name }.joined(separator: ", ")
+                    let posterUrlString = movie.poster.url
+                    let imageData = (try? await self.networkService.fetchImageData(from: posterUrlString)) ?? Data()
 
-            let imageData = (try? await networkService.fetchImageData(from: posterUrlString)) ?? Data()
-
-            let card = MovieCard(
-                id: movie.id,
-                title: movie.name,
-                genre: genreString,
-                type: movie.type,
-                year: movie.year,
-                mainImage: imageData
-            )
-            movieCards.append(card)
-        }
-
-        return movieCards
-    }
-
-    func getDescriptionMovie(movieId: Int) async {
-        do {
-            let movie = try await networkService.fetchMovieDescription(id: movieId)
-
-            await MainActor.run {
-                presenter?.didFetchMovieDescriptionSuccess(with: movie)
+                    return MovieCard(
+                        id: movie.id,
+                        title: movie.name,
+                        genre: genreString,
+                        type: movie.type,
+                        year: movie.year,
+                        mainImage: imageData
+                    )
+                }
             }
-        } catch {
-            await MainActor.run {
-                presenter?.didFetchMovieDescriptionFailure(with: error)
+
+            for await card in group {
+                if let card = card {
+                    movieCards.append(card)
+                }
             }
         }
+
+        return (movieCards, movies.total)
     }
 }

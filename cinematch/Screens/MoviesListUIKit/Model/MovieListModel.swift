@@ -12,7 +12,8 @@ enum MovieListModel {}
 extension MovieListModel {
     struct UIProperties: Hashable {
         var currentPage = 1
-        var canLoadMorePages = true
-        var isLoadingMore = false
+        var totalPages = 2
+        var isLoading = false
+        var isLastPage = false
     }
 }

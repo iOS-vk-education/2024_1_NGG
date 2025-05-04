@@ -11,8 +11,6 @@ import SwiftUI
 final class MovieListController: UIViewController {
     private let viewModel: MovieListViewModelInput & MovieListDisplayData & MovieListViewModelOutput
 
-    private let loadMoreButton = UIButton()
-
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -51,15 +49,9 @@ final class MovieListController: UIViewController {
     // MARK: - Setup
 
     private func setup() {
-        setupCollectionView()
-        setupView()
-        setupLoadMoreButton()
-    }
-
-    private func setupView() {
         view.backgroundColor = .background
         view.addSubview(collectionView)
-        view.addSubview(loadMoreButton)
+        setupCollectionView()
     }
 
     private func setupCollectionView() {
@@ -69,49 +61,35 @@ final class MovieListController: UIViewController {
         collectionView.register(FilmCell.self)
         collectionView.register(SkeletonCell.self)
     }
-
-    private func setupLoadMoreButton() {
-        let config = UIImage.SymbolConfiguration(pointSize: 36)
-        let plusImage = UIImage(systemName: "plus.circle", withConfiguration: config)
-
-        loadMoreButton.setImage(plusImage, for: .normal)
-        loadMoreButton.tintColor = .white
-        loadMoreButton.backgroundColor = .clear
-        loadMoreButton.clipsToBounds = true
-        loadMoreButton.isHidden = true
-        loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            loadMoreButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            loadMoreButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            loadMoreButton.widthAnchor.constraint(equalToConstant: 56),
-            loadMoreButton.heightAnchor.constraint(equalToConstant: 56)
-        ])
-
-        loadMoreButton.addTarget(self, action: #selector(didTapLoadMore), for: .touchUpInside)
-    }
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension MovieListController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = viewModel.stories.count
-        if viewModel.uiProperties.isLoadingMore {
-            return count + 20
-        }
-        return count
+        let shimmerCells = (viewModel.uiProperties.isLoading && !viewModel.uiProperties.isLastPage) ? 6 : 0
+        return viewModel.stories.count + shimmerCells
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let count = viewModel.stories.count
-        if indexPath.item < count {
-            let config = viewModel.configuration(at: indexPath.item)!
-            let cell = collectionView.dequeueReusableCell(FilmCell.self, for: indexPath)
-            cell.configuration = config
-            return cell
-        } else {
+        if viewModel.uiProperties.isLoading &&
+            !viewModel.uiProperties.isLastPage &&
+            indexPath.item >= viewModel.stories.count {
             return collectionView.dequeueReusableCell(SkeletonCell.self, for: indexPath)
+        }
+
+        let cell = collectionView.dequeueReusableCell(FilmCell.self, for: indexPath)
+        if let config = viewModel.configuration(at: indexPath.item) {
+            cell.configuration = config
+        }
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if !viewModel.uiProperties.isLoading && !viewModel.uiProperties.isLastPage && indexPath.item == viewModel.stories.count - 1 {
+            viewModel.loadMovies { [weak self] in
+                self?.collectionView.reloadData()
+            }
         }
     }
 }
@@ -120,23 +98,10 @@ extension MovieListController: UICollectionViewDataSource {
 
 extension MovieListController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard !viewModel.uiProperties.isLoadingMore,
-              indexPath.item < viewModel.stories.count else {
-            return
-        }
+        guard indexPath.item < viewModel.stories.count else { return }
+
         let selectedStory = viewModel.stories[indexPath.item]
         viewModel.didTapCell(story: selectedStory)
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let frameHeight = scrollView.frame.size.height
-
-        let shouldShow = viewModel.uiProperties.canLoadMorePages &&
-        offsetY > contentHeight - frameHeight * 1.5
-
-        loadMoreButton.isHidden = !shouldShow
     }
 }
 
@@ -151,28 +116,11 @@ extension MovieListController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - Actions
-
-@objc
-private extension MovieListController {
-    func didTapProfile() {
-        viewModel.didTapProfile()
-    }
-
-    func didTapLoadMore() {
-        loadMoreButton.isHidden = true
-
-        viewModel.loadMovies { [weak self] in
-            self?.collectionView.reloadData()
-        }
-    }
-}
-
 // MARK: - Constants
 
 private extension MovieListController {
     enum Constants {
         static let cellSpacing: CGFloat = 16
-        static let cellHeight: CGFloat = 110
+        static let cellHeight: CGFloat = 130
     }
 }

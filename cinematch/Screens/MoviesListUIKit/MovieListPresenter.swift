@@ -10,19 +10,11 @@ import Foundation
 final class MovieListPresenter: MovieListPresenterInput {
     weak var viewModel: MovieListDisplayLogic!
 
-    func didFetchMoviesSuccess(with movies: [MovieCard]) {
-        viewModel?.didFetchMovies(with: movies)
+    func didFetchMoviesSuccess(with movies: [MovieCard], totalPages: Int) {
+        viewModel?.didFetchMovies(with: movies, totalPages: totalPages)
     }
 
     func didFetchMoviesFailure(with error: any Error) {
-        viewModel?.showErrorMessage(error.localizedDescription)
-    }
-
-    func didFetchMovieDescriptionSuccess(with movie: MovieDescription) {
-        viewModel.didfetchMovieDescription(story: movie)
-    }
-
-    func didFetchMovieDescriptionFailure(with error: any Error) {
         viewModel?.showErrorMessage(error.localizedDescription)
     }
 }
