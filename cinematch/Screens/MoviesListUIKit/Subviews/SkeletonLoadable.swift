@@ -25,9 +25,9 @@ extension SkeletonLoadable {
         gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
 
         gradientLayer.colors = [
-            UIColor.background.cgColor,
+            UIColor.cardGray.cgColor,
             UIColor.cardLightGray.cgColor,
-            UIColor.background.cgColor
+            UIColor.cardGray.cgColor
         ]
         gradientLayer.locations = [0.0, 1.0, 2.0]
         gradientLayer.cornerRadius = view.bounds.height / 2
