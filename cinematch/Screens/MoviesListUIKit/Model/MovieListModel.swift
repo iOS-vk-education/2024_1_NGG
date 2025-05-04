@@ -12,7 +12,7 @@ enum MovieListModel {}
 extension MovieListModel {
     struct UIProperties: Hashable {
         var currentPage = 1
-        var totalPages = 2
+        var totalPages = 0
         var isLoading = false
         var isLastPage = false
     }
