@@ -66,7 +66,7 @@ extension EditProfileViewModel {
     }
 
     func validateFields() -> Bool {
-        return !(bindingData.inputName.isEmpty || bindingData.inputSurname.isEmpty)
+        return bindingData.inputName.isEmpty || bindingData.inputSurname.isEmpty
     }
 }
 
